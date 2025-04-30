@@ -1326,6 +1326,7 @@ namespace Shared
                                 .Height(30)
                                 .Rounded(20)
                                 .BackgroundColor(isOn ? secondaryColor : Color.FromArgb(100, lightTextColor))
+                                .Transition(GuiProp.BackgroundColor, 0.25f, Paper.Easing.CubicInOut)
                                 //.Style(BoxStyle.SolidRounded(isOn ? secondaryColor : Color.FromArgb(100, lightTextColor), 15f))
                                 .OnClick((rect) => {
                                     toggleState[index] = !toggleState[index];
@@ -1341,6 +1342,7 @@ namespace Shared
                                     .BackgroundColor(Color.White)
                                     //.Style(BoxStyle.SolidRounded(Color.White, 12f))
                                     .PositionType(PositionType.SelfDirected)
+                                    .Transition(GuiProp.Left,0.25f, Paper.Easing.CubicInOut)
                                     .Left(Paper.Pixels(isOn ? 32 : 4))
                                     .Top(Paper.Pixels(3))
                                     .Enter()) { }
