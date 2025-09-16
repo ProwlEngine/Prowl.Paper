@@ -19,7 +19,7 @@
 
 <span id="readme-top"></span>
 
-## <p align="center">Table of Contents</p>
+## Table of Contents
 1. [About The Project](#-about-the-project-)
 2. [Documentation](#-documentation-)
 2. [Features](#-features-)
