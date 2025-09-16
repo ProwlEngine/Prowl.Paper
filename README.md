@@ -15,7 +15,7 @@
 
 ### [<p align="center">Join our Discord server! 🎉</p>](https://discord.gg/BqnJ9Rn4sn)
 
-### [<p align="center">View the Official Documentation 📚</p>](https://prowl.gitbook.io/prowl.paper)
+### [<p align="center">View Documentation 📚</p>](https://prowl.gitbook.io/prowl.paper)
 
 <span id="readme-top"></span>
 
