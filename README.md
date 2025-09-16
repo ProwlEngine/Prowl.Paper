@@ -1,5 +1,7 @@
 <img src="https://i.imgur.com/wtDdydO.png" width="100%" alt="Paper logo image">
 
+# <p align="center">An Immediate-Mode UI Library</p>
+
 ![Github top languages](https://img.shields.io/github/languages/top/prowlengine/prowl.paper)
 [![GitHub version](https://img.shields.io/github/v/release/prowlengine/prowl.paper?include_prereleases&style=flat-square)](https://github.com/prowlengine/prowl.paper/releases)
 [![GitHub license](https://img.shields.io/github/license/prowlengine/prowl.paper?style=flat-square)](https://github.com/prowlengine/prowl.paper/blob/main/LICENSE.txt)
@@ -12,13 +14,12 @@
 > Paper is a very new library. While an earlier iteration is actively used within the Prowl Game Engine, this specific library hasn't yet established a track record of reliability in production environments.
 
 ### [<p align="center">Join our Discord server! 🎉</p>](https://discord.gg/BqnJ9Rn4sn)
-# <p align="center">An Immediate-Mode UI Library</p>
-## <p align="center">📚 [View the Official Documentation](https://prowl.gitbook.io/prowl.paper) 📚</p>
 
+### [<p align="center">View Documentation 📚</p>](https://prowl.gitbook.io/prowl.paper)
 
 <span id="readme-top"></span>
 
-### <p align="center">Table of Contents</p>
+## Table of Contents
 1. [About The Project](#-about-the-project-)
 2. [Documentation](#-documentation-)
 2. [Features](#-features-)
