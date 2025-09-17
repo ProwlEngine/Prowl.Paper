@@ -245,7 +245,7 @@ namespace Prowl.PaperUI
         /// <summary>Sets the size of a Tab character in spaces.</summary>
         public T TabSize(int size) => SetStyleProperty(GuiProp.TabSize, size);
         /// <summary>Sets the size of text in pixels.</summary>
-        public T FontSize(double size) => SetStyleProperty(GuiProp.FontSize, size);
+        public T FontSize(in AbsoluteSize size) => SetStyleProperty(GuiProp.FontSize, size);
 
         #endregion
 
@@ -1346,7 +1346,7 @@ namespace Prowl.PaperUI
 
         private TextLayoutSettings CreateTextLayoutSettings(TextInputSettings inputSettings, bool isMultiLine, double maxWidth = float.MaxValue)
         {
-            var fontSize = (double)_handle.Data._elementStyle.GetValue(GuiProp.FontSize);
+            var fontSize = ((AbsoluteSize)_handle.Data._elementStyle.GetValue(GuiProp.FontSize)).ToPx(_paper._scalingSettings);
             var letterSpacing = (double)_handle.Data._elementStyle.GetValue(GuiProp.LetterSpacing);
 
             var settings = TextLayoutSettings.Default;
@@ -1996,7 +1996,7 @@ namespace Prowl.PaperUI
                     canvas.SaveState();
                     canvas.TransformBy(Transform2D.CreateTranslation(-renderState.ScrollOffsetX, -renderState.ScrollOffsetY));
 
-                    var fontSize = (double)elHandle.Data._elementStyle.GetValue(GuiProp.FontSize);
+                    var fontSize = ((AbsoluteSize)elHandle.Data._elementStyle.GetValue(GuiProp.FontSize)).ToPx(_paper._scalingSettings);
 
                     // Draw text or placeholder
                     if (string.IsNullOrEmpty(renderState.Value))
@@ -2153,8 +2153,8 @@ namespace Prowl.PaperUI
             else
             {
                 // Single-line horizontal scrolling only
-                var fontSize = (double)_handle.Data._elementStyle.GetValue(GuiProp.FontSize);
-                var letterSpacing = (double)_handle.Data._elementStyle.GetValue(GuiProp.FontSize);
+                var fontSize = ((AbsoluteSize)_handle.Data._elementStyle.GetValue(GuiProp.FontSize)).ToPx(_paper._scalingSettings);
+                var letterSpacing = (double)_handle.Data._elementStyle.GetValue(GuiProp.LetterSpacing);
                 var cursorPos = GetCursorPositionFromIndex(state.Value, settings.Font, fontSize, letterSpacing, state.CursorPosition);
 
                 double visibleWidth = _handle.Data.LayoutWidth;

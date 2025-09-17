@@ -1309,7 +1309,7 @@ namespace Prowl.PaperUI.LayoutEngine
                 settings.LetterSpacing = Convert.ToSingle(element._elementStyle.GetValue(GuiProp.LetterSpacing));
                 settings.LineHeight = Convert.ToSingle(element._elementStyle.GetValue(GuiProp.LineHeight));
                 settings.TabSize = (int)element._elementStyle.GetValue(GuiProp.TabSize);
-                settings.PixelSize = Convert.ToSingle(element._elementStyle.GetValue(GuiProp.FontSize));
+                settings.PixelSize = (float)((AbsoluteSize)element._elementStyle.GetValue(GuiProp.FontSize)).ToPx(gui._scalingSettings);
 
                 if(element.TextAlignment == TextAlignment.Left || element.TextAlignment == TextAlignment.MiddleLeft || element.TextAlignment == TextAlignment.BottomLeft)
                     settings.Alignment = Scribe.TextAlignment.Left;

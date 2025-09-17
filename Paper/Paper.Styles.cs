@@ -723,7 +723,7 @@ namespace Prowl.PaperUI
             _defaultValues[(int)GuiProp.LetterSpacing] = 0.0;
             _defaultValues[(int)GuiProp.LineHeight] = 1.0;
             _defaultValues[(int)GuiProp.TabSize] = 4;
-            _defaultValues[(int)GuiProp.FontSize] = 16.0;
+            _defaultValues[(int)GuiProp.FontSize] = (AbsoluteSize)16.0;
 
             _initialized = true;
         }

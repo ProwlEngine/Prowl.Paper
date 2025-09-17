@@ -27,8 +27,9 @@ namespace Prowl.PaperUI
         private ICanvasRenderer _renderer;
         private double _width;
         private double _height;
-        private ScalingSettings _scalingSettings = new ScalingSettings();
         private Stopwatch _timer = new();
+
+        internal ScalingSettings _scalingSettings = new ScalingSettings();
 
         // Events
         public Action? OnEndOfFramePreLayout = null;
