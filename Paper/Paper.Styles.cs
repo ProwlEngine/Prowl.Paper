@@ -719,8 +719,8 @@ namespace Prowl.PaperUI
 
             // Text Properties
             _defaultValues[(int)GuiProp.TextColor] = Color.White;
-            _defaultValues[(int)GuiProp.WordSpacing] = 0.0;
-            _defaultValues[(int)GuiProp.LetterSpacing] = 0.0;
+            _defaultValues[(int)GuiProp.WordSpacing] = (AbsoluteUnit)UnitValue.Points(0);
+            _defaultValues[(int)GuiProp.LetterSpacing] = (AbsoluteUnit)UnitValue.Points(0);
             _defaultValues[(int)GuiProp.LineHeight] = 1.0;
             _defaultValues[(int)GuiProp.TabSize] = 4;
             _defaultValues[(int)GuiProp.FontSize] = (AbsoluteUnit)UnitValue.Points(16);

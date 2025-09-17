@@ -236,9 +236,9 @@ namespace Prowl.PaperUI
         public T TextColor(Color color) => SetStyleProperty(GuiProp.TextColor, color);
 
         /// <summary>Sets the spacing between words in text.</summary>
-        public T WordSpacing(double spacing) => SetStyleProperty(GuiProp.WordSpacing, spacing);
+        public T WordSpacing(in AbsoluteUnit spacing) => SetStyleProperty(GuiProp.WordSpacing, spacing);
         /// <summary>Sets the spacing between letters in text.</summary>
-        public T LetterSpacing(double spacing) => SetStyleProperty(GuiProp.LetterSpacing, spacing);
+        public T LetterSpacing(in AbsoluteUnit  spacing) => SetStyleProperty(GuiProp.LetterSpacing, spacing);
         /// <summary>Sets the height of a line in text.</summary>
         public T LineHeight(double height) => SetStyleProperty(GuiProp.LineHeight, height);
 
@@ -1347,7 +1347,7 @@ namespace Prowl.PaperUI
         private TextLayoutSettings CreateTextLayoutSettings(TextInputSettings inputSettings, bool isMultiLine, double maxWidth = float.MaxValue)
         {
             var fontSize = ((AbsoluteUnit)_handle.Data._elementStyle.GetValue(GuiProp.FontSize)).ToPx(_paper._scalingSettings);
-            var letterSpacing = (double)_handle.Data._elementStyle.GetValue(GuiProp.LetterSpacing);
+            var letterSpacing = ((AbsoluteUnit)_handle.Data._elementStyle.GetValue(GuiProp.LetterSpacing)).ToPx(_paper._scalingSettings);
 
             var settings = TextLayoutSettings.Default;
             settings.PixelSize = (float)fontSize;
@@ -2154,7 +2154,7 @@ namespace Prowl.PaperUI
             {
                 // Single-line horizontal scrolling only
                 var fontSize = ((AbsoluteUnit)_handle.Data._elementStyle.GetValue(GuiProp.FontSize)).ToPx(_paper._scalingSettings);
-                var letterSpacing = (double)_handle.Data._elementStyle.GetValue(GuiProp.LetterSpacing);
+                var letterSpacing = ((AbsoluteUnit)_handle.Data._elementStyle.GetValue(GuiProp.LetterSpacing)).ToPx(_paper._scalingSettings);
                 var cursorPos = GetCursorPositionFromIndex(state.Value, settings.Font, fontSize, letterSpacing, state.CursorPosition);
 
                 double visibleWidth = _handle.Data.LayoutWidth;

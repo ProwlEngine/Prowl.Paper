@@ -1305,8 +1305,8 @@ namespace Prowl.PaperUI.LayoutEngine
             {
                 var settings = TextLayoutSettings.Default;
 
-                settings.WordSpacing = Convert.ToSingle(element._elementStyle.GetValue(GuiProp.WordSpacing));
-                settings.LetterSpacing = Convert.ToSingle(element._elementStyle.GetValue(GuiProp.LetterSpacing));
+                settings.WordSpacing = (float)((AbsoluteUnit)element._elementStyle.GetValue(GuiProp.WordSpacing)).ToPx(gui._scalingSettings);
+                settings.LetterSpacing = (float)((AbsoluteUnit)element._elementStyle.GetValue(GuiProp.LetterSpacing)).ToPx(gui._scalingSettings);
                 settings.LineHeight = Convert.ToSingle(element._elementStyle.GetValue(GuiProp.LineHeight));
                 settings.TabSize = (int)element._elementStyle.GetValue(GuiProp.TabSize);
                 settings.PixelSize = (float)((AbsoluteUnit)element._elementStyle.GetValue(GuiProp.FontSize)).ToPx(gui._scalingSettings);
