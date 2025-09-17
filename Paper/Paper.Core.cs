@@ -259,11 +259,16 @@ namespace Prowl.PaperUI
             var boxShadow = (BoxShadow)data._elementStyle.GetValue(GuiProp.BoxShadow);
             if (boxShadow.IsVisible)
             {
-                double buffer = boxShadow.Blur * 0.5;
-                double sx = rect.x + boxShadow.OffsetX - buffer - boxShadow.Spread;
-                double sy = rect.y + boxShadow.OffsetY - buffer - boxShadow.Spread;
-                double sw = rect.width + (buffer * 2) + (boxShadow.Spread * 2);
-                double sh = rect.height + (buffer * 2) + (boxShadow.Spread * 2);
+                double offsetX = boxShadow.OffsetX.ToPx(_scalingSettings);
+                double offsetY = boxShadow.OffsetY.ToPx(_scalingSettings);
+                double blur = boxShadow.Blur.ToPx(_scalingSettings);
+                double spread = boxShadow.Spread.ToPx(_scalingSettings);
+
+                double buffer = blur * 0.5;
+                double sx = rect.x + offsetX - buffer - spread;
+                double sy = rect.y + offsetY - buffer - spread;
+                double sw = rect.width + (buffer * 2) + (spread * 2);
+                double sh = rect.height + (buffer * 2) + (spread * 2);
                 float radi = (float)(Math.Max(Math.Max(rounded.x, rounded.y), Math.Max(rounded.z, rounded.w)));
                 _canvas.SetBoxBrush(
                     sx + sw / 2,
@@ -271,15 +276,15 @@ namespace Prowl.PaperUI
                     sw,
                     sh,
                     radi,
-                    (float)boxShadow.Blur,
+                    (float)blur,
                     boxShadow.Color,
                     Color.FromArgb(0, boxShadow.Color));
 
-                buffer = (boxShadow.Blur) * 1.0;
-                sx = rect.x + boxShadow.OffsetX - buffer - boxShadow.Spread;
-                sy = rect.y + boxShadow.OffsetY - buffer - boxShadow.Spread;
-                sw = rect.width + (buffer * 2) + (boxShadow.Spread * 2);
-                sh = rect.height + (buffer * 2) + (boxShadow.Spread * 2);
+                buffer = (blur) * 1.0;
+                sx = rect.x + offsetX - buffer - spread;
+                sy = rect.y + offsetY - buffer - spread;
+                sw = rect.width + (buffer * 2) + (spread * 2);
+                sh = rect.height + (buffer * 2) + (spread * 2);
 
                 _canvas.RoundedRectFilled(sx, sy, sw, sh,
                     rounded.x, rounded.y,
