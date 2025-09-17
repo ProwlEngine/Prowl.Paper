@@ -34,6 +34,51 @@ namespace Prowl.PaperUI
         ParentDirected
     }
 
+    /// <summary>
+    /// Defines measurement units for element dimensions and positioning.
+    /// </summary>
+    public enum AbsoluteUnits
+    {
+        /// <summary>
+        /// Fixed-sized unit with each pixel corresponding to a physical pixel on the screen.
+        /// Useful for precise element sizing.
+        /// </summary>
+        Pixels,
+
+        /// <summary>
+        /// Variable-sized unit based on the device's pixel density.
+        /// Useful for automatic element sizing based on the device's pixel density.
+        /// </summary>
+        Points
+    }
+
+    /// <summary>
+    /// Defines measurement units for element dimensions and positioning.
+    /// </summary>
+    public enum RelativeUnits
+    {
+        /// <inheritdoc cref="AbsoluteUnits.Pixels"/>
+        Pixels,
+
+        /// <inheritdoc cref="AbsoluteUnits.Points"/>
+        Points,
+
+        /// <summary>
+        /// Percentage of parent container's corresponding dimension.
+        /// </summary>
+        Percentage,
+
+        /// <summary>
+        /// Flexible sizing that distributes available space based on stretch factors.
+        /// </summary>
+        Stretch,
+
+        /// <summary>
+        /// Size is determined automatically based on content or other constraints.
+        /// </summary>
+        Auto
+    }
+
     public enum TextAlignment
     {
         Left,
