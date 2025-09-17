@@ -597,9 +597,9 @@ namespace Prowl.PaperUI
             {
                 return Vector4.Lerp(vector4Start, vector4End, t);
             }
-            else if (start is RelativeSize unitStart && end is RelativeSize unitEnd)
+            else if (start is RelativeUnit unitStart && end is RelativeUnit unitEnd)
             {
-                return RelativeSize.Lerp(unitStart, unitEnd, t);
+                return RelativeUnit.Lerp(unitStart, unitEnd, t);
             }
             else if (start is Transform2D transformStart && end is Transform2D transformEnd)
             {
@@ -672,38 +672,38 @@ namespace Prowl.PaperUI
 
             // Core Layout Properties
             _defaultValues[(int)GuiProp.AspectRatio] = -1.0;
-            _defaultValues[(int)GuiProp.Width] = (RelativeSize)UnitValue.Stretch();
-            _defaultValues[(int)GuiProp.Height] = (RelativeSize)UnitValue.Stretch();
-            _defaultValues[(int)GuiProp.MinWidth] = (RelativeSize)UnitValue.Pixels(0);
-            _defaultValues[(int)GuiProp.MaxWidth] = (RelativeSize)UnitValue.Pixels(double.MaxValue);
-            _defaultValues[(int)GuiProp.MinHeight] = (RelativeSize)UnitValue.Pixels(0);
-            _defaultValues[(int)GuiProp.MaxHeight] = (RelativeSize)UnitValue.Pixels(double.MaxValue);
+            _defaultValues[(int)GuiProp.Width] = (RelativeUnit)UnitValue.Stretch();
+            _defaultValues[(int)GuiProp.Height] = (RelativeUnit)UnitValue.Stretch();
+            _defaultValues[(int)GuiProp.MinWidth] = (RelativeUnit)UnitValue.Pixels(0);
+            _defaultValues[(int)GuiProp.MaxWidth] = (RelativeUnit)UnitValue.Pixels(double.MaxValue);
+            _defaultValues[(int)GuiProp.MinHeight] = (RelativeUnit)UnitValue.Pixels(0);
+            _defaultValues[(int)GuiProp.MaxHeight] = (RelativeUnit)UnitValue.Pixels(double.MaxValue);
 
             // Positioning Properties
-            _defaultValues[(int)GuiProp.Left] = (RelativeSize)UnitValue.Auto;
-            _defaultValues[(int)GuiProp.Right] = (RelativeSize)UnitValue.Auto;
-            _defaultValues[(int)GuiProp.Top] = (RelativeSize)UnitValue.Auto;
-            _defaultValues[(int)GuiProp.Bottom] = (RelativeSize)UnitValue.Auto;
-            _defaultValues[(int)GuiProp.MinLeft] = (RelativeSize)UnitValue.Pixels(0);
-            _defaultValues[(int)GuiProp.MaxLeft] = (RelativeSize)UnitValue.Pixels(double.MaxValue);
-            _defaultValues[(int)GuiProp.MinRight] = (RelativeSize)UnitValue.Pixels(0);
-            _defaultValues[(int)GuiProp.MaxRight] = (RelativeSize)UnitValue.Pixels(double.MaxValue);
-            _defaultValues[(int)GuiProp.MinTop] = (RelativeSize)UnitValue.Pixels(0);
-            _defaultValues[(int)GuiProp.MaxTop] = (RelativeSize)UnitValue.Pixels(double.MaxValue);
-            _defaultValues[(int)GuiProp.MinBottom] = (RelativeSize)UnitValue.Pixels(0);
-            _defaultValues[(int)GuiProp.MaxBottom] = (RelativeSize)UnitValue.Pixels(double.MaxValue);
+            _defaultValues[(int)GuiProp.Left] = (RelativeUnit)UnitValue.Auto;
+            _defaultValues[(int)GuiProp.Right] = (RelativeUnit)UnitValue.Auto;
+            _defaultValues[(int)GuiProp.Top] = (RelativeUnit)UnitValue.Auto;
+            _defaultValues[(int)GuiProp.Bottom] = (RelativeUnit)UnitValue.Auto;
+            _defaultValues[(int)GuiProp.MinLeft] = (RelativeUnit)UnitValue.Pixels(0);
+            _defaultValues[(int)GuiProp.MaxLeft] = (RelativeUnit)UnitValue.Pixels(double.MaxValue);
+            _defaultValues[(int)GuiProp.MinRight] = (RelativeUnit)UnitValue.Pixels(0);
+            _defaultValues[(int)GuiProp.MaxRight] = (RelativeUnit)UnitValue.Pixels(double.MaxValue);
+            _defaultValues[(int)GuiProp.MinTop] = (RelativeUnit)UnitValue.Pixels(0);
+            _defaultValues[(int)GuiProp.MaxTop] = (RelativeUnit)UnitValue.Pixels(double.MaxValue);
+            _defaultValues[(int)GuiProp.MinBottom] = (RelativeUnit)UnitValue.Pixels(0);
+            _defaultValues[(int)GuiProp.MaxBottom] = (RelativeUnit)UnitValue.Pixels(double.MaxValue);
 
             // Child Layout Properties
-            _defaultValues[(int)GuiProp.ChildLeft] = (RelativeSize)UnitValue.Auto;
-            _defaultValues[(int)GuiProp.ChildRight] = (RelativeSize)UnitValue.Auto;
-            _defaultValues[(int)GuiProp.ChildTop] = (RelativeSize)UnitValue.Auto;
-            _defaultValues[(int)GuiProp.ChildBottom] = (RelativeSize)UnitValue.Auto;
-            _defaultValues[(int)GuiProp.RowBetween] = (RelativeSize)UnitValue.Auto;
-            _defaultValues[(int)GuiProp.ColBetween] = (RelativeSize)UnitValue.Auto;
-            _defaultValues[(int)GuiProp.BorderLeft] = (RelativeSize)UnitValue.Pixels(0);
-            _defaultValues[(int)GuiProp.BorderRight] = (RelativeSize)UnitValue.Pixels(0);
-            _defaultValues[(int)GuiProp.BorderTop] = (RelativeSize)UnitValue.Pixels(0);
-            _defaultValues[(int)GuiProp.BorderBottom] = (RelativeSize)UnitValue.Pixels(0);
+            _defaultValues[(int)GuiProp.ChildLeft] = (RelativeUnit)UnitValue.Auto;
+            _defaultValues[(int)GuiProp.ChildRight] = (RelativeUnit)UnitValue.Auto;
+            _defaultValues[(int)GuiProp.ChildTop] = (RelativeUnit)UnitValue.Auto;
+            _defaultValues[(int)GuiProp.ChildBottom] = (RelativeUnit)UnitValue.Auto;
+            _defaultValues[(int)GuiProp.RowBetween] = (RelativeUnit)UnitValue.Auto;
+            _defaultValues[(int)GuiProp.ColBetween] = (RelativeUnit)UnitValue.Auto;
+            _defaultValues[(int)GuiProp.BorderLeft] = (RelativeUnit)UnitValue.Pixels(0);
+            _defaultValues[(int)GuiProp.BorderRight] = (RelativeUnit)UnitValue.Pixels(0);
+            _defaultValues[(int)GuiProp.BorderTop] = (RelativeUnit)UnitValue.Pixels(0);
+            _defaultValues[(int)GuiProp.BorderBottom] = (RelativeUnit)UnitValue.Pixels(0);
 
             // Transform Properties
             _defaultValues[(int)GuiProp.TranslateX] = 0.0;
@@ -723,7 +723,7 @@ namespace Prowl.PaperUI
             _defaultValues[(int)GuiProp.LetterSpacing] = 0.0;
             _defaultValues[(int)GuiProp.LineHeight] = 1.0;
             _defaultValues[(int)GuiProp.TabSize] = 4;
-            _defaultValues[(int)GuiProp.FontSize] = (AbsoluteSize)16.0;
+            _defaultValues[(int)GuiProp.FontSize] = (AbsoluteUnit)16.0;
 
             _initialized = true;
         }

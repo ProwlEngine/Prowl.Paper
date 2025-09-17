@@ -60,41 +60,41 @@ namespace Prowl.PaperUI.LayoutEngine
 
     public static class UnitValue
     {
-        public static readonly AbsoluteSize ZeroPixels = new AbsoluteSize(AbsoluteUnits.Pixels, 0);
-        public static readonly RelativeSize Auto = new RelativeSize(RelativeUnits.Auto);
-        public static readonly RelativeSize StretchOne = new RelativeSize(RelativeUnits.Stretch, 1);
+        public static readonly AbsoluteUnit ZeroPixels = new AbsoluteUnit(AbsoluteUnits.Pixels, 0);
+        public static readonly RelativeUnit Auto = new RelativeUnit(RelativeUnits.Auto);
+        public static readonly RelativeUnit StretchOne = new RelativeUnit(RelativeUnits.Stretch, 1);
 
         /// <summary>
         /// Creates a Pixel unit value.
         /// </summary>
         /// <param name="value">Size in pixels</param>
-        public static AbsoluteSize Pixels(double value) => new AbsoluteSize(AbsoluteUnits.Pixels, value);
+        public static AbsoluteUnit Pixels(double value) => new AbsoluteUnit(AbsoluteUnits.Pixels, value);
 
         /// <summary>
         /// Creates a Points unit value.
         /// </summary>
         /// <param name="value">Size in points</param>
-        public static AbsoluteSize Points(double value) => new AbsoluteSize(AbsoluteUnits.Points, value);
+        public static AbsoluteUnit Points(double value) => new AbsoluteUnit(AbsoluteUnits.Points, value);
 
         /// <summary>
         /// Creates a Stretch unit value with the specified factor.
         /// </summary>
         /// <param name="factor">Stretch factor (relative to other stretch elements)</param>
-        public static RelativeSize Stretch(double factor = 1f) => new RelativeSize(RelativeUnits.Stretch, factor);
+        public static RelativeUnit Stretch(double factor = 1f) => new RelativeUnit(RelativeUnits.Stretch, factor);
 
         /// <summary>
         /// Creates a Percentage unit value.
         /// </summary>
         /// <param name="value">Percentage value (0-100)</param>
         /// <param name="offset">Additional pixel offset</param>
-        public static RelativeSize Percentage(double value, double offset = 0f) => new RelativeSize(RelativeUnits.Percentage, value, offset);
+        public static RelativeUnit Percentage(double value, double offset = 0f) => new RelativeUnit(RelativeUnits.Percentage, value, offset);
     }
 
     /// <summary>
     /// Represents a value with a unit type for UI layout measurements.
     /// Supports pixels and points.
     /// </summary>
-    public struct AbsoluteSize : IEquatable<AbsoluteSize>
+    public struct AbsoluteUnit : IEquatable<AbsoluteUnit>
     {
         /// <summary>The unit type of this value</summary>
         public AbsoluteUnits Type { get; set; } = AbsoluteUnits.Points;
@@ -103,16 +103,16 @@ namespace Prowl.PaperUI.LayoutEngine
         public double Value { get; set; } = 0f;
 
         /// <summary>
-        /// Creates a default AbsoluteSize with Points units.
+        /// Creates a default AbsoluteUnit with Points units.
         /// </summary>
-        public AbsoluteSize() { }
+        public AbsoluteUnit() { }
 
         /// <summary>
-        /// Creates a AbsoluteSize with the specified type and value.
+        /// Creates a AbsoluteUnit with the specified type and value.
         /// </summary>
         /// <param name="type">The unit type</param>
         /// <param name="value">The numeric value</param>
-        public AbsoluteSize(AbsoluteUnits type, double value = 0f)
+        public AbsoluteUnit(AbsoluteUnits type, double value = 0f)
         {
             Type = type;
             Value = value;
@@ -145,25 +145,25 @@ namespace Prowl.PaperUI.LayoutEngine
         #region Implicit Conversions
 
         /// <summary>
-        /// Implicitly converts an integer to a point unit AbsoluteSize.
+        /// Implicitly converts an integer to a point unit AbsoluteUnit.
         /// </summary>
-        public static implicit operator AbsoluteSize(int value)
+        public static implicit operator AbsoluteUnit(int value)
         {
-            return new AbsoluteSize(AbsoluteUnits.Points, value);
+            return new AbsoluteUnit(AbsoluteUnits.Points, value);
         }
 
         /// <summary>
-        /// Implicitly converts a double to a point unit AbsoluteSize.
+        /// Implicitly converts a double to a point unit AbsoluteUnit.
         /// </summary>
-        public static implicit operator AbsoluteSize(double value)
+        public static implicit operator AbsoluteUnit(double value)
         {
-            return new AbsoluteSize(AbsoluteUnits.Points, value);
+            return new AbsoluteUnit(AbsoluteUnits.Points, value);
         }
 
         /// <summary>
-        /// Implicitly converts an AbsoluteSize to a RelativeSize.
+        /// Implicitly converts an AbsoluteUnit to a RelativeUnit.
         /// </summary>
-        public static implicit operator RelativeSize(AbsoluteSize value)
+        public static implicit operator RelativeUnit(AbsoluteUnit value)
         {
             var relativeUnitType = value.Type switch
             {
@@ -172,38 +172,38 @@ namespace Prowl.PaperUI.LayoutEngine
                 _ => throw new ArgumentOutOfRangeException()
             };
 
-            return new RelativeSize(relativeUnitType, value.Value);
+            return new RelativeUnit(relativeUnitType, value.Value);
         }
 
         #endregion
 
         #region Equality and Hashing
 
-        public static bool operator ==(AbsoluteSize left, AbsoluteSize right)
+        public static bool operator ==(AbsoluteUnit left, AbsoluteUnit right)
         {
             return left.Equals(right);
         }
 
-        public static bool operator !=(AbsoluteSize left, AbsoluteSize right)
+        public static bool operator !=(AbsoluteUnit left, AbsoluteUnit right)
         {
             return !left.Equals(right);
         }
 
         /// <summary>
-        /// Compares this AbsoluteSize with another object for equality.
+        /// Compares this AbsoluteUnit with another object for equality.
         /// </summary>
         public override readonly bool Equals(object? obj)
         {
-            return obj is AbsoluteSize other && Equals(other);
+            return obj is AbsoluteUnit other && Equals(other);
         }
 
-        public readonly bool Equals(AbsoluteSize other)
+        public readonly bool Equals(AbsoluteUnit other)
         {
             return Type == other.Type && Value.Equals(other.Value);
         }
 
         /// <summary>
-        /// Returns a hash code for this AbsoluteSize.
+        /// Returns a hash code for this AbsoluteUnit.
         /// </summary>
         public override readonly int GetHashCode()
         {
@@ -213,7 +213,7 @@ namespace Prowl.PaperUI.LayoutEngine
         #endregion
 
         /// <summary>
-        /// Returns a string representation of this AbsoluteSize.
+        /// Returns a string representation of this AbsoluteUnit.
         /// </summary>
         public override readonly string ToString() => Type switch {
             AbsoluteUnits.Pixels => $"{Value}px",
@@ -226,19 +226,19 @@ namespace Prowl.PaperUI.LayoutEngine
     /// Represents a layout relative value with a unit type for UI layout measurements.
     /// Supports pixels, points, percentages, auto-sizing, and stretch units with interpolation capabilities.
     /// </summary>
-    public struct RelativeSize : IEquatable<RelativeSize>
+    public struct RelativeUnit : IEquatable<RelativeUnit>
     {
         /// <summary>
-        /// Helper class for interpolation between two RelativeSize instances.
+        /// Helper class for interpolation between two RelativeUnit instances.
         /// Using a simplified class approach to avoid struct cycles.
         /// </summary>
         private class LerpData
         {
-            public readonly RelativeSize Start;
-            public readonly RelativeSize End;
+            public readonly RelativeUnit Start;
+            public readonly RelativeUnit End;
             public readonly double Progress;
 
-            public LerpData(RelativeSize start, RelativeSize end, double progress)
+            public LerpData(RelativeUnit start, RelativeUnit end, double progress)
             {
                 Start = start;
                 End = end;
@@ -255,21 +255,21 @@ namespace Prowl.PaperUI.LayoutEngine
         /// <summary>Additional pixel offset when using percentage units</summary>
         public double PercentPixelOffset { get; set; } = default;
 
-        /// <summary>Data for interpolation between two RelativeSizes (null when not interpolating)</summary>
+        /// <summary>Data for interpolation between two RelativeUnits (null when not interpolating)</summary>
         private LerpData? _lerpData = null;
 
         /// <summary>
-        /// Creates a default RelativeSize with Auto units.
+        /// Creates a default RelativeUnit with Auto units.
         /// </summary>
-        public RelativeSize() { }
+        public RelativeUnit() { }
 
         /// <summary>
-        /// Creates a RelativeSize with the specified type and value.
+        /// Creates a RelativeUnit with the specified type and value.
         /// </summary>
         /// <param name="type">The unit type</param>
         /// <param name="value">The numeric value</param>
         /// <param name="offset">Additional pixel offset for percentage units</param>
-        public RelativeSize(RelativeUnits type, double value = 0f, double offset = 0f)
+        public RelativeUnit(RelativeUnits type, double value = 0f, double offset = 0f)
         {
             Type = type;
             Value = value;
@@ -330,7 +330,7 @@ namespace Prowl.PaperUI.LayoutEngine
         /// <param name="max">Maximum allowed value</param>
         /// <param name="scalingSettings">Settings to use for scaling calculations</param>
         /// <returns>Size in pixels, clamped between min and max</returns>
-        public readonly double ToPxClamped(double parentValue, double defaultValue, in RelativeSize min, in RelativeSize max, in ScalingSettings scalingSettings)
+        public readonly double ToPxClamped(double parentValue, double defaultValue, in RelativeUnit min, in RelativeUnit max, in ScalingSettings scalingSettings)
         {
             double minValue = min.ToPx(parentValue, double.MinValue, scalingSettings);
             double maxValue = max.ToPx(parentValue, double.MaxValue, scalingSettings);
@@ -340,14 +340,14 @@ namespace Prowl.PaperUI.LayoutEngine
         }
 
         /// <summary>
-        /// Linearly interpolates between two RelativeSize instances.
-        /// In reality, it creates a new RelativeSize with special interpolation data which is calculated when ToPx is called.
+        /// Linearly interpolates between two RelativeUnit instances.
+        /// In reality, it creates a new RelativeUnit with special interpolation data which is calculated when ToPx is called.
         /// </summary>
         /// <param name="a">Starting value</param>
         /// <param name="b">Ending value</param>
         /// <param name="blendFactor">Interpolation factor (0.0 to 1.0)</param>
-        /// <returns>Interpolated RelativeSize</returns>
-        public static RelativeSize Lerp(in RelativeSize a, in RelativeSize b, double blendFactor)
+        /// <returns>Interpolated RelativeUnit</returns>
+        public static RelativeUnit Lerp(in RelativeUnit a, in RelativeUnit b, double blendFactor)
         {
             // Ensure blend factor is between 0 and 1
             blendFactor = Math.Clamp(blendFactor, 0f, 1f);
@@ -355,7 +355,7 @@ namespace Prowl.PaperUI.LayoutEngine
             // If units are the same, we can blend directly
             if (a.Type == b.Type)
             {
-                return new RelativeSize(
+                return new RelativeUnit(
                     a.Type,
                     a.Value + (b.Value - a.Value) * blendFactor,
                     a.PercentPixelOffset + (b.PercentPixelOffset - a.PercentPixelOffset) * blendFactor
@@ -363,7 +363,7 @@ namespace Prowl.PaperUI.LayoutEngine
             }
 
             // If units are different, use interpolation data
-            var result = new RelativeSize {
+            var result = new RelativeUnit {
                 Type = a.Type,
                 Value = a.Value,
                 PercentPixelOffset = a.PercentPixelOffset,
@@ -373,10 +373,10 @@ namespace Prowl.PaperUI.LayoutEngine
         }
 
         /// <summary>
-        /// Creates a deep copy of this RelativeSize.
+        /// Creates a deep copy of this RelativeUnit.
         /// </summary>
-        /// <returns>A new RelativeSize with the same properties</returns>
-        public readonly RelativeSize Clone() => new RelativeSize {
+        /// <returns>A new RelativeUnit with the same properties</returns>
+        public readonly RelativeUnit Clone() => new RelativeUnit {
             Type = Type,
             Value = Value,
             PercentPixelOffset = PercentPixelOffset,
@@ -386,44 +386,44 @@ namespace Prowl.PaperUI.LayoutEngine
         #region Implicit Conversions
 
         /// <summary>
-        /// Implicitly converts an integer to a point unit RelativeSize.
+        /// Implicitly converts an integer to a point unit RelativeUnit.
         /// </summary>
-        public static implicit operator RelativeSize(int value)
+        public static implicit operator RelativeUnit(int value)
         {
-            return new RelativeSize(RelativeUnits.Points, value);
+            return new RelativeUnit(RelativeUnits.Points, value);
         }
 
         /// <summary>
-        /// Implicitly converts a double to a point unit RelativeSize.
+        /// Implicitly converts a double to a point unit RelativeUnit.
         /// </summary>
-        public static implicit operator RelativeSize(double value)
+        public static implicit operator RelativeUnit(double value)
         {
-            return new RelativeSize(RelativeUnits.Points, value);
+            return new RelativeUnit(RelativeUnits.Points, value);
         }
 
         #endregion
 
         #region Equality and Hashing
 
-        public static bool operator ==(RelativeSize left, RelativeSize right)
+        public static bool operator ==(RelativeUnit left, RelativeUnit right)
         {
             return left.Equals(right);
         }
 
-        public static bool operator !=(RelativeSize left, RelativeSize right)
+        public static bool operator !=(RelativeUnit left, RelativeUnit right)
         {
             return !left.Equals(right);
         }
 
         /// <summary>
-        /// Compares this RelativeSize with another object for equality.
+        /// Compares this RelativeUnit with another object for equality.
         /// </summary>
         public override readonly bool Equals(object? obj)
         {
-            return obj is RelativeSize other && Equals(other);
+            return obj is RelativeUnit other && Equals(other);
         }
 
-        public readonly bool Equals(RelativeSize other)
+        public readonly bool Equals(RelativeUnit other)
         {
             // First, check the basic properties
             bool basicPropertiesEqual = Type == other.Type &&
@@ -445,7 +445,7 @@ namespace Prowl.PaperUI.LayoutEngine
         }
 
         /// <summary>
-        /// Returns a hash code for this RelativeSize.
+        /// Returns a hash code for this RelativeUnit.
         /// </summary>
         public override readonly int GetHashCode()
         {
@@ -455,7 +455,7 @@ namespace Prowl.PaperUI.LayoutEngine
         #endregion
 
         /// <summary>
-        /// Returns a string representation of this RelativeSize.
+        /// Returns a string representation of this RelativeUnit.
         /// </summary>
         public override readonly string ToString() => Type switch {
             RelativeUnits.Pixels => $"{Value}px",

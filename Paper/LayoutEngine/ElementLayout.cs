@@ -13,8 +13,8 @@ namespace Prowl.PaperUI.LayoutEngine
         {
             ref var data = ref elementHandle.Data;
 
-            var wValue = (RelativeSize)data._elementStyle.GetValue(GuiProp.Width);
-            var hValue = (RelativeSize)data._elementStyle.GetValue(GuiProp.Height);
+            var wValue = (RelativeUnit)data._elementStyle.GetValue(GuiProp.Width);
+            var hValue = (RelativeUnit)data._elementStyle.GetValue(GuiProp.Height);
             double width = wValue.IsPixels ? wValue.Value : throw new Exception("Root element must have fixed width");
             double height = hValue.IsPixels ? hValue.Value : throw new Exception("Root element must have fixed height");
 
@@ -31,23 +31,23 @@ namespace Prowl.PaperUI.LayoutEngine
             return size;
         }
 
-        private static RelativeSize GetProp(ref ElementData element, LayoutType parentType, GuiProp row, GuiProp column)
-            => (RelativeSize)element._elementStyle.GetValue(parentType == LayoutType.Row ? row : column);
+        private static RelativeUnit GetProp(ref ElementData element, LayoutType parentType, GuiProp row, GuiProp column)
+            => (RelativeUnit)element._elementStyle.GetValue(parentType == LayoutType.Row ? row : column);
 
-        private static RelativeSize GetMain(ref ElementData element, LayoutType parentType) => GetProp(ref element, parentType, GuiProp.Width, GuiProp.Height);
-        private static RelativeSize GetCross(ref ElementData element, LayoutType parentType) => GetProp(ref element, parentType, GuiProp.Height, GuiProp.Width);
-        private static RelativeSize GetMinMain(ref ElementData element, LayoutType parentType) => GetProp(ref element, parentType, GuiProp.MinWidth, GuiProp.MinHeight);
-        private static RelativeSize GetMaxMain(ref ElementData element, LayoutType parentType) => GetProp(ref element, parentType, GuiProp.MaxWidth, GuiProp.MaxHeight);
-        private static RelativeSize GetMinCross(ref ElementData element, LayoutType parentType) => GetProp(ref element, parentType, GuiProp.MinHeight, GuiProp.MinWidth);
-        private static RelativeSize GetMaxCross(ref ElementData element, LayoutType parentType) => GetProp(ref element, parentType, GuiProp.MaxHeight, GuiProp.MaxWidth);
-        private static RelativeSize GetMainBefore(ref ElementData element, LayoutType parentType) => GetProp(ref element, parentType, GuiProp.Left, GuiProp.Top);
-        private static RelativeSize GetMainAfter(ref ElementData element, LayoutType parentType) => GetProp(ref element, parentType, GuiProp.Right, GuiProp.Bottom);
-        private static RelativeSize GetCrossBefore(ref ElementData element, LayoutType parentType) => GetProp(ref element, parentType, GuiProp.Top, GuiProp.Left);
-        private static RelativeSize GetCrossAfter(ref ElementData element, LayoutType parentType) => GetProp(ref element, parentType, GuiProp.Bottom, GuiProp.Right);
-        private static RelativeSize GetChildMainBefore(ref ElementData element, LayoutType parentType) => GetProp(ref element, parentType, GuiProp.ChildLeft, GuiProp.ChildTop);
-        private static RelativeSize GetChildMainAfter(ref ElementData element, LayoutType parentType) => GetProp(ref element, parentType, GuiProp.ChildRight, GuiProp.ChildBottom);
-        private static RelativeSize GetChildCrossBefore(ref ElementData element, LayoutType parentType) => GetProp(ref element, parentType, GuiProp.ChildTop, GuiProp.ChildLeft);
-        private static RelativeSize GetChildCrossAfter(ref ElementData element, LayoutType parentType) => GetProp(ref element, parentType, GuiProp.ChildBottom, GuiProp.ChildRight);
+        private static RelativeUnit GetMain(ref ElementData element, LayoutType parentType) => GetProp(ref element, parentType, GuiProp.Width, GuiProp.Height);
+        private static RelativeUnit GetCross(ref ElementData element, LayoutType parentType) => GetProp(ref element, parentType, GuiProp.Height, GuiProp.Width);
+        private static RelativeUnit GetMinMain(ref ElementData element, LayoutType parentType) => GetProp(ref element, parentType, GuiProp.MinWidth, GuiProp.MinHeight);
+        private static RelativeUnit GetMaxMain(ref ElementData element, LayoutType parentType) => GetProp(ref element, parentType, GuiProp.MaxWidth, GuiProp.MaxHeight);
+        private static RelativeUnit GetMinCross(ref ElementData element, LayoutType parentType) => GetProp(ref element, parentType, GuiProp.MinHeight, GuiProp.MinWidth);
+        private static RelativeUnit GetMaxCross(ref ElementData element, LayoutType parentType) => GetProp(ref element, parentType, GuiProp.MaxHeight, GuiProp.MaxWidth);
+        private static RelativeUnit GetMainBefore(ref ElementData element, LayoutType parentType) => GetProp(ref element, parentType, GuiProp.Left, GuiProp.Top);
+        private static RelativeUnit GetMainAfter(ref ElementData element, LayoutType parentType) => GetProp(ref element, parentType, GuiProp.Right, GuiProp.Bottom);
+        private static RelativeUnit GetCrossBefore(ref ElementData element, LayoutType parentType) => GetProp(ref element, parentType, GuiProp.Top, GuiProp.Left);
+        private static RelativeUnit GetCrossAfter(ref ElementData element, LayoutType parentType) => GetProp(ref element, parentType, GuiProp.Bottom, GuiProp.Right);
+        private static RelativeUnit GetChildMainBefore(ref ElementData element, LayoutType parentType) => GetProp(ref element, parentType, GuiProp.ChildLeft, GuiProp.ChildTop);
+        private static RelativeUnit GetChildMainAfter(ref ElementData element, LayoutType parentType) => GetProp(ref element, parentType, GuiProp.ChildRight, GuiProp.ChildBottom);
+        private static RelativeUnit GetChildCrossBefore(ref ElementData element, LayoutType parentType) => GetProp(ref element, parentType, GuiProp.ChildTop, GuiProp.ChildLeft);
+        private static RelativeUnit GetChildCrossAfter(ref ElementData element, LayoutType parentType) => GetProp(ref element, parentType, GuiProp.ChildBottom, GuiProp.ChildRight);
 
         private static IEnumerable<ElementHandle> GetChildren(ElementHandle elementHandle)
         {
@@ -56,19 +56,19 @@ namespace Prowl.PaperUI.LayoutEngine
                 yield return new ElementHandle(elementHandle.Owner, childIndex);
             }
         }
-        private static RelativeSize GetMainBetween(ref ElementData element, LayoutType parentLayoutType) => GetProp(ref element, parentLayoutType, GuiProp.RowBetween, GuiProp.ColBetween);
-        private static RelativeSize GetMinMainBefore(ref ElementData element, LayoutType parentLayoutType) => GetProp(ref element, parentLayoutType, GuiProp.MinLeft, GuiProp.MinTop);
-        private static RelativeSize GetMaxMainBefore(ref ElementData element, LayoutType parentLayoutType) => GetProp(ref element, parentLayoutType, GuiProp.MaxLeft, GuiProp.MaxTop);
-        private static RelativeSize GetMinMainAfter(ref ElementData element, LayoutType parentLayoutType) => GetProp(ref element, parentLayoutType, GuiProp.MinRight, GuiProp.MinBottom);
-        private static RelativeSize GetMaxMainAfter(ref ElementData element, LayoutType parentLayoutType) => GetProp(ref element, parentLayoutType, GuiProp.MaxRight, GuiProp.MaxBottom);
-        private static RelativeSize GetMinCrossBefore(ref ElementData element, LayoutType parentLayoutType) => GetProp(ref element, parentLayoutType, GuiProp.MinTop, GuiProp.MinLeft);
-        private static RelativeSize GetMaxCrossBefore(ref ElementData element, LayoutType parentLayoutType) => GetProp(ref element, parentLayoutType, GuiProp.MaxTop, GuiProp.MaxLeft);
-        private static RelativeSize GetMinCrossAfter(ref ElementData element, LayoutType parentLayoutType) => GetProp(ref element, parentLayoutType, GuiProp.MinBottom, GuiProp.MinRight);
-        private static RelativeSize GetMaxCrossAfter(ref ElementData element, LayoutType parentLayoutType) => GetProp(ref element, parentLayoutType, GuiProp.MaxBottom, GuiProp.MaxRight);
-        private static RelativeSize GetBorderMainBefore(ref ElementData element, LayoutType parentLayoutType) => GetProp(ref element, parentLayoutType, GuiProp.BorderLeft, GuiProp.BorderTop);
-        private static RelativeSize GetBorderMainAfter(ref ElementData element, LayoutType parentLayoutType) => GetProp(ref element, parentLayoutType, GuiProp.BorderRight, GuiProp.BorderBottom);
-        private static RelativeSize GetBorderCrossBefore(ref ElementData element, LayoutType parentLayoutType) => GetProp(ref element, parentLayoutType, GuiProp.BorderTop, GuiProp.BorderLeft);
-        private static RelativeSize GetBorderCrossAfter(ref ElementData element, LayoutType parentLayoutType) => GetProp(ref element, parentLayoutType, GuiProp.BorderBottom, GuiProp.BorderRight);
+        private static RelativeUnit GetMainBetween(ref ElementData element, LayoutType parentLayoutType) => GetProp(ref element, parentLayoutType, GuiProp.RowBetween, GuiProp.ColBetween);
+        private static RelativeUnit GetMinMainBefore(ref ElementData element, LayoutType parentLayoutType) => GetProp(ref element, parentLayoutType, GuiProp.MinLeft, GuiProp.MinTop);
+        private static RelativeUnit GetMaxMainBefore(ref ElementData element, LayoutType parentLayoutType) => GetProp(ref element, parentLayoutType, GuiProp.MaxLeft, GuiProp.MaxTop);
+        private static RelativeUnit GetMinMainAfter(ref ElementData element, LayoutType parentLayoutType) => GetProp(ref element, parentLayoutType, GuiProp.MinRight, GuiProp.MinBottom);
+        private static RelativeUnit GetMaxMainAfter(ref ElementData element, LayoutType parentLayoutType) => GetProp(ref element, parentLayoutType, GuiProp.MaxRight, GuiProp.MaxBottom);
+        private static RelativeUnit GetMinCrossBefore(ref ElementData element, LayoutType parentLayoutType) => GetProp(ref element, parentLayoutType, GuiProp.MinTop, GuiProp.MinLeft);
+        private static RelativeUnit GetMaxCrossBefore(ref ElementData element, LayoutType parentLayoutType) => GetProp(ref element, parentLayoutType, GuiProp.MaxTop, GuiProp.MaxLeft);
+        private static RelativeUnit GetMinCrossAfter(ref ElementData element, LayoutType parentLayoutType) => GetProp(ref element, parentLayoutType, GuiProp.MinBottom, GuiProp.MinRight);
+        private static RelativeUnit GetMaxCrossAfter(ref ElementData element, LayoutType parentLayoutType) => GetProp(ref element, parentLayoutType, GuiProp.MaxBottom, GuiProp.MaxRight);
+        private static RelativeUnit GetBorderMainBefore(ref ElementData element, LayoutType parentLayoutType) => GetProp(ref element, parentLayoutType, GuiProp.BorderLeft, GuiProp.BorderTop);
+        private static RelativeUnit GetBorderMainAfter(ref ElementData element, LayoutType parentLayoutType) => GetProp(ref element, parentLayoutType, GuiProp.BorderRight, GuiProp.BorderBottom);
+        private static RelativeUnit GetBorderCrossBefore(ref ElementData element, LayoutType parentLayoutType) => GetProp(ref element, parentLayoutType, GuiProp.BorderTop, GuiProp.BorderLeft);
+        private static RelativeUnit GetBorderCrossAfter(ref ElementData element, LayoutType parentLayoutType) => GetProp(ref element, parentLayoutType, GuiProp.BorderBottom, GuiProp.BorderRight);
 
         private static (double, double)? ContentSizing(ElementHandle elementHandle, LayoutType parentLayoutType, double? parentMain, double? parentCross)
         {
@@ -124,8 +124,8 @@ namespace Prowl.PaperUI.LayoutEngine
             ref var element = ref elementHandle.Data;
             LayoutType layoutType = element.LayoutType;
 
-            RelativeSize main = GetMain(ref element, parentLayoutType);
-            RelativeSize cross = GetCross(ref element, parentLayoutType);
+            RelativeUnit main = GetMain(ref element, parentLayoutType);
+            RelativeUnit cross = GetCross(ref element, parentLayoutType);
 
             double minMain = main.IsStretch
                 ? DEFAULT_MIN
@@ -284,11 +284,11 @@ namespace Prowl.PaperUI.LayoutEngine
             var mainAxis = new List<StretchItem>();
 
             // Parent overrides for child auto space
-            RelativeSize elementChildMainBefore = GetChildMainBefore(ref element, layoutType);
-            RelativeSize elementChildMainAfter = GetChildMainAfter(ref element, layoutType);
-            RelativeSize elementChildCrossBefore = GetChildCrossBefore(ref element, layoutType);
-            RelativeSize elementChildCrossAfter = GetChildCrossAfter(ref element, layoutType);
-            RelativeSize elementChildMainBetween = GetMainBetween(ref element, layoutType);
+            RelativeUnit elementChildMainBefore = GetChildMainBefore(ref element, layoutType);
+            RelativeUnit elementChildMainAfter = GetChildMainAfter(ref element, layoutType);
+            RelativeUnit elementChildCrossBefore = GetChildCrossBefore(ref element, layoutType);
+            RelativeUnit elementChildCrossAfter = GetChildCrossAfter(ref element, layoutType);
+            RelativeUnit elementChildMainBetween = GetMainBetween(ref element, layoutType);
 
             // Get first and last parent-directed children for spacing
             int? first = parentDirectedChildren.Count > 0 ? 0 : null;
@@ -302,25 +302,25 @@ namespace Prowl.PaperUI.LayoutEngine
                 var childHandle = new ElementHandle(elementHandle.Owner, childIndex);
 
                 // Get desired space and size
-                RelativeSize childMainBefore = GetMainBefore(ref child, layoutType);
-                RelativeSize childMain = GetMain(ref child, layoutType);
-                RelativeSize childMainAfter = GetMainAfter(ref child, layoutType);
+                RelativeUnit childMainBefore = GetMainBefore(ref child, layoutType);
+                RelativeUnit childMain = GetMain(ref child, layoutType);
+                RelativeUnit childMainAfter = GetMainAfter(ref child, layoutType);
 
-                RelativeSize childCrossBefore = GetCrossBefore(ref child, layoutType);
-                RelativeSize childCross = GetCross(ref child, layoutType);
-                RelativeSize childCrossAfter = GetCrossAfter(ref child, layoutType);
+                RelativeUnit childCrossBefore = GetCrossBefore(ref child, layoutType);
+                RelativeUnit childCross = GetCross(ref child, layoutType);
+                RelativeUnit childCrossAfter = GetCrossAfter(ref child, layoutType);
 
                 // Get constraints
-                RelativeSize childMinCrossBefore = GetMinCrossBefore(ref child, layoutType);
-                RelativeSize childMaxCrossBefore = GetMaxCrossBefore(ref child, layoutType);
-                RelativeSize childMinCrossAfter = GetMinCrossAfter(ref child, layoutType);
-                RelativeSize childMaxCrossAfter = GetMaxCrossAfter(ref child, layoutType);
-                RelativeSize childMinMainBefore = GetMinMainBefore(ref child, layoutType);
-                RelativeSize childMaxMainBefore = GetMaxMainBefore(ref child, layoutType);
-                RelativeSize childMinMainAfter = GetMinMainAfter(ref child, layoutType);
-                RelativeSize childMaxMainAfter = GetMaxMainAfter(ref child, layoutType);
-                RelativeSize childMinMain = GetMinMain(ref child, layoutType);
-                RelativeSize childMaxMain = GetMaxMain(ref child, layoutType);
+                RelativeUnit childMinCrossBefore = GetMinCrossBefore(ref child, layoutType);
+                RelativeUnit childMaxCrossBefore = GetMaxCrossBefore(ref child, layoutType);
+                RelativeUnit childMinCrossAfter = GetMinCrossAfter(ref child, layoutType);
+                RelativeUnit childMaxCrossAfter = GetMaxCrossAfter(ref child, layoutType);
+                RelativeUnit childMinMainBefore = GetMinMainBefore(ref child, layoutType);
+                RelativeUnit childMaxMainBefore = GetMaxMainBefore(ref child, layoutType);
+                RelativeUnit childMinMainAfter = GetMinMainAfter(ref child, layoutType);
+                RelativeUnit childMaxMainAfter = GetMaxMainAfter(ref child, layoutType);
+                RelativeUnit childMinMain = GetMinMain(ref child, layoutType);
+                RelativeUnit childMaxMain = GetMaxMain(ref child, layoutType);
 
                 // Apply parent overrides to auto spacing
                 if (childMainBefore.IsAuto && first == i)
@@ -481,9 +481,9 @@ namespace Prowl.PaperUI.LayoutEngine
                     GetCross(ref child.Element.Data, layoutType).IsAuto)
                     continue;
 
-                RelativeSize childCrossBefore = GetCrossBefore(ref child.Element.Data, layoutType);
-                RelativeSize childCross = GetCross(ref child.Element.Data, layoutType);
-                RelativeSize childCrossAfter = GetCrossAfter(ref child.Element.Data, layoutType);
+                RelativeUnit childCrossBefore = GetCrossBefore(ref child.Element.Data, layoutType);
+                RelativeUnit childCross = GetCross(ref child.Element.Data, layoutType);
+                RelativeUnit childCrossAfter = GetCrossAfter(ref child.Element.Data, layoutType);
 
                 if (childCrossBefore.IsAuto)
                     childCrossBefore = elementChildCrossBefore;
@@ -772,12 +772,12 @@ namespace Prowl.PaperUI.LayoutEngine
             foreach (var childHandle in GetChildren(elementHandle))
             {
                 if (!childHandle.Data.Visible || childHandle.Data.PositionType != PositionType.SelfDirected) continue;
-                RelativeSize childMainBefore = GetMainBefore(ref childHandle.Data, layoutType);
-                RelativeSize childMain = GetMain(ref childHandle.Data, layoutType);
-                RelativeSize childMainAfter = GetMainAfter(ref childHandle.Data, layoutType);
-                RelativeSize childCrossBefore = GetCrossBefore(ref childHandle.Data, layoutType);
-                RelativeSize childCross = GetCross(ref childHandle.Data, layoutType);
-                RelativeSize childCrossAfter = GetCrossAfter(ref childHandle.Data, layoutType);
+                RelativeUnit childMainBefore = GetMainBefore(ref childHandle.Data, layoutType);
+                RelativeUnit childMain = GetMain(ref childHandle.Data, layoutType);
+                RelativeUnit childMainAfter = GetMainAfter(ref childHandle.Data, layoutType);
+                RelativeUnit childCrossBefore = GetCrossBefore(ref childHandle.Data, layoutType);
+                RelativeUnit childCross = GetCross(ref childHandle.Data, layoutType);
+                RelativeUnit childCrossAfter = GetCrossAfter(ref childHandle.Data, layoutType);
 
                 // Apply parent overrides
                 if (childMainBefore.IsAuto)
@@ -919,13 +919,13 @@ namespace Prowl.PaperUI.LayoutEngine
             double parentMain,
             double borderCrossBefore,
             double borderCrossAfter,
-            RelativeSize elementChildCrossBefore,
-            RelativeSize elementChildCrossAfter,
+            RelativeUnit elementChildCrossBefore,
+            RelativeUnit elementChildCrossAfter,
             int childIndex)
         {
-            RelativeSize childCrossBefore = GetCrossBefore(ref child.Element.Data, layoutType);
-            RelativeSize childCross = GetCross(ref child.Element.Data, layoutType);
-            RelativeSize childCrossAfter = GetCrossAfter(ref child.Element.Data, layoutType);
+            RelativeUnit childCrossBefore = GetCrossBefore(ref child.Element.Data, layoutType);
+            RelativeUnit childCross = GetCross(ref child.Element.Data, layoutType);
+            RelativeUnit childCrossAfter = GetCrossAfter(ref child.Element.Data, layoutType);
 
             // Apply parent overrides
             if (childCrossBefore.IsAuto)
@@ -1040,13 +1040,13 @@ namespace Prowl.PaperUI.LayoutEngine
             double parentCross,
             double borderMainBefore,
             double borderMainAfter,
-            RelativeSize elementChildMainBefore,
-            RelativeSize elementChildMainAfter,
+            RelativeUnit elementChildMainBefore,
+            RelativeUnit elementChildMainAfter,
             int childIndex)
         {
-            RelativeSize childMainBefore = GetMainBefore(ref child.Element.Data, layoutType);
-            RelativeSize childMain = GetMain(ref child.Element.Data, layoutType);
-            RelativeSize childMainAfter = GetMainAfter(ref child.Element.Data, layoutType);
+            RelativeUnit childMainBefore = GetMainBefore(ref child.Element.Data, layoutType);
+            RelativeUnit childMain = GetMain(ref child.Element.Data, layoutType);
+            RelativeUnit childMainAfter = GetMainAfter(ref child.Element.Data, layoutType);
 
             // Apply parent overrides
             if (childMainBefore.IsAuto)
@@ -1158,11 +1158,11 @@ namespace Prowl.PaperUI.LayoutEngine
             double parentCross,
             double borderCrossBefore,
             double borderCrossAfter,
-            RelativeSize elementChildCrossBefore,
-            RelativeSize elementChildCrossAfter)
+            RelativeUnit elementChildCrossBefore,
+            RelativeUnit elementChildCrossAfter)
         {
-            RelativeSize childCrossBefore = GetCrossBefore(ref child.Element.Data, layoutType);
-            RelativeSize childCrossAfter = GetCrossAfter(ref child.Element.Data, layoutType);
+            RelativeUnit childCrossBefore = GetCrossBefore(ref child.Element.Data, layoutType);
+            RelativeUnit childCrossAfter = GetCrossAfter(ref child.Element.Data, layoutType);
 
             // Apply parent overrides
             if (childCrossBefore.IsAuto)
@@ -1309,7 +1309,7 @@ namespace Prowl.PaperUI.LayoutEngine
                 settings.LetterSpacing = Convert.ToSingle(element._elementStyle.GetValue(GuiProp.LetterSpacing));
                 settings.LineHeight = Convert.ToSingle(element._elementStyle.GetValue(GuiProp.LineHeight));
                 settings.TabSize = (int)element._elementStyle.GetValue(GuiProp.TabSize);
-                settings.PixelSize = (float)((AbsoluteSize)element._elementStyle.GetValue(GuiProp.FontSize)).ToPx(gui._scalingSettings);
+                settings.PixelSize = (float)((AbsoluteUnit)element._elementStyle.GetValue(GuiProp.FontSize)).ToPx(gui._scalingSettings);
 
                 if(element.TextAlignment == TextAlignment.Left || element.TextAlignment == TextAlignment.MiddleLeft || element.TextAlignment == TextAlignment.BottomLeft)
                     settings.Alignment = Scribe.TextAlignment.Left;

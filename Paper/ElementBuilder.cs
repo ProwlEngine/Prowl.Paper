@@ -96,85 +96,85 @@ namespace Prowl.PaperUI
         public T AspectRatio(double ratio) => SetStyleProperty(GuiProp.AspectRatio, ratio);
 
         /// <summary>Sets both width and height to the same value.</summary>
-        public T Size(in RelativeSize sizeUniform) => Size(sizeUniform, sizeUniform);
+        public T Size(in RelativeUnit sizeUniform) => Size(sizeUniform, sizeUniform);
 
         /// <summary>Sets the width and height of the element.</summary>
-        public T Size(in RelativeSize width, in RelativeSize height)
+        public T Size(in RelativeUnit width, in RelativeUnit height)
         {
             SetStyleProperty(GuiProp.Width, width);
             return SetStyleProperty(GuiProp.Height, height);
         }
 
         /// <summary>Sets the width of the element.</summary>
-        public T Width(in RelativeSize width) => SetStyleProperty(GuiProp.Width, width);
+        public T Width(in RelativeUnit width) => SetStyleProperty(GuiProp.Width, width);
 
         /// <summary>Sets the height of the element.</summary>
-        public T Height(in RelativeSize height) => SetStyleProperty(GuiProp.Height, height);
+        public T Height(in RelativeUnit height) => SetStyleProperty(GuiProp.Height, height);
 
         /// <summary>Sets the minimum width of the element.</summary>
-        public T MinWidth(in RelativeSize minWidth) => SetStyleProperty(GuiProp.MinWidth, minWidth);
+        public T MinWidth(in RelativeUnit minWidth) => SetStyleProperty(GuiProp.MinWidth, minWidth);
 
         /// <summary>Sets the maximum width of the element.</summary>
-        public T MaxWidth(in RelativeSize maxWidth) => SetStyleProperty(GuiProp.MaxWidth, maxWidth);
+        public T MaxWidth(in RelativeUnit maxWidth) => SetStyleProperty(GuiProp.MaxWidth, maxWidth);
 
         /// <summary>Sets the minimum height of the element.</summary>
-        public T MinHeight(in RelativeSize minHeight) => SetStyleProperty(GuiProp.MinHeight, minHeight);
+        public T MinHeight(in RelativeUnit minHeight) => SetStyleProperty(GuiProp.MinHeight, minHeight);
 
         /// <summary>Sets the maximum height of the element.</summary>
-        public T MaxHeight(in RelativeSize maxHeight) => SetStyleProperty(GuiProp.MaxHeight, maxHeight);
+        public T MaxHeight(in RelativeUnit maxHeight) => SetStyleProperty(GuiProp.MaxHeight, maxHeight);
 
         /// <summary>Sets the position of the element from the left and top edges.</summary>
-        public T Position(in RelativeSize left, in RelativeSize top)
+        public T Position(in RelativeUnit left, in RelativeUnit top)
         {
             SetStyleProperty(GuiProp.Left, left);
             return SetStyleProperty(GuiProp.Top, top);
         }
 
         /// <summary>Sets the left position of the element.</summary>
-        public T Left(in RelativeSize left) => SetStyleProperty(GuiProp.Left, left);
+        public T Left(in RelativeUnit left) => SetStyleProperty(GuiProp.Left, left);
 
         /// <summary>Sets the right position of the element.</summary>
-        public T Right(in RelativeSize right) => SetStyleProperty(GuiProp.Right, right);
+        public T Right(in RelativeUnit right) => SetStyleProperty(GuiProp.Right, right);
 
         /// <summary>Sets the top position of the element.</summary>
-        public T Top(in RelativeSize top) => SetStyleProperty(GuiProp.Top, top);
+        public T Top(in RelativeUnit top) => SetStyleProperty(GuiProp.Top, top);
 
         /// <summary>Sets the bottom position of the element.</summary>
-        public T Bottom(in RelativeSize bottom) => SetStyleProperty(GuiProp.Bottom, bottom);
+        public T Bottom(in RelativeUnit bottom) => SetStyleProperty(GuiProp.Bottom, bottom);
 
         /// <summary>Sets the minimum left position of the element.</summary>
-        public T MinLeft(in RelativeSize minLeft) => SetStyleProperty(GuiProp.MinLeft, minLeft);
+        public T MinLeft(in RelativeUnit minLeft) => SetStyleProperty(GuiProp.MinLeft, minLeft);
 
         /// <summary>Sets the maximum left position of the element.</summary>
-        public T MaxLeft(in RelativeSize maxLeft) => SetStyleProperty(GuiProp.MaxLeft, maxLeft);
+        public T MaxLeft(in RelativeUnit maxLeft) => SetStyleProperty(GuiProp.MaxLeft, maxLeft);
 
         /// <summary>Sets the minimum right position of the element.</summary>
-        public T MinRight(in RelativeSize minRight) => SetStyleProperty(GuiProp.MinRight, minRight);
+        public T MinRight(in RelativeUnit minRight) => SetStyleProperty(GuiProp.MinRight, minRight);
 
         /// <summary>Sets the maximum right position of the element.</summary>
-        public T MaxRight(in RelativeSize maxRight) => SetStyleProperty(GuiProp.MaxRight, maxRight);
+        public T MaxRight(in RelativeUnit maxRight) => SetStyleProperty(GuiProp.MaxRight, maxRight);
 
         /// <summary>Sets the minimum top position of the element.</summary>
-        public T MinTop(in RelativeSize minTop) => SetStyleProperty(GuiProp.MinTop, minTop);
+        public T MinTop(in RelativeUnit minTop) => SetStyleProperty(GuiProp.MinTop, minTop);
 
         /// <summary>Sets the maximum top position of the element.</summary>
-        public T MaxTop(in RelativeSize maxTop) => SetStyleProperty(GuiProp.MaxTop, maxTop);
+        public T MaxTop(in RelativeUnit maxTop) => SetStyleProperty(GuiProp.MaxTop, maxTop);
 
         /// <summary>Sets the minimum bottom position of the element.</summary>
-        public T MinBottom(in RelativeSize minBottom) => SetStyleProperty(GuiProp.MinBottom, minBottom);
+        public T MinBottom(in RelativeUnit minBottom) => SetStyleProperty(GuiProp.MinBottom, minBottom);
 
         /// <summary>Sets the maximum bottom position of the element.</summary>
-        public T MaxBottom(in RelativeSize maxBottom) => SetStyleProperty(GuiProp.MaxBottom, maxBottom);
+        public T MaxBottom(in RelativeUnit maxBottom) => SetStyleProperty(GuiProp.MaxBottom, maxBottom);
 
         /// <summary>Sets uniform margin on all sides.</summary>
-        public T Margin(in RelativeSize all) => Margin(all, all, all, all);
+        public T Margin(in RelativeUnit all) => Margin(all, all, all, all);
 
         /// <summary>Sets horizontal and vertical margins.</summary>
-        public T Margin(in RelativeSize horizontal, in RelativeSize vertical) =>
+        public T Margin(in RelativeUnit horizontal, in RelativeUnit vertical) =>
             Margin(horizontal, horizontal, vertical, vertical);
 
         /// <summary>Sets individual margins for each side.</summary>
-        public T Margin(in RelativeSize left, in RelativeSize right, in RelativeSize top, in RelativeSize bottom)
+        public T Margin(in RelativeUnit left, in RelativeUnit right, in RelativeUnit top, in RelativeUnit bottom)
         {
             SetStyleProperty(GuiProp.Left, left);
             SetStyleProperty(GuiProp.Right, right);
@@ -183,44 +183,44 @@ namespace Prowl.PaperUI
         }
 
         /// <summary>Sets the left padding for child elements.</summary>
-        public T ChildLeft(in RelativeSize childLeft) => SetStyleProperty(GuiProp.ChildLeft, childLeft);
+        public T ChildLeft(in RelativeUnit childLeft) => SetStyleProperty(GuiProp.ChildLeft, childLeft);
 
         /// <summary>Sets the right padding for child elements.</summary>
-        public T ChildRight(in RelativeSize childRight) => SetStyleProperty(GuiProp.ChildRight, childRight);
+        public T ChildRight(in RelativeUnit childRight) => SetStyleProperty(GuiProp.ChildRight, childRight);
 
         /// <summary>Sets the top padding for child elements.</summary>
-        public T ChildTop(in RelativeSize childTop) => SetStyleProperty(GuiProp.ChildTop, childTop);
+        public T ChildTop(in RelativeUnit childTop) => SetStyleProperty(GuiProp.ChildTop, childTop);
 
         /// <summary>Sets the bottom padding for child elements.</summary>
-        public T ChildBottom(in RelativeSize childBottom) => SetStyleProperty(GuiProp.ChildBottom, childBottom);
+        public T ChildBottom(in RelativeUnit childBottom) => SetStyleProperty(GuiProp.ChildBottom, childBottom);
 
         /// <summary>Sets the spacing between rows in a container.</summary>
-        public T RowBetween(in RelativeSize rowBetween) => SetStyleProperty(GuiProp.RowBetween, rowBetween);
+        public T RowBetween(in RelativeUnit rowBetween) => SetStyleProperty(GuiProp.RowBetween, rowBetween);
 
         /// <summary>Sets the spacing between columns in a container.</summary>
-        public T ColBetween(in RelativeSize colBetween) => SetStyleProperty(GuiProp.ColBetween, colBetween);
+        public T ColBetween(in RelativeUnit colBetween) => SetStyleProperty(GuiProp.ColBetween, colBetween);
 
         /// <summary>Sets the left border width.</summary>
-        public T BorderLeft(in RelativeSize borderLeft) => SetStyleProperty(GuiProp.BorderLeft, borderLeft);
+        public T BorderLeft(in RelativeUnit borderLeft) => SetStyleProperty(GuiProp.BorderLeft, borderLeft);
 
         /// <summary>Sets the right border width.</summary>
-        public T BorderRight(in RelativeSize borderRight) => SetStyleProperty(GuiProp.BorderRight, borderRight);
+        public T BorderRight(in RelativeUnit borderRight) => SetStyleProperty(GuiProp.BorderRight, borderRight);
 
         /// <summary>Sets the top border width.</summary>
-        public T BorderTop(in RelativeSize borderTop) => SetStyleProperty(GuiProp.BorderTop, borderTop);
+        public T BorderTop(in RelativeUnit borderTop) => SetStyleProperty(GuiProp.BorderTop, borderTop);
 
         /// <summary>Sets the bottom border width.</summary>
-        public T BorderBottom(in RelativeSize borderBottom) => SetStyleProperty(GuiProp.BorderBottom, borderBottom);
+        public T BorderBottom(in RelativeUnit borderBottom) => SetStyleProperty(GuiProp.BorderBottom, borderBottom);
 
         /// <summary>Sets uniform border width on all sides.</summary>
-        public T Border(in RelativeSize all) => Border(all, all, all, all);
+        public T Border(in RelativeUnit all) => Border(all, all, all, all);
 
         /// <summary>Sets horizontal and vertical border widths.</summary>
-        public T Border(in RelativeSize horizontal, in RelativeSize vertical) =>
+        public T Border(in RelativeUnit horizontal, in RelativeUnit vertical) =>
             Border(horizontal, horizontal, vertical, vertical);
 
         /// <summary>Sets individual border widths for each side.</summary>
-        public T Border(in RelativeSize left, in RelativeSize right, in RelativeSize top, in RelativeSize bottom)
+        public T Border(in RelativeUnit left, in RelativeUnit right, in RelativeUnit top, in RelativeUnit bottom)
         {
             SetStyleProperty(GuiProp.BorderLeft, left);
             SetStyleProperty(GuiProp.BorderRight, right);
@@ -245,7 +245,7 @@ namespace Prowl.PaperUI
         /// <summary>Sets the size of a Tab character in spaces.</summary>
         public T TabSize(int size) => SetStyleProperty(GuiProp.TabSize, size);
         /// <summary>Sets the size of text in pixels.</summary>
-        public T FontSize(in AbsoluteSize size) => SetStyleProperty(GuiProp.FontSize, size);
+        public T FontSize(in AbsoluteUnit size) => SetStyleProperty(GuiProp.FontSize, size);
 
         #endregion
 
@@ -1346,7 +1346,7 @@ namespace Prowl.PaperUI
 
         private TextLayoutSettings CreateTextLayoutSettings(TextInputSettings inputSettings, bool isMultiLine, double maxWidth = float.MaxValue)
         {
-            var fontSize = ((AbsoluteSize)_handle.Data._elementStyle.GetValue(GuiProp.FontSize)).ToPx(_paper._scalingSettings);
+            var fontSize = ((AbsoluteUnit)_handle.Data._elementStyle.GetValue(GuiProp.FontSize)).ToPx(_paper._scalingSettings);
             var letterSpacing = (double)_handle.Data._elementStyle.GetValue(GuiProp.LetterSpacing);
 
             var settings = TextLayoutSettings.Default;
@@ -1996,7 +1996,7 @@ namespace Prowl.PaperUI
                     canvas.SaveState();
                     canvas.TransformBy(Transform2D.CreateTranslation(-renderState.ScrollOffsetX, -renderState.ScrollOffsetY));
 
-                    var fontSize = ((AbsoluteSize)elHandle.Data._elementStyle.GetValue(GuiProp.FontSize)).ToPx(_paper._scalingSettings);
+                    var fontSize = ((AbsoluteUnit)elHandle.Data._elementStyle.GetValue(GuiProp.FontSize)).ToPx(_paper._scalingSettings);
 
                     // Draw text or placeholder
                     if (string.IsNullOrEmpty(renderState.Value))
@@ -2153,7 +2153,7 @@ namespace Prowl.PaperUI
             else
             {
                 // Single-line horizontal scrolling only
-                var fontSize = ((AbsoluteSize)_handle.Data._elementStyle.GetValue(GuiProp.FontSize)).ToPx(_paper._scalingSettings);
+                var fontSize = ((AbsoluteUnit)_handle.Data._elementStyle.GetValue(GuiProp.FontSize)).ToPx(_paper._scalingSettings);
                 var letterSpacing = (double)_handle.Data._elementStyle.GetValue(GuiProp.LetterSpacing);
                 var cursorPos = GetCursorPositionFromIndex(state.Value, settings.Font, fontSize, letterSpacing, state.CursorPosition);
 
