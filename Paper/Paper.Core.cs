@@ -251,7 +251,7 @@ namespace Prowl.PaperUI
             _canvas.SaveState();
 
             // Apply element transform
-            Transform2D styleTransform = data._elementStyle.GetTransformForElement(rect);
+            Transform2D styleTransform = data._elementStyle.GetTransformForElement(rect, _scalingSettings);
             _canvas.TransformBy(styleTransform);
 
             // Draw box shadow before background
@@ -331,7 +331,7 @@ namespace Prowl.PaperUI
 
             // Draw border if needed
             var borderColor = (Color)data._elementStyle.GetValue(GuiProp.BorderColor);
-            var borderWidth = (double)data._elementStyle.GetValue(GuiProp.BorderWidth);
+            var borderWidth = ((AbsoluteUnit)data._elementStyle.GetValue(GuiProp.BorderWidth)).ToPx(_scalingSettings);
             if (borderWidth > 0.0f && borderColor.A > 0)
             {
                 _canvas.BeginPath();

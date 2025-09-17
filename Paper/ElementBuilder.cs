@@ -52,7 +52,7 @@ namespace Prowl.PaperUI
         public T BorderColor(Color color) => SetStyleProperty(GuiProp.BorderColor, color);
 
         /// <summary>Sets the border width of the element.</summary>
-        public T BorderWidth(double width) => SetStyleProperty(GuiProp.BorderWidth, width);
+        public T BorderWidth(AbsoluteUnit width) => SetStyleProperty(GuiProp.BorderWidth, width);
 
         /// <summary>Sets a box shadow on the element.</summary>
         public T BoxShadow(double offsetX, double offsetY, double blur, double spread, Color color) =>
@@ -252,13 +252,13 @@ namespace Prowl.PaperUI
         #region Transform Properties
 
         /// <summary>Sets horizontal translation.</summary>
-        public T TranslateX(double x) => SetStyleProperty(GuiProp.TranslateX, x);
+        public T TranslateX(in AbsoluteUnit x) => SetStyleProperty(GuiProp.TranslateX, x);
 
         /// <summary>Sets vertical translation.</summary>
-        public T TranslateY(double y) => SetStyleProperty(GuiProp.TranslateY, y);
+        public T TranslateY(in AbsoluteUnit y) => SetStyleProperty(GuiProp.TranslateY, y);
 
         /// <summary>Sets both horizontal and vertical translation.</summary>
-        public T Translate(double x, double y)
+        public T Translate(in AbsoluteUnit x, in AbsoluteUnit y)
         {
             SetStyleProperty(GuiProp.TranslateX, x);
             return SetStyleProperty(GuiProp.TranslateY, y);

@@ -430,16 +430,16 @@ namespace Prowl.PaperUI
         /// <summary>
         /// Gets the complete transform for an element.
         /// </summary>
-        public Transform2D GetTransformForElement(Rect rect)
+        public Transform2D GetTransformForElement(Rect rect, ScalingSettings scalingSettings)
         {
             TransformBuilder builder = new TransformBuilder();
 
             // Set transform properties from the current values
             if (_currentValues.TryGetValue(GuiProp.TranslateX, out var translateX))
-                builder.SetTranslateX((double)translateX);
+                builder.SetTranslateX(((AbsoluteUnit)translateX).ToPx(scalingSettings));
 
             if (_currentValues.TryGetValue(GuiProp.TranslateY, out var translateY))
-                builder.SetTranslateY((double)translateY);
+                builder.SetTranslateY(((AbsoluteUnit)translateY).ToPx(scalingSettings));
 
             if (_currentValues.TryGetValue(GuiProp.ScaleX, out var scaleX))
                 builder.SetScaleX((double)scaleX);
@@ -666,7 +666,7 @@ namespace Prowl.PaperUI
             _defaultValues[(int)GuiProp.BackgroundColor] = Color.Transparent;
             _defaultValues[(int)GuiProp.BackgroundGradient] = Gradient.None;
             _defaultValues[(int)GuiProp.BorderColor] = Color.Transparent;
-            _defaultValues[(int)GuiProp.BorderWidth] = 0.0;
+            _defaultValues[(int)GuiProp.BorderWidth] = (AbsoluteUnit)UnitValue.Points(0);
             _defaultValues[(int)GuiProp.Rounded] = new Vector4(0, 0, 0, 0);
             _defaultValues[(int)GuiProp.BoxShadow] = BoxShadow.None;
 
@@ -706,8 +706,8 @@ namespace Prowl.PaperUI
             _defaultValues[(int)GuiProp.BorderBottom] = (RelativeUnit)UnitValue.Pixels(0);
 
             // Transform Properties
-            _defaultValues[(int)GuiProp.TranslateX] = 0.0;
-            _defaultValues[(int)GuiProp.TranslateY] = 0.0;
+            _defaultValues[(int)GuiProp.TranslateX] = (AbsoluteUnit)UnitValue.Points(0);
+            _defaultValues[(int)GuiProp.TranslateY] = (AbsoluteUnit)UnitValue.Points(0);
             _defaultValues[(int)GuiProp.ScaleX] = 1.0;
             _defaultValues[(int)GuiProp.ScaleY] = 1.0;
             _defaultValues[(int)GuiProp.Rotate] = 0.0;

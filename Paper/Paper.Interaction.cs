@@ -229,7 +229,7 @@ namespace Prowl.PaperUI
             // Calculate the combined transform
             Transform2D combinedTransform = parentTransform;
             var rect = new Rect(data.X, data.Y, data.LayoutWidth, data.LayoutHeight);
-            Transform2D styleTransform = data._elementStyle.GetTransformForElement(rect);
+            Transform2D styleTransform = data._elementStyle.GetTransformForElement(rect, _scalingSettings);
             combinedTransform.Premultiply(ref styleTransform);
 
             // Transform pointer position to element's local space
@@ -333,7 +333,7 @@ namespace Prowl.PaperUI
         private void PropagateEventToHookedChildren(in ElementHandle element, Action<ElementHandle> eventHandler)
         {
             ref ElementData data = ref element.Data;
-            
+
             // Early exit optimization - if this element has no hooked children, skip entirely
             if (!data.IsAHookedParent)
                 return;
@@ -376,7 +376,7 @@ namespace Prowl.PaperUI
                     if (data.OnLeave != null)
                     {
                         data.OnLeave(new ElementEvent(leftElement, data.LayoutRect, PointerPos));
-                        
+
                         // Propagate leave event to hooked children
                         PropagateEventToHookedChildren(leftElement, child => {
                             ref ElementData childData = ref child.Data;
@@ -400,7 +400,7 @@ namespace Prowl.PaperUI
                     if (!wasHovered && data.OnEnter != null)
                     {
                         data.OnEnter(new ElementEvent(hoveredElement, data.LayoutRect, PointerPos));
-                        
+
                         // Propagate enter event to hooked children
                         PropagateEventToHookedChildren(hoveredElement, child => {
                             ref ElementData childData = ref child.Data;
@@ -410,7 +410,7 @@ namespace Prowl.PaperUI
 
                     // Always trigger hover event
                     data.OnHover?.Invoke(new ElementEvent(hoveredElement, data.LayoutRect, PointerPos));
-                    
+
                     // Propagate hover event to hooked children
                     PropagateEventToHookedChildren(hoveredElement, child => {
                         ref ElementData childData = ref child.Data;
@@ -461,7 +461,7 @@ namespace Prowl.PaperUI
                             if (_focusedElementId != _activeElementId)
                             {
                                 data.OnFocusChange?.Invoke(new FocusEvent(activeElement, true));
-                                
+
                                 // Propagate focus gain to hooked children
                                 PropagateEventToHookedChildren(activeElement, child => {
                                     ref ElementData childData = ref child.Data;
@@ -475,7 +475,7 @@ namespace Prowl.PaperUI
                                     {
                                         ref ElementData oldData = ref oldFocusedElement.Data;
                                         oldData.OnFocusChange?.Invoke(new FocusEvent(oldFocusedElement, false));
-                                        
+
                                         // Propagate focus loss to hooked children
                                         PropagateEventToHookedChildren(oldFocusedElement, child => {
                                             ref ElementData childData = ref child.Data;
@@ -647,13 +647,13 @@ namespace Prowl.PaperUI
                         if (!wasDragging && distanceMoved >= DRAG_THRESHOLD)
                         {
                             data.OnDragStart?.Invoke(new DragEvent(activeElement, layoutRect, PointerPos, startPos, PointerDelta, PointerDelta));
-                            
+
                             // Propagate drag start to hooked children
                             PropagateEventToHookedChildren(activeElement, child => {
                                 ref ElementData childData = ref child.Data;
                                 childData.OnDragStart?.Invoke(new DragEvent(child, childData.LayoutRect, PointerPos, startPos, PointerDelta, PointerDelta));
                             });
-                            
+
                             BubbleEventToParents(activeElement, parent => {
                                 ref ElementData parentData = ref parent.Data;
                                 parentData.OnDragStart?.Invoke(new DragEvent(parent, parentData.LayoutRect, PointerPos, startPos, PointerDelta, PointerDelta));
@@ -664,13 +664,13 @@ namespace Prowl.PaperUI
 
                         // Handle continuous dragging
                         data.OnDragging?.Invoke(new DragEvent(activeElement, layoutRect, PointerPos, startPos, PointerDelta, PointerDelta));
-                        
+
                         // Propagate dragging to hooked children
                         PropagateEventToHookedChildren(activeElement, child => {
                             ref ElementData childData = ref child.Data;
                             childData.OnDragging?.Invoke(new DragEvent(child, childData.LayoutRect, PointerPos, startPos, PointerDelta, PointerDelta));
                         });
-                        
+
                         BubbleEventToParents(activeElement, parent => {
                             ref ElementData parentData = ref parent.Data;
                             parentData.OnDragging?.Invoke(new DragEvent(parent, parentData.LayoutRect, PointerPos, startPos, PointerDelta, PointerDelta));
@@ -738,7 +738,7 @@ namespace Prowl.PaperUI
         {
             // Get all elements with valid tab indices
             var tabbableElements = new List<(int tabIndex, ulong elementId)>();
-            
+
             // Brute force search through all elements
             for (int i = 0; i < _elementCount; i++)
             {
@@ -801,7 +801,7 @@ namespace Prowl.PaperUI
                     {
                         ref ElementData oldData = ref oldFocusedElement.Data;
                         oldData.OnFocusChange?.Invoke(new FocusEvent(oldFocusedElement, false));
-                        
+
                         // Propagate focus loss to hooked children
                         PropagateEventToHookedChildren(oldFocusedElement, child => {
                             ref ElementData childData = ref child.Data;
@@ -813,7 +813,7 @@ namespace Prowl.PaperUI
                 _focusedElementId = nextElementId;
                 ref ElementData nextData = ref nextElement.Data;
                 nextData.OnFocusChange?.Invoke(new FocusEvent(nextElement, true));
-                
+
                 // Propagate focus gain to hooked children
                 PropagateEventToHookedChildren(nextElement, child => {
                     ref ElementData childData = ref child.Data;
