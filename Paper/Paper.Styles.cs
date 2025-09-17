@@ -597,9 +597,9 @@ namespace Prowl.PaperUI
             {
                 return Vector4.Lerp(vector4Start, vector4End, t);
             }
-            else if (start is UnitValue unitStart && end is UnitValue unitEnd)
+            else if (start is RelativeSize unitStart && end is RelativeSize unitEnd)
             {
-                return UnitValue.Lerp(unitStart, unitEnd, t);
+                return RelativeSize.Lerp(unitStart, unitEnd, t);
             }
             else if (start is Transform2D transformStart && end is Transform2D transformEnd)
             {

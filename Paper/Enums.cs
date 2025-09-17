@@ -34,32 +34,6 @@ namespace Prowl.PaperUI
         ParentDirected
     }
 
-    /// <summary>
-    /// Defines measurement units for element dimensions and positioning.
-    /// </summary>
-    public enum Units
-    {
-        /// <summary>
-        /// Fixed pixel measurements.
-        /// </summary>
-        Pixels,
-
-        /// <summary>
-        /// Percentage of parent container's corresponding dimension.
-        /// </summary>
-        Percentage,
-
-        /// <summary>
-        /// Flexible sizing that distributes available space based on stretch factors.
-        /// </summary>
-        Stretch,
-
-        /// <summary>
-        /// Size is determined automatically based on content or other constraints.
-        /// </summary>
-        Auto
-    }
-
     public enum TextAlignment
     {
         Left,

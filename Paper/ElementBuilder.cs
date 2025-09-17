@@ -96,85 +96,85 @@ namespace Prowl.PaperUI
         public T AspectRatio(double ratio) => SetStyleProperty(GuiProp.AspectRatio, ratio);
 
         /// <summary>Sets both width and height to the same value.</summary>
-        public T Size(in UnitValue sizeUniform) => Size(sizeUniform, sizeUniform);
+        public T Size(in RelativeSize sizeUniform) => Size(sizeUniform, sizeUniform);
 
         /// <summary>Sets the width and height of the element.</summary>
-        public T Size(in UnitValue width, in UnitValue height)
+        public T Size(in RelativeSize width, in RelativeSize height)
         {
             SetStyleProperty(GuiProp.Width, width);
             return SetStyleProperty(GuiProp.Height, height);
         }
 
         /// <summary>Sets the width of the element.</summary>
-        public T Width(in UnitValue width) => SetStyleProperty(GuiProp.Width, width);
+        public T Width(in RelativeSize width) => SetStyleProperty(GuiProp.Width, width);
 
         /// <summary>Sets the height of the element.</summary>
-        public T Height(in UnitValue height) => SetStyleProperty(GuiProp.Height, height);
+        public T Height(in RelativeSize height) => SetStyleProperty(GuiProp.Height, height);
 
         /// <summary>Sets the minimum width of the element.</summary>
-        public T MinWidth(in UnitValue minWidth) => SetStyleProperty(GuiProp.MinWidth, minWidth);
+        public T MinWidth(in RelativeSize minWidth) => SetStyleProperty(GuiProp.MinWidth, minWidth);
 
         /// <summary>Sets the maximum width of the element.</summary>
-        public T MaxWidth(in UnitValue maxWidth) => SetStyleProperty(GuiProp.MaxWidth, maxWidth);
+        public T MaxWidth(in RelativeSize maxWidth) => SetStyleProperty(GuiProp.MaxWidth, maxWidth);
 
         /// <summary>Sets the minimum height of the element.</summary>
-        public T MinHeight(in UnitValue minHeight) => SetStyleProperty(GuiProp.MinHeight, minHeight);
+        public T MinHeight(in RelativeSize minHeight) => SetStyleProperty(GuiProp.MinHeight, minHeight);
 
         /// <summary>Sets the maximum height of the element.</summary>
-        public T MaxHeight(in UnitValue maxHeight) => SetStyleProperty(GuiProp.MaxHeight, maxHeight);
+        public T MaxHeight(in RelativeSize maxHeight) => SetStyleProperty(GuiProp.MaxHeight, maxHeight);
 
         /// <summary>Sets the position of the element from the left and top edges.</summary>
-        public T Position(in UnitValue left, in UnitValue top)
+        public T Position(in RelativeSize left, in RelativeSize top)
         {
             SetStyleProperty(GuiProp.Left, left);
             return SetStyleProperty(GuiProp.Top, top);
         }
 
         /// <summary>Sets the left position of the element.</summary>
-        public T Left(in UnitValue left) => SetStyleProperty(GuiProp.Left, left);
+        public T Left(in RelativeSize left) => SetStyleProperty(GuiProp.Left, left);
 
         /// <summary>Sets the right position of the element.</summary>
-        public T Right(in UnitValue right) => SetStyleProperty(GuiProp.Right, right);
+        public T Right(in RelativeSize right) => SetStyleProperty(GuiProp.Right, right);
 
         /// <summary>Sets the top position of the element.</summary>
-        public T Top(in UnitValue top) => SetStyleProperty(GuiProp.Top, top);
+        public T Top(in RelativeSize top) => SetStyleProperty(GuiProp.Top, top);
 
         /// <summary>Sets the bottom position of the element.</summary>
-        public T Bottom(in UnitValue bottom) => SetStyleProperty(GuiProp.Bottom, bottom);
+        public T Bottom(in RelativeSize bottom) => SetStyleProperty(GuiProp.Bottom, bottom);
 
         /// <summary>Sets the minimum left position of the element.</summary>
-        public T MinLeft(in UnitValue minLeft) => SetStyleProperty(GuiProp.MinLeft, minLeft);
+        public T MinLeft(in RelativeSize minLeft) => SetStyleProperty(GuiProp.MinLeft, minLeft);
 
         /// <summary>Sets the maximum left position of the element.</summary>
-        public T MaxLeft(in UnitValue maxLeft) => SetStyleProperty(GuiProp.MaxLeft, maxLeft);
+        public T MaxLeft(in RelativeSize maxLeft) => SetStyleProperty(GuiProp.MaxLeft, maxLeft);
 
         /// <summary>Sets the minimum right position of the element.</summary>
-        public T MinRight(in UnitValue minRight) => SetStyleProperty(GuiProp.MinRight, minRight);
+        public T MinRight(in RelativeSize minRight) => SetStyleProperty(GuiProp.MinRight, minRight);
 
         /// <summary>Sets the maximum right position of the element.</summary>
-        public T MaxRight(in UnitValue maxRight) => SetStyleProperty(GuiProp.MaxRight, maxRight);
+        public T MaxRight(in RelativeSize maxRight) => SetStyleProperty(GuiProp.MaxRight, maxRight);
 
         /// <summary>Sets the minimum top position of the element.</summary>
-        public T MinTop(in UnitValue minTop) => SetStyleProperty(GuiProp.MinTop, minTop);
+        public T MinTop(in RelativeSize minTop) => SetStyleProperty(GuiProp.MinTop, minTop);
 
         /// <summary>Sets the maximum top position of the element.</summary>
-        public T MaxTop(in UnitValue maxTop) => SetStyleProperty(GuiProp.MaxTop, maxTop);
+        public T MaxTop(in RelativeSize maxTop) => SetStyleProperty(GuiProp.MaxTop, maxTop);
 
         /// <summary>Sets the minimum bottom position of the element.</summary>
-        public T MinBottom(in UnitValue minBottom) => SetStyleProperty(GuiProp.MinBottom, minBottom);
+        public T MinBottom(in RelativeSize minBottom) => SetStyleProperty(GuiProp.MinBottom, minBottom);
 
         /// <summary>Sets the maximum bottom position of the element.</summary>
-        public T MaxBottom(in UnitValue maxBottom) => SetStyleProperty(GuiProp.MaxBottom, maxBottom);
+        public T MaxBottom(in RelativeSize maxBottom) => SetStyleProperty(GuiProp.MaxBottom, maxBottom);
 
         /// <summary>Sets uniform margin on all sides.</summary>
-        public T Margin(in UnitValue all) => Margin(all, all, all, all);
+        public T Margin(in RelativeSize all) => Margin(all, all, all, all);
 
         /// <summary>Sets horizontal and vertical margins.</summary>
-        public T Margin(in UnitValue horizontal, in UnitValue vertical) =>
+        public T Margin(in RelativeSize horizontal, in RelativeSize vertical) =>
             Margin(horizontal, horizontal, vertical, vertical);
 
         /// <summary>Sets individual margins for each side.</summary>
-        public T Margin(in UnitValue left, in UnitValue right, in UnitValue top, in UnitValue bottom)
+        public T Margin(in RelativeSize left, in RelativeSize right, in RelativeSize top, in RelativeSize bottom)
         {
             SetStyleProperty(GuiProp.Left, left);
             SetStyleProperty(GuiProp.Right, right);
@@ -183,44 +183,44 @@ namespace Prowl.PaperUI
         }
 
         /// <summary>Sets the left padding for child elements.</summary>
-        public T ChildLeft(in UnitValue childLeft) => SetStyleProperty(GuiProp.ChildLeft, childLeft);
+        public T ChildLeft(in RelativeSize childLeft) => SetStyleProperty(GuiProp.ChildLeft, childLeft);
 
         /// <summary>Sets the right padding for child elements.</summary>
-        public T ChildRight(in UnitValue childRight) => SetStyleProperty(GuiProp.ChildRight, childRight);
+        public T ChildRight(in RelativeSize childRight) => SetStyleProperty(GuiProp.ChildRight, childRight);
 
         /// <summary>Sets the top padding for child elements.</summary>
-        public T ChildTop(in UnitValue childTop) => SetStyleProperty(GuiProp.ChildTop, childTop);
+        public T ChildTop(in RelativeSize childTop) => SetStyleProperty(GuiProp.ChildTop, childTop);
 
         /// <summary>Sets the bottom padding for child elements.</summary>
-        public T ChildBottom(in UnitValue childBottom) => SetStyleProperty(GuiProp.ChildBottom, childBottom);
+        public T ChildBottom(in RelativeSize childBottom) => SetStyleProperty(GuiProp.ChildBottom, childBottom);
 
         /// <summary>Sets the spacing between rows in a container.</summary>
-        public T RowBetween(in UnitValue rowBetween) => SetStyleProperty(GuiProp.RowBetween, rowBetween);
+        public T RowBetween(in RelativeSize rowBetween) => SetStyleProperty(GuiProp.RowBetween, rowBetween);
 
         /// <summary>Sets the spacing between columns in a container.</summary>
-        public T ColBetween(in UnitValue colBetween) => SetStyleProperty(GuiProp.ColBetween, colBetween);
+        public T ColBetween(in RelativeSize colBetween) => SetStyleProperty(GuiProp.ColBetween, colBetween);
 
         /// <summary>Sets the left border width.</summary>
-        public T BorderLeft(in UnitValue borderLeft) => SetStyleProperty(GuiProp.BorderLeft, borderLeft);
+        public T BorderLeft(in RelativeSize borderLeft) => SetStyleProperty(GuiProp.BorderLeft, borderLeft);
 
         /// <summary>Sets the right border width.</summary>
-        public T BorderRight(in UnitValue borderRight) => SetStyleProperty(GuiProp.BorderRight, borderRight);
+        public T BorderRight(in RelativeSize borderRight) => SetStyleProperty(GuiProp.BorderRight, borderRight);
 
         /// <summary>Sets the top border width.</summary>
-        public T BorderTop(in UnitValue borderTop) => SetStyleProperty(GuiProp.BorderTop, borderTop);
+        public T BorderTop(in RelativeSize borderTop) => SetStyleProperty(GuiProp.BorderTop, borderTop);
 
         /// <summary>Sets the bottom border width.</summary>
-        public T BorderBottom(in UnitValue borderBottom) => SetStyleProperty(GuiProp.BorderBottom, borderBottom);
+        public T BorderBottom(in RelativeSize borderBottom) => SetStyleProperty(GuiProp.BorderBottom, borderBottom);
 
         /// <summary>Sets uniform border width on all sides.</summary>
-        public T Border(in UnitValue all) => Border(all, all, all, all);
+        public T Border(in RelativeSize all) => Border(all, all, all, all);
 
         /// <summary>Sets horizontal and vertical border widths.</summary>
-        public T Border(in UnitValue horizontal, in UnitValue vertical) =>
+        public T Border(in RelativeSize horizontal, in RelativeSize vertical) =>
             Border(horizontal, horizontal, vertical, vertical);
 
         /// <summary>Sets individual border widths for each side.</summary>
-        public T Border(in UnitValue left, in UnitValue right, in UnitValue top, in UnitValue bottom)
+        public T Border(in RelativeSize left, in RelativeSize right, in RelativeSize top, in RelativeSize bottom)
         {
             SetStyleProperty(GuiProp.BorderLeft, left);
             SetStyleProperty(GuiProp.BorderRight, right);
@@ -628,19 +628,19 @@ namespace Prowl.PaperUI
         public ElementBuilder HookToParent()
         {
             _handle.Data.IsHookedToParent = true;
-            
+
             // Mark the parent as having hooked children for optimization
             ElementHandle parent = _handle.GetParentHandle();
             if (parent.IsValid)
             {
                 parent.Data.IsAHookedParent = true;
             }
-            
+
             return this;
         }
 
         /// <summary>
-        /// Sets the tab index for keyboard navigation. 
+        /// Sets the tab index for keyboard navigation.
         /// Elements with lower tab indices are focused first when pressing Tab.
         /// Use -1 to exclude from tab navigation (default).
         /// </summary>
@@ -895,7 +895,7 @@ namespace Prowl.PaperUI
         ///     var textSize = MeasureText("My content", font, fontSize);
         ///     return (textSize.Width + padding * 2, textSize.Height + padding * 2);
         /// })
-        /// 
+        ///
         /// // Example: Aspect ratio sizing
         /// .ContentSizer((maxWidth, maxHeight) => {
         ///     const double aspectRatio = 16.0 / 9.0;
@@ -1201,19 +1201,19 @@ namespace Prowl.PaperUI
         {
             /// <summary>Font used to render the text</summary>
             public FontFile Font;
-            
+
             /// <summary>Color of the text</summary>
             public Color TextColor;
-            
+
             /// <summary>Placeholder text shown when the field is empty</summary>
             public string Placeholder;
-            
+
             /// <summary>Color of the placeholder text</summary>
             public Color PlaceholderColor;
-            
+
             /// <summary>Whether the input is read-only</summary>
             public bool ReadOnly;
-            
+
             /// <summary>Maximum number of characters allowed (0 = no limit)</summary>
             public int MaxLength;
 
@@ -1249,36 +1249,36 @@ namespace Prowl.PaperUI
             public bool IsMultiLine;
 
             public readonly bool HasSelection => SelectionStart >= 0 && SelectionEnd >= 0 && SelectionStart != SelectionEnd;
-            
+
             public void ClearSelection()
             {
                 SelectionStart = -1;
                 SelectionEnd = -1;
             }
-            
+
             public void DeleteSelection()
             {
                 if (!HasSelection) return;
-                
+
                 int start = Math.Min(SelectionStart, SelectionEnd);
                 int end = Math.Max(SelectionStart, SelectionEnd);
                 Value = Value.Remove(start, end - start);
                 CursorPosition = start;
                 ClearSelection();
             }
-            
+
             public void ClampValues()
             {
                 CursorPosition = Math.Clamp(CursorPosition, 0, Value.Length);
                 SelectionStart = SelectionStart < 0 ? -1 : Math.Clamp(SelectionStart, 0, Value.Length);
                 SelectionEnd = SelectionEnd < 0 ? -1 : Math.Clamp(SelectionEnd, 0, Value.Length);
             }
-            
+
             /// <summary>Gets the current line that contains the cursor</summary>
             public readonly int GetCursorLine()
             {
                 if (!IsMultiLine || string.IsNullOrEmpty(Value)) return 0;
-                
+
                 int line = 0;
                 for (int i = 0; i < CursorPosition && i < Value.Length; i++)
                 {
@@ -1286,30 +1286,30 @@ namespace Prowl.PaperUI
                 }
                 return line;
             }
-            
+
             /// <summary>Gets all lines in the text</summary>
             public readonly string[] GetLines()
             {
                 if (string.IsNullOrEmpty(Value)) return new[] { "" };
                 return Value.Split('\n');
             }
-            
+
             /// <summary>Gets the column position of the cursor within its line</summary>
             public readonly int GetCursorColumn()
             {
                 if (string.IsNullOrEmpty(Value)) return 0;
                 if (CursorPosition == 0) return 0;
-                
+
                 int lastNewline = Value.LastIndexOf('\n', Math.Min(CursorPosition - 1, Value.Length - 1));
                 return CursorPosition - (lastNewline + 1);
             }
-            
+
             /// <summary>Clamps scroll offsets to valid ranges for text input</summary>
             public void ClampScrollOffsets(double contentWidth, double contentHeight, double visibleWidth, double visibleHeight)
             {
                 double maxScrollX = Math.Max(0, contentWidth - visibleWidth);
                 double maxScrollY = Math.Max(0, contentHeight - visibleHeight);
-                
+
                 ScrollOffsetX = Math.Clamp(ScrollOffsetX, 0, maxScrollX);
                 ScrollOffsetY = Math.Clamp(ScrollOffsetY, 0, maxScrollY);
             }
@@ -1331,19 +1331,19 @@ namespace Prowl.PaperUI
                 IsFocused = false,
                 IsMultiLine = isMultiLine
             };
-            
+
             var state = _paper.GetElementStorage(_handle, "TextInputState", defaultState);
             state.IsFocused = _paper.IsElementFocused(_handle.Data.ID);
             state.IsMultiLine = isMultiLine; // Ensure consistency
             state.ClampValues();
             return state;
         }
-        
+
         private void SaveTextInputState(TextInputState state)
         {
             _paper.SetElementStorage(_handle, "TextInputState", state);
         }
-        
+
         private TextLayoutSettings CreateTextLayoutSettings(TextInputSettings inputSettings, bool isMultiLine, double maxWidth = float.MaxValue)
         {
             var fontSize = (double)_handle.Data._elementStyle.GetValue(GuiProp.FontSize);
@@ -1356,10 +1356,10 @@ namespace Prowl.PaperUI
             settings.Alignment = Scribe.TextAlignment.Left;
             settings.MaxWidth = (float)maxWidth;
             settings.WrapMode = (isMultiLine && inputSettings.DoWrap) ? Scribe.TextWrapMode.Wrap : TextWrapMode.NoWrap;
-            
+
             return settings;
         }
-        
+
         private bool IsShiftPressed() => _paper.IsKeyDown(PaperKey.LeftShift) || _paper.IsKeyDown(PaperKey.RightShift);
         private bool IsControlPressed() => _paper.IsKeyDown(PaperKey.LeftControl) || _paper.IsKeyDown(PaperKey.RightControl);
 
@@ -1369,21 +1369,21 @@ namespace Prowl.PaperUI
         private int FindPreviousWordStart(string text, int position)
         {
             if (string.IsNullOrEmpty(text) || position <= 0) return 0;
-            
+
             int pos = Math.Min(position - 1, text.Length - 1);
-            
+
             // Skip whitespace
             while (pos > 0 && char.IsWhiteSpace(text[pos]))
                 pos--;
-            
+
             // Skip word characters
             while (pos > 0 && !char.IsWhiteSpace(text[pos]))
                 pos--;
-            
+
             // Move to start of word if we stopped at whitespace
             if (pos > 0 && char.IsWhiteSpace(text[pos]))
                 pos++;
-                
+
             return pos;
         }
 
@@ -1393,17 +1393,17 @@ namespace Prowl.PaperUI
         private int FindNextWordEnd(string text, int position)
         {
             if (string.IsNullOrEmpty(text) || position >= text.Length) return text?.Length ?? 0;
-            
+
             int pos = position;
-            
+
             // Skip whitespace
             while (pos < text.Length && char.IsWhiteSpace(text[pos]))
                 pos++;
-            
+
             // Skip word characters
             while (pos < text.Length && !char.IsWhiteSpace(text[pos]))
                 pos++;
-                
+
             return pos;
         }
 
@@ -1414,40 +1414,40 @@ namespace Prowl.PaperUI
         {
             if (string.IsNullOrEmpty(text) || position < 0 || position >= text.Length)
                 return (position, position);
-            
+
             // If we're on whitespace, return the position as both start and end
             if (char.IsWhiteSpace(text[position]))
                 return (position, position);
-            
+
             int start = position;
             int end = position;
-            
+
             // Find start of word
             while (start > 0 && !char.IsWhiteSpace(text[start - 1]))
                 start--;
-            
+
             // Find end of word
             while (end < text.Length && !char.IsWhiteSpace(text[end]))
                 end++;
-                
+
             return (start, end);
         }
 
         private void MoveCursorVertical(ref TextInputState state, int direction, TextInputSettings settings)
         {
             if (!state.IsMultiLine) return;
-            
+
             var lines = state.GetLines();
             int currentLine = state.GetCursorLine();
             int targetLine = Math.Clamp(currentLine + direction, 0, lines.Length - 1);
-            
+
             if (targetLine == currentLine) return;
 
             int currentColumn = state.GetCursorColumn();
 
             // Move to the same column in the target line, or end of line if shorter
             int targetColumn = Math.Min(currentColumn, lines[targetLine].Length);
-            
+
             // Calculate new cursor position
             int newPosition = 0;
             for (int i = 0; i < targetLine; i++)
@@ -1458,7 +1458,7 @@ namespace Prowl.PaperUI
                     newPosition += 1;
             }
             newPosition += targetColumn;
-            
+
             if (IsShiftPressed())
             {
                 if (state.SelectionStart < 0) state.SelectionStart = state.CursorPosition;
@@ -1475,7 +1475,7 @@ namespace Prowl.PaperUI
         private bool ProcessKeyCommand(ref TextInputState state, PaperKey key, TextInputSettings settings)
         {
             bool valueChanged = false;
-            
+
             switch (key)
             {
                 case PaperKey.Backspace:
@@ -1491,7 +1491,7 @@ namespace Prowl.PaperUI
                         valueChanged = true;
                     }
                     break;
-                    
+
                 case PaperKey.Delete:
                     if (state.HasSelection)
                     {
@@ -1504,7 +1504,7 @@ namespace Prowl.PaperUI
                         valueChanged = true;
                     }
                     break;
-                    
+
                 case PaperKey.Left:
                     if (IsControlPressed())
                     {
@@ -1537,7 +1537,7 @@ namespace Prowl.PaperUI
                         state.ClearSelection();
                     }
                     break;
-                    
+
                 case PaperKey.Right:
                     if (IsControlPressed())
                     {
@@ -1570,7 +1570,7 @@ namespace Prowl.PaperUI
                         state.ClearSelection();
                     }
                     break;
-                    
+
                 case PaperKey.Home:
                     if (IsShiftPressed())
                     {
@@ -1584,7 +1584,7 @@ namespace Prowl.PaperUI
                         state.ClearSelection();
                     }
                     break;
-                    
+
                 case PaperKey.End:
                     if (IsShiftPressed())
                     {
@@ -1598,13 +1598,13 @@ namespace Prowl.PaperUI
                         state.ClearSelection();
                     }
                     break;
-                    
+
                 case PaperKey.A when IsControlPressed():
                     state.SelectionStart = 0;
                     state.SelectionEnd = state.Value.Length;
                     state.CursorPosition = state.SelectionEnd;
                     break;
-                    
+
                 case PaperKey.C when IsControlPressed() && state.HasSelection:
                     {
                         int start = Math.Min(state.SelectionStart, state.SelectionEnd);
@@ -1612,7 +1612,7 @@ namespace Prowl.PaperUI
                         _paper.SetClipboard(state.Value.Substring(start, end - start));
                     }
                     break;
-                    
+
                 case PaperKey.X when IsControlPressed() && state.HasSelection:
                     {
                         int start = Math.Min(state.SelectionStart, state.SelectionEnd);
@@ -1622,7 +1622,7 @@ namespace Prowl.PaperUI
                         valueChanged = true;
                     }
                     break;
-                    
+
                 case PaperKey.V when IsControlPressed():
                     {
                         string clipText = _paper.GetClipboard();
@@ -1631,7 +1631,7 @@ namespace Prowl.PaperUI
                             // For single-line, replace newlines with spaces
                             if (!state.IsMultiLine)
                                 clipText = clipText.Replace('\n', ' ').Replace('\r', ' ');
-                                
+
                             // Check max length
                             if (settings.MaxLength > 0)
                             {
@@ -1644,7 +1644,7 @@ namespace Prowl.PaperUI
                                 if (availableLength > 0 && clipText.Length > availableLength)
                                     clipText = clipText.Substring(0, availableLength);
                             }
-                            
+
                             if (!string.IsNullOrEmpty(clipText))
                             {
                                 if (state.HasSelection) state.DeleteSelection();
@@ -1661,7 +1661,7 @@ namespace Prowl.PaperUI
                     if (!settings.ReadOnly)
                     {
                         if (state.HasSelection) state.DeleteSelection();
-                        
+
                         // Check max length
                         if (settings.MaxLength == 0 || state.Value.Length < settings.MaxLength)
                         {
@@ -1671,10 +1671,10 @@ namespace Prowl.PaperUI
                         }
                     }
                     break;
-                    
+
                 case PaperKey.Enter when state.IsMultiLine:
                     if (state.HasSelection) state.DeleteSelection();
-                    
+
                     // Check max length
                     // Check max length and read-only
                     if (!settings.ReadOnly && (settings.MaxLength == 0 || state.Value.Length < settings.MaxLength))
@@ -1684,16 +1684,16 @@ namespace Prowl.PaperUI
                         valueChanged = true;
                     }
                     break;
-                    
+
                 case PaperKey.Up when state.IsMultiLine:
                     MoveCursorVertical(ref state, -1, settings);
                     break;
-                    
+
                 case PaperKey.Down when state.IsMultiLine:
                     MoveCursorVertical(ref state, 1, settings);
                     break;
             }
-            
+
             return valueChanged;
         }
 
@@ -1740,7 +1740,7 @@ namespace Prowl.PaperUI
             settings.TextColor = textColor ?? settings.TextColor;
             settings.Placeholder = placeholder;
             settings.PlaceholderColor = placeholderColor ?? settings.PlaceholderColor;
-            
+
             return CreateTextInput(value, settings, onChange, false, intID);
         }
 
@@ -1787,7 +1787,7 @@ namespace Prowl.PaperUI
             settings.TextColor = textColor ?? settings.TextColor;
             settings.Placeholder = placeholder;
             settings.PlaceholderColor = placeholderColor ?? settings.PlaceholderColor;
-            
+
             return CreateTextInput(value, settings, onChange, true, intID);
         }
 
@@ -1827,17 +1827,17 @@ namespace Prowl.PaperUI
             {
                 var currentState = LoadTextInputState(value, isMultiLine);
                 currentState.IsFocused = e.IsFocused;
-                
+
                 if (e.IsFocused)
                 {
                     currentState.CursorPosition = currentState.Value.Length;
                     currentState.ClearSelection();
                     EnsureCursorVisible(ref currentState, settings, isMultiLine);
                 }
-                
+
                 SaveTextInputState(currentState);
             });
-        
+
             // Handle mouse clicks for cursor positioning and Shift+Click range selection
             OnPress((ClickEvent e) =>
             {
@@ -1865,7 +1865,7 @@ namespace Prowl.PaperUI
                     currentState.CursorPosition = newPosition;
                     currentState.ClearSelection();
                 }
-                
+
                 EnsureCursorVisible(ref currentState, settings, isMultiLine);
                 SaveTextInputState(currentState);
             });
@@ -1891,7 +1891,7 @@ namespace Prowl.PaperUI
                     SaveTextInputState(currentState);
                 }
             });
-        
+
             // Handle dragging for text selection
             OnDragStart((DragEvent e) =>
             {
@@ -1899,28 +1899,28 @@ namespace Prowl.PaperUI
                 var dragPos = e.RelativePosition.x + currentState.ScrollOffsetX;
                 var dragPosY = isMultiLine ? e.RelativePosition.y + currentState.ScrollOffsetY : 0;
                 var pos = Math.Clamp(CalculateTextPosition(currentState.Value, settings, isMultiLine, dragPos, dragPosY), 0, currentState.Value.Length);
-                
+
                 currentState.CursorPosition = pos;
                 currentState.SelectionStart = pos;
                 currentState.SelectionEnd = pos;
                 EnsureCursorVisible(ref currentState, settings, isMultiLine);
                 SaveTextInputState(currentState);
             });
-        
+
             OnDragging((DragEvent e) =>
             {
                 var currentState = LoadTextInputState(value, isMultiLine);
                 if (currentState.SelectionStart < 0) return;
-                
+
                 // Auto-scroll when dragging near edges
                 const double edgeScrollSensitivity = 20.0;
                 const double scrollSpeed = 2.0;
-                
+
                 if (e.RelativePosition.x < edgeScrollSensitivity)
                     currentState.ScrollOffsetX = Math.Max(0, currentState.ScrollOffsetX - scrollSpeed);
                 else if (e.RelativePosition.x > e.ElementRect.width - edgeScrollSensitivity)
                     currentState.ScrollOffsetX += scrollSpeed;
-                
+
                 if (isMultiLine)
                 {
                     if (e.RelativePosition.y < edgeScrollSensitivity)
@@ -1928,58 +1928,58 @@ namespace Prowl.PaperUI
                     else if (e.RelativePosition.y > e.ElementRect.height - edgeScrollSensitivity)
                         currentState.ScrollOffsetY += scrollSpeed;
                 }
-                
+
                 // Clamp scroll offsets after auto-scroll
                 var layoutSettings = CreateTextLayoutSettings(settings, isMultiLine, e.ElementRect.width);
                 var textLayout = _paper.CreateLayout(currentState.Value, layoutSettings);
                 double visibleWidth = e.ElementRect.width;
                 double visibleHeight = e.ElementRect.height;
                 currentState.ClampScrollOffsets(textLayout.Size.X, textLayout.Size.Y, visibleWidth, visibleHeight);
-                
+
                 var dragPos = e.RelativePosition.x + currentState.ScrollOffsetX;
                 var dragPosY = isMultiLine ? e.RelativePosition.y + currentState.ScrollOffsetY : 0;
                 var pos = Math.Clamp(CalculateTextPosition(currentState.Value, settings, isMultiLine, dragPos, dragPosY), 0, currentState.Value.Length);
-                
+
                 currentState.CursorPosition = pos;
                 currentState.SelectionEnd = pos;
                 EnsureCursorVisible(ref currentState, settings, isMultiLine);
                 SaveTextInputState(currentState);
             });
-        
-            // Handle keyboard input  
+
+            // Handle keyboard input
             OnKeyPressed((KeyEvent e) =>
             {
                 var currentState = LoadTextInputState(value, isMultiLine);
                 if (!currentState.IsFocused) return;
-                
+
                 bool valueChanged = ProcessKeyCommand(ref currentState, e.Key, settings);
-                
+
                 EnsureCursorVisible(ref currentState, settings, isMultiLine);
                 SaveTextInputState(currentState);
-                
+
                 if (valueChanged)
                     onChange?.Invoke(currentState.Value);
             });
-        
+
             // Handle character input
             OnTextInput((TextInputEvent e) =>
             {
                 var currentState = LoadTextInputState(value, isMultiLine);
                 if (!currentState.IsFocused || char.IsControl(e.Character) || settings.ReadOnly) return;
-                
+
                 // Check max length
                 if (settings.MaxLength > 0 && currentState.Value.Length >= settings.MaxLength && !currentState.HasSelection)
                     return;
-                
+
                 if (currentState.HasSelection) currentState.DeleteSelection();
-                
+
                 // For single-line, don't allow newlines
                 if (!isMultiLine && (e.Character == '\n' || e.Character == '\r'))
                     return;
-                
+
                 currentState.Value = currentState.Value.Insert(currentState.CursorPosition, e.Character.ToString());
                 currentState.CursorPosition++;
-                
+
                 EnsureCursorVisible(ref currentState, settings, isMultiLine);
                 SaveTextInputState(currentState);
                 onChange?.Invoke(currentState.Value);
@@ -1992,7 +1992,7 @@ namespace Prowl.PaperUI
                 {
                     var renderState = LoadTextInputState(value, isMultiLine);
                     var layoutSettings = CreateTextLayoutSettings(settings, isMultiLine, r.width);
-                    
+
                     canvas.SaveState();
                     canvas.TransformBy(Transform2D.CreateTranslation(-renderState.ScrollOffsetX, -renderState.ScrollOffsetY));
 
@@ -2007,37 +2007,37 @@ namespace Prowl.PaperUI
                     {
                         canvas.DrawText(renderState.Value, (float)(r.x), (float)r.y, settings.TextColor, layoutSettings);
                     }
-                    
+
                     // Draw selection and cursor if focused
                     if (renderState.IsFocused)
                     {
                         _paper.CaptureKeyboard();
-                        
+
                         // Draw selection background
                         if (renderState.HasSelection)
                         {
                             int start = Math.Min(renderState.SelectionStart, renderState.SelectionEnd);
                             int end = Math.Max(renderState.SelectionStart, renderState.SelectionEnd);
-                            
+
                             var textLayout = _paper.CreateLayout(renderState.Value, layoutSettings);
                             var startPos = textLayout.GetCursorPosition(start);
                             var endPos = textLayout.GetCursorPosition(end);
-                            
+
                             canvas.SetFillColor(Color.FromArgb(100, 100, 150, 255));
-                            
+
                             if (isMultiLine && Math.Abs(endPos.Y - startPos.Y) > fontSize / 2)
                             {
                                 // Multi-line selection: Draw rectangles for each line
                                 double lineHeight = fontSize * layoutSettings.LineHeight;
                                 double currentY = startPos.Y;
-                                
+
                                 // Get line indices from Y positions
                                 int startLineIndex = (int)(startPos.Y / lineHeight);
                                 int endLineIndex = (int)(endPos.Y / lineHeight);
 
                                 // First line: from start position to end of line
                                 double firstLineWidth = startLineIndex < textLayout.Lines.Count ? textLayout.Lines[startLineIndex].Width : 0;
-                                
+
                                 canvas.BeginPath();
                                 canvas.RoundedRect(
                                     r.x + startPos.X,
@@ -2046,14 +2046,14 @@ namespace Prowl.PaperUI
                                     lineHeight,
                                     2, 2, 2, 2);
                                 canvas.Fill();
-                                
+
                                 // Middle lines: use actual line widths from textLayout
                                 currentY += lineHeight;
                                 int currentLineIndex = startLineIndex + 1;
                                 while (currentY < endPos.Y && currentLineIndex < textLayout.Lines.Count)
                                 {
                                     float lineWidth = textLayout.Lines[currentLineIndex].Width;
-                                    
+
                                     canvas.BeginPath();
                                     canvas.RoundedRect(
                                         r.x,
@@ -2065,7 +2065,7 @@ namespace Prowl.PaperUI
                                     currentY += lineHeight;
                                     currentLineIndex++;
                                 }
-                                
+
                                 // Last line: from start of line to end position
                                 if (endPos.X > 0)
                                 {
@@ -2084,15 +2084,15 @@ namespace Prowl.PaperUI
                                 // Single-line selection: Draw one rectangle
                                 canvas.BeginPath();
                                 canvas.RoundedRect(
-                                    r.x + startPos.X, 
-                                    r.y + startPos.Y, 
+                                    r.x + startPos.X,
+                                    r.y + startPos.Y,
                                     endPos.X - startPos.X,
-                                    fontSize, 
+                                    fontSize,
                                     2, 2, 2, 2);
                                 canvas.Fill();
                             }
                         }
-                        
+
                         // Draw blinking cursor
                         if ((int)(_paper.Time * 2) % 2 == 0)
                         {
@@ -2100,7 +2100,7 @@ namespace Prowl.PaperUI
                             var cursorPos = textLayout.GetCursorPosition(renderState.CursorPosition);
                             double cursorX = r.x + cursorPos.X;
                             double cursorY = r.y + cursorPos.Y;
-                            
+
                             canvas.BeginPath();
                             canvas.MoveTo(cursorX, cursorY);
                             canvas.LineTo(cursorX, cursorY + fontSize);
@@ -2109,16 +2109,16 @@ namespace Prowl.PaperUI
                             canvas.Stroke();
                         }
                     }
-                    
+
                     canvas.RestoreState();
                 });
             });
 
             return this;
         }
-        
+
         // Helper methods for text field functionality
-        
+
         /// <summary>
         /// Ensures the cursor is visible by adjusting scroll position if needed.
         /// </summary>
@@ -2129,18 +2129,18 @@ namespace Prowl.PaperUI
                 // For multi-line, we need both horizontal and vertical scrolling
                 var textLayout = _paper.CreateLayout(state.Value, CreateTextLayoutSettings(settings, true, _handle.Data.LayoutWidth));
                 var cursorPos = textLayout.GetCursorPosition(state.CursorPosition);
-                
+
                 double visibleWidth = _handle.Data.LayoutWidth;
                 double visibleHeight = _handle.Data.LayoutHeight;
-                
+
                 const double margin = 10.0;
-                
+
                 // Horizontal scrolling
                 if (cursorPos.X < state.ScrollOffsetX + margin)
                     state.ScrollOffsetX = Math.Max(0, cursorPos.X - margin);
                 else if (cursorPos.X > state.ScrollOffsetX + visibleWidth - margin)
                     state.ScrollOffsetX = cursorPos.X - visibleWidth + margin;
-                
+
                 // Vertical scrolling
                 if (cursorPos.Y < state.ScrollOffsetY + margin)
                     state.ScrollOffsetY = Math.Max(0, cursorPos.Y - margin);
@@ -2156,10 +2156,10 @@ namespace Prowl.PaperUI
                 var fontSize = (double)_handle.Data._elementStyle.GetValue(GuiProp.FontSize);
                 var letterSpacing = (double)_handle.Data._elementStyle.GetValue(GuiProp.FontSize);
                 var cursorPos = GetCursorPositionFromIndex(state.Value, settings.Font, fontSize, letterSpacing, state.CursorPosition);
-                
+
                 double visibleWidth = _handle.Data.LayoutWidth;
                 const double margin = 20.0;
-                
+
                 if (cursorPos.x < state.ScrollOffsetX + margin)
                     state.ScrollOffsetX = Math.Max(0, cursorPos.x - margin);
                 else if (cursorPos.x > state.ScrollOffsetX + visibleWidth - margin)
@@ -2170,7 +2170,7 @@ namespace Prowl.PaperUI
                 state.ClampScrollOffsets(textSize.x, textSize.y, visibleWidth, _handle.Data.LayoutHeight);
             }
         }
-        
+
         /// <summary>
         /// Calculates the closest text position based on coordinates using TextLayout.
         /// </summary>
@@ -2181,7 +2181,7 @@ namespace Prowl.PaperUI
             var textLayout = _paper.CreateLayout(text, CreateTextLayoutSettings(settings, isMultiLine, maxWidth));
             return textLayout.GetCursorIndex(new Vector2(x, y));
         }
-        
+
         /// <summary>
         /// Calculates the cursor position for a specific character index using TextLayout.
         /// </summary>
@@ -2196,7 +2196,7 @@ namespace Prowl.PaperUI
             var textLayout = _paper.CreateLayout(text, settings);
             return textLayout.GetCursorPosition(index);
         }
-        
+
         #endregion
 
         /// <summary>

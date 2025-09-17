@@ -714,22 +714,22 @@ namespace Prowl.PaperUI
         /// <summary>
         /// Creates a stretch unit value with the specified factor.
         /// </summary>
-        public UnitValue Stretch(double factor = 1f) => UnitValue.Stretch(factor);
+        public RelativeSize Stretch(double factor = 1f) => UnitValue.Stretch(factor);
 
         /// <summary>
         /// Creates a pixel-based unit value.
         /// </summary>
-        public UnitValue Pixels(double value) => UnitValue.Pixels(value);
+        public RelativeSize Pixels(double value) => UnitValue.Pixels(value);
 
         /// <summary>
         /// Creates a percentage-based unit value with optional pixel offset.
         /// </summary>
-        public UnitValue Percent(double value, double pixelOffset = 0f) => UnitValue.Percentage(value, pixelOffset);
+        public RelativeSize Percent(double value, double pixelOffset = 0f) => UnitValue.Percentage(value, pixelOffset);
 
         /// <summary>
         /// Creates an auto-sized unit value.
         /// </summary>
-        public UnitValue Auto => UnitValue.Auto;
+        public RelativeSize Auto => UnitValue.Auto;
 
         #endregion
     }
