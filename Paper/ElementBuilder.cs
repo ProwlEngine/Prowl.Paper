@@ -1913,8 +1913,8 @@ namespace Prowl.PaperUI
                 if (currentState.SelectionStart < 0) return;
 
                 // Auto-scroll when dragging near edges
-                const double edgeScrollSensitivity = 20.0;
-                const double scrollSpeed = 2.0;
+                double edgeScrollSensitivity = 20.0 * _paper._scalingSettings.ContentScale;
+                double scrollSpeed = 2.0 * _paper._scalingSettings.ContentScale;
 
                 if (e.RelativePosition.x < edgeScrollSensitivity)
                     currentState.ScrollOffsetX = Math.Max(0, currentState.ScrollOffsetX - scrollSpeed);
@@ -2133,7 +2133,7 @@ namespace Prowl.PaperUI
                 double visibleWidth = _handle.Data.LayoutWidth;
                 double visibleHeight = _handle.Data.LayoutHeight;
 
-                const double margin = 10.0;
+                double margin = 10.0 * _paper._scalingSettings.ContentScale;
 
                 // Horizontal scrolling
                 if (cursorPos.X < state.ScrollOffsetX + margin)
@@ -2158,7 +2158,7 @@ namespace Prowl.PaperUI
                 var cursorPos = GetCursorPositionFromIndex(state.Value, settings.Font, fontSize, letterSpacing, state.CursorPosition);
 
                 double visibleWidth = _handle.Data.LayoutWidth;
-                const double margin = 20.0;
+                double margin = 20.0 * _paper._scalingSettings.ContentScale;
 
                 if (cursorPos.x < state.ScrollOffsetX + margin)
                     state.ScrollOffsetX = Math.Max(0, cursorPos.x - margin);
