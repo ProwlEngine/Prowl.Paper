@@ -116,15 +116,36 @@ namespace Prowl.PaperUI.LayoutEngine
 
     /// <summary>
     /// Represents a value with a unit type for UI layout measurements.
-    /// Supports pixels and points.
+    /// Supports pixels and points with interpolation capabilities.
     /// </summary>
     public struct AbsoluteUnit : IEquatable<AbsoluteUnit>
     {
+        /// <summary>
+        /// Helper class for interpolation between two AbsoluteUnit instances.
+        /// Using a simplified class approach to avoid struct cycles.
+        /// </summary>
+        private class LerpData
+        {
+            public readonly AbsoluteUnit Start;
+            public readonly AbsoluteUnit End;
+            public readonly double Progress;
+
+            public LerpData(AbsoluteUnit start, AbsoluteUnit end, double progress)
+            {
+                Start = start;
+                End = end;
+                Progress = progress;
+            }
+        }
+
         /// <summary>The unit type of this value</summary>
         public AbsoluteUnits Type { get; set; } = AbsoluteUnits.Points;
 
         /// <summary>The numeric value in the specified units</summary>
         public double Value { get; set; } = 0f;
+
+        /// <summary>Data for interpolation between two AbsoluteUnits (null when not interpolating)</summary>
+        private LerpData? _lerpData = null;
 
         /// <summary>
         /// Creates a default AbsoluteUnit with Points units.
@@ -159,11 +180,50 @@ namespace Prowl.PaperUI.LayoutEngine
         /// <returns>Size in pixels</returns>
         public readonly double ToPx(in ScalingSettings scalingSettings)
         {
+            // Handle interpolation if active
+            if (_lerpData != null)
+            {
+                var startPx = _lerpData.Start.ToPx(scalingSettings);
+                var endPx = _lerpData.End.ToPx(scalingSettings);
+                return startPx + (endPx - startPx) * _lerpData.Progress;
+            }
+
             return Type switch {
                 AbsoluteUnits.Pixels => Value,
                 AbsoluteUnits.Points => Value * scalingSettings.PointUnitScale,
                 _ => throw new ArgumentOutOfRangeException()
             };
+        }
+
+        /// <summary>
+        /// Linearly interpolates between two AbsoluteUnit instances.
+        /// In reality, it creates a new AbsoluteUnit with special interpolation data which is calculated when ToPx is called.
+        /// </summary>
+        /// <param name="a">Starting value</param>
+        /// <param name="b">Ending value</param>
+        /// <param name="blendFactor">Interpolation factor (0.0 to 1.0)</param>
+        /// <returns>Interpolated AbsoluteUnit</returns>
+        public static AbsoluteUnit Lerp(in AbsoluteUnit a, in AbsoluteUnit b, double blendFactor)
+        {
+            // Ensure blend factor is between 0 and 1
+            blendFactor = Math.Clamp(blendFactor, 0f, 1f);
+
+            // If units are the same, we can blend directly
+            if (a.Type == b.Type)
+            {
+                return new AbsoluteUnit(
+                    a.Type,
+                    a.Value + (b.Value - a.Value) * blendFactor
+                );
+            }
+
+            // If units are different, use interpolation data
+            var result = new AbsoluteUnit {
+                Type = a.Type,
+                Value = a.Value,
+                _lerpData = new LerpData(a, b, blendFactor)
+            };
+            return result;
         }
 
         #region Implicit Conversions
@@ -223,7 +283,22 @@ namespace Prowl.PaperUI.LayoutEngine
 
         public readonly bool Equals(AbsoluteUnit other)
         {
-            return Type == other.Type && Value.Equals(other.Value);
+            // First, check the basic properties
+            bool basicPropertiesEqual = Type == other.Type &&
+                                        Value.Equals(other.Value);
+
+            // If either value isn't interpolating, they're equal only if both aren't
+            if (_lerpData is null || other._lerpData is null)
+                return basicPropertiesEqual && _lerpData is null && other._lerpData is null;
+
+            // Both values are interpolating – compare their interpolation data safely
+            var thisLerp = _lerpData;
+            var otherLerp = other._lerpData;
+            bool lerpPropsEqual = thisLerp.Start.Equals(otherLerp.Start) &&
+                                  thisLerp.End.Equals(otherLerp.End) &&
+                                  thisLerp.Progress.Equals(otherLerp.Progress);
+
+            return basicPropertiesEqual && lerpPropsEqual;
         }
 
         /// <summary>
