@@ -27,6 +27,7 @@ namespace Prowl.PaperUI
         private ICanvasRenderer _renderer;
         private double _width;
         private double _height;
+        private ScalingSettings _scalingSettings;
         private Stopwatch _timer = new();
 
         // Events
@@ -90,6 +91,14 @@ namespace Prowl.PaperUI
         {
             _width = width;
             _height = height;
+        }
+
+        /// <summary>
+        /// Sets the scaling factor applied to Points units.
+        /// </summary>
+        public void SetPointUnitScale(double pointUnitScale)
+        {
+            _scalingSettings.PointUnitScale = pointUnitScale;
         }
 
         public void AddFallbackFont(FontFile font) => _canvas.AddFallbackFont(font);

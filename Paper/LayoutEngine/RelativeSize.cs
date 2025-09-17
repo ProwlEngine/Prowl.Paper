@@ -2,13 +2,13 @@
 
 namespace Prowl.PaperUI.LayoutEngine
 {
-    public readonly struct ScalingSettings
+    public struct ScalingSettings
     {
         /// <summary>
         /// The scaling factor applied to point units.
         /// Eg: A value of 2 means that each point is equal to 2 pixels.
         /// </summary>
-        public readonly float PointUnitScale = 1;
+        public double PointUnitScale = 1;
 
         public ScalingSettings() { }
     }
