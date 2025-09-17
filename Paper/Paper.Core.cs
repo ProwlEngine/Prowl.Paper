@@ -97,9 +97,9 @@ namespace Prowl.PaperUI
         /// <summary>
         /// Sets the scaling factor applied to Points units.
         /// </summary>
-        public void SetPointUnitScale(double pointUnitScale)
+        public void SetContentScale(double pointUnitScale)
         {
-            _scalingSettings.PointUnitScale = pointUnitScale;
+            _scalingSettings.ContentScale = pointUnitScale;
         }
 
         public void AddFallbackFont(FontFile font) => _canvas.AddFallbackFont(font);

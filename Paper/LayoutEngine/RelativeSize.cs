@@ -48,7 +48,7 @@ namespace Prowl.PaperUI.LayoutEngine
         /// The scaling factor applied to point units.
         /// Eg: A value of 2 means that each point is equal to 2 pixels.
         /// </summary>
-        public double PointUnitScale = 1;
+        public double ContentScale = 1;
 
         public ScalingSettings() { }
     }
@@ -206,7 +206,7 @@ namespace Prowl.PaperUI.LayoutEngine
 
             return Type switch {
                 AbsoluteUnits.Pixels => Value,
-                AbsoluteUnits.Points => Value * scalingSettings.PointUnitScale,
+                AbsoluteUnits.Points => Value * scalingSettings.ContentScale,
                 _ => throw new ArgumentOutOfRangeException()
             };
         }
@@ -430,7 +430,7 @@ namespace Prowl.PaperUI.LayoutEngine
             // Convert based on unit type
             return Type switch {
                 RelativeUnits.Pixels => Value,
-                RelativeUnits.Points => Value * scalingSettings.PointUnitScale,
+                RelativeUnits.Points => Value * scalingSettings.ContentScale,
                 RelativeUnits.Percentage => ((Value / 100f) * parentValue) + PercentPixelOffset,
                 _ => defaultValue
             };
