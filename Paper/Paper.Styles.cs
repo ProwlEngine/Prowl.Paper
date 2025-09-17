@@ -674,24 +674,24 @@ namespace Prowl.PaperUI
             _defaultValues[(int)GuiProp.AspectRatio] = -1.0;
             _defaultValues[(int)GuiProp.Width] = UnitValue.Stretch();
             _defaultValues[(int)GuiProp.Height] = UnitValue.Stretch();
-            _defaultValues[(int)GuiProp.MinWidth] = UnitValue.Pixels(0);
-            _defaultValues[(int)GuiProp.MaxWidth] = UnitValue.Pixels(double.MaxValue);
-            _defaultValues[(int)GuiProp.MinHeight] = UnitValue.Pixels(0);
-            _defaultValues[(int)GuiProp.MaxHeight] = UnitValue.Pixels(double.MaxValue);
+            _defaultValues[(int)GuiProp.MinWidth] = (RelativeSize)UnitValue.Pixels(0);
+            _defaultValues[(int)GuiProp.MaxWidth] = (RelativeSize)UnitValue.Pixels(double.MaxValue);
+            _defaultValues[(int)GuiProp.MinHeight] = (RelativeSize)UnitValue.Pixels(0);
+            _defaultValues[(int)GuiProp.MaxHeight] = (RelativeSize)UnitValue.Pixels(double.MaxValue);
 
             // Positioning Properties
             _defaultValues[(int)GuiProp.Left] = UnitValue.Auto;
             _defaultValues[(int)GuiProp.Right] = UnitValue.Auto;
             _defaultValues[(int)GuiProp.Top] = UnitValue.Auto;
             _defaultValues[(int)GuiProp.Bottom] = UnitValue.Auto;
-            _defaultValues[(int)GuiProp.MinLeft] = UnitValue.Pixels(0);
-            _defaultValues[(int)GuiProp.MaxLeft] = UnitValue.Pixels(double.MaxValue);
-            _defaultValues[(int)GuiProp.MinRight] = UnitValue.Pixels(0);
-            _defaultValues[(int)GuiProp.MaxRight] = UnitValue.Pixels(double.MaxValue);
-            _defaultValues[(int)GuiProp.MinTop] = UnitValue.Pixels(0);
-            _defaultValues[(int)GuiProp.MaxTop] = UnitValue.Pixels(double.MaxValue);
-            _defaultValues[(int)GuiProp.MinBottom] = UnitValue.Pixels(0);
-            _defaultValues[(int)GuiProp.MaxBottom] = UnitValue.Pixels(double.MaxValue);
+            _defaultValues[(int)GuiProp.MinLeft] = (RelativeSize)UnitValue.Pixels(0);
+            _defaultValues[(int)GuiProp.MaxLeft] = (RelativeSize)UnitValue.Pixels(double.MaxValue);
+            _defaultValues[(int)GuiProp.MinRight] = (RelativeSize)UnitValue.Pixels(0);
+            _defaultValues[(int)GuiProp.MaxRight] = (RelativeSize)UnitValue.Pixels(double.MaxValue);
+            _defaultValues[(int)GuiProp.MinTop] = (RelativeSize)UnitValue.Pixels(0);
+            _defaultValues[(int)GuiProp.MaxTop] = (RelativeSize)UnitValue.Pixels(double.MaxValue);
+            _defaultValues[(int)GuiProp.MinBottom] = (RelativeSize)UnitValue.Pixels(0);
+            _defaultValues[(int)GuiProp.MaxBottom] = (RelativeSize)UnitValue.Pixels(double.MaxValue);
 
             // Child Layout Properties
             _defaultValues[(int)GuiProp.ChildLeft] = UnitValue.Auto;
@@ -700,10 +700,10 @@ namespace Prowl.PaperUI
             _defaultValues[(int)GuiProp.ChildBottom] = UnitValue.Auto;
             _defaultValues[(int)GuiProp.RowBetween] = UnitValue.Auto;
             _defaultValues[(int)GuiProp.ColBetween] = UnitValue.Auto;
-            _defaultValues[(int)GuiProp.BorderLeft] = UnitValue.Pixels(0);
-            _defaultValues[(int)GuiProp.BorderRight] = UnitValue.Pixels(0);
-            _defaultValues[(int)GuiProp.BorderTop] = UnitValue.Pixels(0);
-            _defaultValues[(int)GuiProp.BorderBottom] = UnitValue.Pixels(0);
+            _defaultValues[(int)GuiProp.BorderLeft] = (RelativeSize)UnitValue.Pixels(0);
+            _defaultValues[(int)GuiProp.BorderRight] = (RelativeSize)UnitValue.Pixels(0);
+            _defaultValues[(int)GuiProp.BorderTop] = (RelativeSize)UnitValue.Pixels(0);
+            _defaultValues[(int)GuiProp.BorderBottom] = (RelativeSize)UnitValue.Pixels(0);
 
             // Transform Properties
             _defaultValues[(int)GuiProp.TranslateX] = 0.0;

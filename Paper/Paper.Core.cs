@@ -27,7 +27,7 @@ namespace Prowl.PaperUI
         private ICanvasRenderer _renderer;
         private double _width;
         private double _height;
-        private ScalingSettings _scalingSettings;
+        private ScalingSettings _scalingSettings = new ScalingSettings();
         private Stopwatch _timer = new();
 
         // Events
@@ -150,7 +150,7 @@ namespace Prowl.PaperUI
 
             // Layout phase
             OnEndOfFramePreLayout?.Invoke();
-            ElementLayout.Layout(_rootElementHandle, this);
+            ElementLayout.Layout(_rootElementHandle, this, _scalingSettings);
             OnEndOfFramePostLayout?.Invoke();
 
             // Post-layout callbacks

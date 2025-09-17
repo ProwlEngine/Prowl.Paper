@@ -85,8 +85,8 @@ namespace Prowl.PaperUI
             _rootElementIndex = rootHandle.Index;
 
             ref var rootData = ref rootHandle.Data;
-            rootData._elementStyle.SetDirectValue(GuiProp.Width, UnitValue.Pixels(width));
-            rootData._elementStyle.SetDirectValue(GuiProp.Height, UnitValue.Pixels(height));
+            rootData._elementStyle.SetDirectValue(GuiProp.Width, (RelativeSize)UnitValue.Pixels(width));
+            rootData._elementStyle.SetDirectValue(GuiProp.Height, (RelativeSize)UnitValue.Pixels(height));
         }
 
         internal void ClearElements()
