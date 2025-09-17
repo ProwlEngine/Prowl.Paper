@@ -52,7 +52,7 @@ namespace Prowl.PaperUI
         public T BorderColor(Color color) => SetStyleProperty(GuiProp.BorderColor, color);
 
         /// <summary>Sets the border width of the element.</summary>
-        public T BorderWidth(AbsoluteUnit width) => SetStyleProperty(GuiProp.BorderWidth, width);
+        public T BorderWidth(in AbsoluteUnit width) => SetStyleProperty(GuiProp.BorderWidth, width);
 
         /// <summary>Sets a box shadow on the element.</summary>
         public T BoxShadow(double offsetX, double offsetY, double blur, double spread, Color color) =>

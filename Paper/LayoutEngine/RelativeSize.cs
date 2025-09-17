@@ -10,7 +10,7 @@ namespace Prowl.PaperUI.LayoutEngine
         public AbsoluteUnit BottomRight;
         public AbsoluteUnit BottomLeft;
 
-        public Rounding(AbsoluteUnit topLeft, AbsoluteUnit topRight, AbsoluteUnit bottomRight, AbsoluteUnit bottomLeft)
+        public Rounding(in AbsoluteUnit topLeft, in AbsoluteUnit topRight, in AbsoluteUnit bottomRight, in AbsoluteUnit bottomLeft)
         {
             TopLeft = topLeft;
             TopRight = topRight;
