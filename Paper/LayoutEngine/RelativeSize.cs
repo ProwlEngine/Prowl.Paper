@@ -24,6 +24,22 @@ namespace Prowl.PaperUI.LayoutEngine
                 TopLeft.ToPx(scalingSettings), TopRight.ToPx(scalingSettings),
                 BottomRight.ToPx(scalingSettings), BottomLeft.ToPx(scalingSettings));
         }
+
+        /// <summary>
+        /// Linearly interpolates between two Rounding instances.
+        /// </summary>
+        /// <param name="a">Starting value</param>
+        /// <param name="b">Ending value</param>
+        /// <param name="blendFactor">Interpolation factor (0.0 to 1.0)</param>
+        /// <returns>Interpolated Rounding</returns>
+        public static Rounding Lerp(in Rounding a, in Rounding b, double blendFactor)
+        {
+            return new Rounding(
+                AbsoluteUnit.Lerp(a.TopLeft, b.TopLeft, blendFactor),
+                AbsoluteUnit.Lerp(a.TopRight, b.TopRight, blendFactor),
+                AbsoluteUnit.Lerp(a.BottomRight, b.BottomRight, blendFactor),
+                AbsoluteUnit.Lerp(a.BottomLeft, b.BottomLeft, blendFactor));
+        }
     }
 
     public struct ScalingSettings

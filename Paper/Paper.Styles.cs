@@ -621,6 +621,10 @@ namespace Prowl.PaperUI
             {
                 return BoxShadow.Lerp(shadowStart, shadowEnd, t);
             }
+            else if (start is Rounding roundingStart && end is Rounding roundingEnd)
+            {
+                return Rounding.Lerp(roundingStart, roundingEnd, t);
+            }
 
             // Default to just returning the end value
             return end;
