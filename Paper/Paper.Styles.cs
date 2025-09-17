@@ -667,7 +667,7 @@ namespace Prowl.PaperUI
             _defaultValues[(int)GuiProp.BackgroundGradient] = Gradient.None;
             _defaultValues[(int)GuiProp.BorderColor] = Color.Transparent;
             _defaultValues[(int)GuiProp.BorderWidth] = (AbsoluteUnit)UnitValue.Points(0);
-            _defaultValues[(int)GuiProp.Rounded] = new Vector4(0, 0, 0, 0);
+            _defaultValues[(int)GuiProp.Rounded] = new Rounding(0, 0, 0, 0);
             _defaultValues[(int)GuiProp.BoxShadow] = BoxShadow.None;
 
             // Core Layout Properties

@@ -1,7 +1,31 @@
 ﻿using Prowl.PaperUI;
+using Prowl.Vector;
 
 namespace Prowl.PaperUI.LayoutEngine
 {
+    public struct Rounding
+    {
+        public AbsoluteUnit TopLeft;
+        public AbsoluteUnit TopRight;
+        public AbsoluteUnit BottomRight;
+        public AbsoluteUnit BottomLeft;
+
+        public Rounding(AbsoluteUnit topLeft, AbsoluteUnit topRight, AbsoluteUnit bottomRight, AbsoluteUnit bottomLeft)
+        {
+            TopLeft = topLeft;
+            TopRight = topRight;
+            BottomRight = bottomRight;
+            BottomLeft = bottomLeft;
+        }
+
+        public Vector4 ToPx(ScalingSettings scalingSettings)
+        {
+            return new Vector4(
+                TopLeft.ToPx(scalingSettings), TopRight.ToPx(scalingSettings),
+                BottomRight.ToPx(scalingSettings), BottomLeft.ToPx(scalingSettings));
+        }
+    }
+
     public struct ScalingSettings
     {
         /// <summary>

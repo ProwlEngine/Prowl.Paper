@@ -66,27 +66,27 @@ namespace Prowl.PaperUI
         #region Corner Rounding
 
         /// <summary>Rounds the top corners of the element.</summary>
-        public T RoundedTop(double radius) => SetStyleProperty(GuiProp.Rounded, new Vector4(radius, radius, 0, 0));
+        public T RoundedTop(in AbsoluteUnit radius) => SetStyleProperty(GuiProp.Rounded, new Rounding(radius, radius, 0, 0));
 
         /// <summary>Rounds the bottom corners of the element.</summary>
-        public T RoundedBottom(double radius) => SetStyleProperty(GuiProp.Rounded, new Vector4(0, 0, radius, radius));
+        public T RoundedBottom(in AbsoluteUnit radius) => SetStyleProperty(GuiProp.Rounded, new Rounding(0, 0, radius, radius));
 
         /// <summary>Rounds the left corners of the element.</summary>
-        public T RoundedLeft(double radius) => SetStyleProperty(GuiProp.Rounded, new Vector4(radius, 0, 0, radius));
+        public T RoundedLeft(in AbsoluteUnit radius) => SetStyleProperty(GuiProp.Rounded, new Rounding(radius, 0, 0, radius));
 
         /// <summary>Rounds the right corners of the element.</summary>
-        public T RoundedRight(double radius) => SetStyleProperty(GuiProp.Rounded, new Vector4(0, radius, radius, 0));
+        public T RoundedRight(in AbsoluteUnit radius) => SetStyleProperty(GuiProp.Rounded, new Rounding(0, radius, radius, 0));
 
         /// <summary>Rounds all corners of the element with the same radius.</summary>
-        public T Rounded(double radius) => SetStyleProperty(GuiProp.Rounded, new Vector4(radius, radius, radius, radius));
+        public T Rounded(in AbsoluteUnit radius) => SetStyleProperty(GuiProp.Rounded, new Rounding(radius, radius, radius, radius));
 
         /// <summary>Rounds each corner of the element with individual radii.</summary>
         /// <param name="tlRadius">Top-left radius</param>
         /// <param name="trRadius">Top-right radius</param>
         /// <param name="brRadius">Bottom-right radius</param>
         /// <param name="blRadius">Bottom-left radius</param>
-        public T Rounded(double tlRadius, double trRadius, double brRadius, double blRadius) =>
-            SetStyleProperty(GuiProp.Rounded, new Vector4(tlRadius, trRadius, brRadius, blRadius));
+        public T Rounded(in AbsoluteUnit tlRadius, in AbsoluteUnit trRadius, in AbsoluteUnit brRadius, in AbsoluteUnit blRadius) =>
+            SetStyleProperty(GuiProp.Rounded, new Rounding(tlRadius, trRadius, brRadius, blRadius));
 
         #endregion
 

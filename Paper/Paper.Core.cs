@@ -255,7 +255,7 @@ namespace Prowl.PaperUI
             _canvas.TransformBy(styleTransform);
 
             // Draw box shadow before background
-            var rounded = (Vector4)data._elementStyle.GetValue(GuiProp.Rounded);
+            var rounded = ((Rounding)data._elementStyle.GetValue(GuiProp.Rounded)).ToPx(_scalingSettings);
             var boxShadow = (BoxShadow)data._elementStyle.GetValue(GuiProp.BoxShadow);
             if (boxShadow.IsVisible)
             {
