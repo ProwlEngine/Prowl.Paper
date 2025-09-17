@@ -1107,13 +1107,13 @@ namespace Prowl.PaperUI
                 {
                     state.Position = new Vector2(
                         state.Position.x,
-                        state.Position.y - e.Delta * 30  // Adjust scroll speed as needed
+                        state.Position.y - e.Delta * 30 * _paper._scalingSettings.ContentScale  // Adjust scroll speed as needed
                     );
                 }
                 else if ((_handle.Data.ScrollFlags & Scroll.ScrollX) != 0)
                 {
                     state.Position = new Vector2(
-                        state.Position.x - e.Delta * 30,
+                        state.Position.x - e.Delta * 30 * _paper._scalingSettings.ContentScale,
                         state.Position.y
                     );
                 }
