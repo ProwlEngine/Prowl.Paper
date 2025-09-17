@@ -727,14 +727,19 @@ namespace Prowl.PaperUI
         #region Layout Helpers
 
         /// <summary>
+        /// Creates a pixel-based unit value.
+        /// </summary>
+        public AbsoluteUnit Pixels(double value) => UnitValue.Pixels(value);
+
+        /// <summary>
+        /// Creates a point-based unit value.
+        /// </summary>
+        public AbsoluteUnit Points(double value) => UnitValue.Points(value);
+
+        /// <summary>
         /// Creates a stretch unit value with the specified factor.
         /// </summary>
         public RelativeUnit Stretch(double factor = 1f) => UnitValue.Stretch(factor);
-
-        /// <summary>
-        /// Creates a pixel-based unit value.
-        /// </summary>
-        public RelativeUnit Pixels(double value) => UnitValue.Pixels(value);
 
         /// <summary>
         /// Creates a percentage-based unit value with optional pixel offset.
