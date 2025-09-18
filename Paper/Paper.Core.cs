@@ -30,7 +30,6 @@ namespace Prowl.PaperUI
         private ScalingSettings _scalingSettings = new ScalingSettings();
         private Stopwatch _timer = new();
 
-
         // Events
         public Action? OnEndOfFramePreLayout = null;
         public Action? OnEndOfFramePostLayout = null;
@@ -44,6 +43,7 @@ namespace Prowl.PaperUI
         public ElementHandle RootElement => _rootElementHandle;
         public Canvas Canvas => _canvas;
         public ScalingSettings ScalingSettings => _scalingSettings;
+        public double ContentScale => _scalingSettings.ContentScale;
 
         /// <summary>
         /// Gets the current parent element in the element hierarchy.
