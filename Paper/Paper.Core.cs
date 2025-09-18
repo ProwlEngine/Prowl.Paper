@@ -655,6 +655,9 @@ namespace Prowl.PaperUI
         /// <summary>
         /// Adds a custom render action to an element.
         /// </summary>
+        /// <remarks>
+        /// Canvas commands are not scaled automatically. Use the provided <see cref="ScalingSettings"/> to apply scaling manually.
+        /// </remarks>
         public void AddActionElement(ref ElementHandle handle, Action<Canvas, Rect, ScalingSettings> renderAction)
         {
             ArgumentNullException.ThrowIfNull(handle);

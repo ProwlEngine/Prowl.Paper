@@ -303,7 +303,12 @@ namespace Prowl.PaperUI
             return SetStyleProperty(GuiProp.OriginY, y);
         }
 
-        /// <summary>Sets a complete transform matrix.</summary>
+        /// <summary>
+        /// Sets a complete transform matrix.
+        /// </summary>
+        /// <remarks>
+        /// The transform matrix is not scaled automatically. Use <see cref="Paper.ScalingSettings"/> to apply scaling manually.
+        /// </remarks>
         public T Transform(Transform2D transform) => SetStyleProperty(GuiProp.Transform, transform);
 
         #endregion
