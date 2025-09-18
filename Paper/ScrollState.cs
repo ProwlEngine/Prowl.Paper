@@ -1,4 +1,5 @@
-﻿using Prowl.Vector;
+﻿using Prowl.PaperUI.LayoutEngine;
+using Prowl.Vector;
 
 namespace Prowl.PaperUI
 {
@@ -23,9 +24,9 @@ namespace Prowl.PaperUI
         public bool IsHorizontalScrollbarHovered;
 
         // Constants for scrollbar rendering
-        public const double ScrollbarSize = 12;
-        public const double ScrollbarMinSize = 20;
-        public const double ScrollbarPadding = 2;
+        public static readonly AbsoluteUnit ScrollbarSize = 12;
+        public static readonly AbsoluteUnit ScrollbarMinSize = 20;
+        public static readonly AbsoluteUnit ScrollbarPadding = 2;
 
         /// <summary>
         /// Gets the maximum scroll position.
@@ -67,64 +68,68 @@ namespace Prowl.PaperUI
         /// <summary>
         /// Calculates the vertical scrollbar dimensions based on the element rect.
         /// </summary>
-        public (double x, double y, double width, double height, double thumbY, double thumbHeight) CalculateVerticalScrollbar(Rect rect, Scroll flags)
+        public (double x, double y, double width, double height, double thumbY, double thumbHeight) CalculateVerticalScrollbar(Rect rect, Scroll flags, in ScalingSettings scalingSettings)
         {
             bool hasHorizontal = NeedsHorizontalScroll(flags);
+            double scrollbarSize = ScrollbarSize.ToPx(scalingSettings);
+            double scrollbarMinSize = ScrollbarMinSize.ToPx(scalingSettings);
 
             // Calculate track dimensions
             double trackHeight = rect.height;
             if (hasHorizontal)
-                trackHeight -= ScrollbarSize;
+                trackHeight -= scrollbarSize;
 
-            double trackX = rect.x + rect.width - ScrollbarSize;
+            double trackX = rect.x + rect.width - scrollbarSize;
             double trackY = rect.y;
 
             // Calculate thumb dimensions
-            double thumbHeight = Math.Max(ScrollbarMinSize,
+            double thumbHeight = Math.Max(scrollbarMinSize,
                 (ViewportSize.y / ContentSize.y) * trackHeight);
 
             double thumbY = trackY;
             if (MaxScroll.y > 0)
                 thumbY += (Position.y / MaxScroll.y) * (trackHeight - thumbHeight);
 
-            return (trackX, trackY, ScrollbarSize, trackHeight, thumbY, thumbHeight);
+            return (trackX, trackY, scrollbarSize, trackHeight, thumbY, thumbHeight);
         }
 
         /// <summary>
         /// Calculates the horizontal scrollbar dimensions based on the element rect.
         /// </summary>
-        public (double x, double y, double width, double height, double thumbX, double thumbWidth) CalculateHorizontalScrollbar(Rect rect, Scroll flags)
+        public (double x, double y, double width, double height, double thumbX, double thumbWidth) CalculateHorizontalScrollbar(Rect rect, Scroll flags, in ScalingSettings scalingSettings)
         {
             bool hasVertical = NeedsVerticalScroll(flags);
+            double scrollbarSize = ScrollbarSize.ToPx(scalingSettings);
+            double scrollbarMinSize = ScrollbarMinSize.ToPx(scalingSettings);
 
             // Calculate track dimensions
             double trackWidth = rect.width;
             if (hasVertical)
-                trackWidth -= ScrollbarSize;
+                trackWidth -= scrollbarSize;
 
             double trackX = rect.x;
-            double trackY = rect.y + rect.height - ScrollbarSize;
+            double trackY = rect.y + rect.height - scrollbarSize;
 
             // Calculate thumb dimensions
-            double thumbWidth = Math.Max(ScrollbarMinSize,
+            double thumbWidth = Math.Max(scrollbarMinSize,
                 (ViewportSize.x / ContentSize.x) * trackWidth);
 
             double thumbX = trackX;
             if (MaxScroll.x > 0)
                 thumbX += (Position.x / MaxScroll.x) * (trackWidth - thumbWidth);
 
-            return (trackX, trackY, trackWidth, ScrollbarSize, thumbX, thumbWidth);
+            return (trackX, trackY, trackWidth, scrollbarSize, thumbX, thumbWidth);
         }
 
         /// <summary>
         /// Checks if a point is over the vertical scrollbar.
         /// </summary>
-        public bool IsPointOverVerticalScrollbar(Vector2 point, Rect rect, Scroll flags)
+        public bool IsPointOverVerticalScrollbar(Vector2 point, Rect rect, Scroll flags, in ScalingSettings scalingSettings)
         {
             if (!NeedsVerticalScroll(flags))
                 return false;
 
-            var (trackX, trackY, trackWidth, trackHeight, _, _) = CalculateVerticalScrollbar(rect, flags);
+            var (trackX, trackY, trackWidth, trackHeight, _, _) = CalculateVerticalScrollbar(rect, flags, scalingSettings);
 
             return point.x >= trackX &&
                    point.x <= trackX + trackWidth &&
@@ -135,12 +140,12 @@ namespace Prowl.PaperUI
         /// <summary>
         /// Checks if a point is over the horizontal scrollbar.
         /// </summary>
-        public bool IsPointOverHorizontalScrollbar(Vector2 point, Rect rect, Scroll flags)
+        public bool IsPointOverHorizontalScrollbar(Vector2 point, Rect rect, Scroll flags, in ScalingSettings scalingSettings)
         {
             if (!NeedsHorizontalScroll(flags))
                 return false;
 
-            var (trackX, trackY, trackWidth, trackHeight, _, _) = CalculateHorizontalScrollbar(rect, flags);
+            var (trackX, trackY, trackWidth, trackHeight, _, _) = CalculateHorizontalScrollbar(rect, flags, scalingSettings);
 
             return point.x >= trackX &&
                    point.x <= trackX + trackWidth &&
@@ -151,12 +156,12 @@ namespace Prowl.PaperUI
         /// <summary>
         /// Handles scrollbar dragging for vertical scrollbar.
         /// </summary>
-        public void HandleVerticalScrollbarDrag(Vector2 mousePos, Rect rect, Scroll flags)
+        public void HandleVerticalScrollbarDrag(Vector2 mousePos, Rect rect, Scroll flags, in ScalingSettings scalingSettings)
         {
             if (!IsDraggingVertical)
                 return;
 
-            var (_, trackY, _, trackHeight, _, thumbHeight) = CalculateVerticalScrollbar(rect, flags);
+            var (_, trackY, _, trackHeight, _, thumbHeight) = CalculateVerticalScrollbar(rect, flags, scalingSettings);
 
             double dragDelta = mousePos.y - DragStartPosition.y;
             double scrollableHeight = trackHeight - thumbHeight;
@@ -176,12 +181,12 @@ namespace Prowl.PaperUI
         /// <summary>
         /// Handles scrollbar dragging for horizontal scrollbar.
         /// </summary>
-        public void HandleHorizontalScrollbarDrag(Vector2 mousePos, Rect rect, Scroll flags)
+        public void HandleHorizontalScrollbarDrag(Vector2 mousePos, Rect rect, Scroll flags, in ScalingSettings scalingSettings)
         {
             if (!IsDraggingHorizontal)
                 return;
 
-            var (trackX, _, trackWidth, _, _, thumbWidth) = CalculateHorizontalScrollbar(rect, flags);
+            var (trackX, _, trackWidth, _, _, thumbWidth) = CalculateHorizontalScrollbar(rect, flags, scalingSettings);
 
             double dragDelta = mousePos.x - DragStartPosition.x;
             double scrollableWidth = trackWidth - thumbWidth;

@@ -27,6 +27,7 @@ namespace Prowl.PaperUI
         private ICanvasRenderer _renderer;
         private double _width;
         private double _height;
+        private ScalingSettings _scalingSettings = new ScalingSettings();
         private Stopwatch _timer = new();
 
         // Events
@@ -41,6 +42,8 @@ namespace Prowl.PaperUI
         public Rect ScreenRect => new Rect(0, 0, _width, _height);
         public ElementHandle RootElement => _rootElementHandle;
         public Canvas Canvas => _canvas;
+        public ScalingSettings ScalingSettings => _scalingSettings;
+        public double ContentScale => _scalingSettings.ContentScale;
 
         /// <summary>
         /// Gets the current parent element in the element hierarchy.
@@ -92,6 +95,14 @@ namespace Prowl.PaperUI
             _height = height;
         }
 
+        /// <summary>
+        /// Sets the scaling factor applied to Points units.
+        /// </summary>
+        public void SetContentScale(double pointUnitScale)
+        {
+            _scalingSettings.ContentScale = pointUnitScale;
+        }
+
         public void AddFallbackFont(FontFile font) => _canvas.AddFallbackFont(font);
 
         public IEnumerable<FontFile> EnumerateSystemFonts() => _canvas.EnumerateSystemFonts();
@@ -141,7 +152,7 @@ namespace Prowl.PaperUI
 
             // Layout phase
             OnEndOfFramePreLayout?.Invoke();
-            ElementLayout.Layout(_rootElementHandle, this);
+            ElementLayout.Layout(_rootElementHandle, this, _scalingSettings);
             OnEndOfFramePostLayout?.Invoke();
 
             // Post-layout callbacks
@@ -241,19 +252,24 @@ namespace Prowl.PaperUI
             _canvas.SaveState();
 
             // Apply element transform
-            Transform2D styleTransform = data._elementStyle.GetTransformForElement(rect);
+            Transform2D styleTransform = data._elementStyle.GetTransformForElement(rect, _scalingSettings);
             _canvas.TransformBy(styleTransform);
 
             // Draw box shadow before background
-            var rounded = (Vector4)data._elementStyle.GetValue(GuiProp.Rounded);
+            var rounded = ((Rounding)data._elementStyle.GetValue(GuiProp.Rounded)).ToPx(_scalingSettings);
             var boxShadow = (BoxShadow)data._elementStyle.GetValue(GuiProp.BoxShadow);
             if (boxShadow.IsVisible)
             {
-                double buffer = boxShadow.Blur * 0.5;
-                double sx = rect.x + boxShadow.OffsetX - buffer - boxShadow.Spread;
-                double sy = rect.y + boxShadow.OffsetY - buffer - boxShadow.Spread;
-                double sw = rect.width + (buffer * 2) + (boxShadow.Spread * 2);
-                double sh = rect.height + (buffer * 2) + (boxShadow.Spread * 2);
+                double offsetX = boxShadow.OffsetX.ToPx(_scalingSettings);
+                double offsetY = boxShadow.OffsetY.ToPx(_scalingSettings);
+                double blur = boxShadow.Blur.ToPx(_scalingSettings);
+                double spread = boxShadow.Spread.ToPx(_scalingSettings);
+
+                double buffer = blur * 0.5;
+                double sx = rect.x + offsetX - buffer - spread;
+                double sy = rect.y + offsetY - buffer - spread;
+                double sw = rect.width + (buffer * 2) + (spread * 2);
+                double sh = rect.height + (buffer * 2) + (spread * 2);
                 float radi = (float)(Math.Max(Math.Max(rounded.x, rounded.y), Math.Max(rounded.z, rounded.w)));
                 _canvas.SetBoxBrush(
                     sx + sw / 2,
@@ -261,15 +277,15 @@ namespace Prowl.PaperUI
                     sw,
                     sh,
                     radi,
-                    (float)boxShadow.Blur,
+                    (float)blur,
                     boxShadow.Color,
                     Color.FromArgb(0, boxShadow.Color));
 
-                buffer = (boxShadow.Blur) * 1.0;
-                sx = rect.x + boxShadow.OffsetX - buffer - boxShadow.Spread;
-                sy = rect.y + boxShadow.OffsetY - buffer - boxShadow.Spread;
-                sw = rect.width + (buffer * 2) + (boxShadow.Spread * 2);
-                sh = rect.height + (buffer * 2) + (boxShadow.Spread * 2);
+                buffer = (blur) * 1.0;
+                sx = rect.x + offsetX - buffer - spread;
+                sy = rect.y + offsetY - buffer - spread;
+                sw = rect.width + (buffer * 2) + (spread * 2);
+                sh = rect.height + (buffer * 2) + (spread * 2);
 
                 _canvas.RoundedRectFilled(sx, sy, sw, sh,
                     rounded.x, rounded.y,
@@ -321,7 +337,7 @@ namespace Prowl.PaperUI
 
             // Draw border if needed
             var borderColor = (Color)data._elementStyle.GetValue(GuiProp.BorderColor);
-            var borderWidth = (double)data._elementStyle.GetValue(GuiProp.BorderWidth);
+            var borderWidth = ((AbsoluteUnit)data._elementStyle.GetValue(GuiProp.BorderWidth)).ToPx(_scalingSettings);
             if (borderWidth > 0.0f && borderColor.A > 0)
             {
                 _canvas.BeginPath();
@@ -355,7 +371,7 @@ namespace Prowl.PaperUI
                     _elementStack.Push(handle);
                     try
                     {
-                        cmd.RenderAction?.Invoke(_canvas, rect);
+                        cmd.RenderAction?.Invoke(_canvas, rect, _scalingSettings);
                     }
                     finally
                     {
@@ -493,35 +509,53 @@ namespace Prowl.PaperUI
             bool hasHorizontal = state.ContentSize.x > state.ViewportSize.x && (flags & Scroll.ScrollX) != 0;
             bool hasVertical = state.ContentSize.y > state.ViewportSize.y && (flags & Scroll.ScrollY) != 0;
 
+            double borderRadius = UnitValue.Points(10).ToPx(_scalingSettings);
+            double scrollbarPadding = ScrollState.ScrollbarPadding.ToPx(_scalingSettings);
+
             if (hasVertical)
             {
-                var (trackX, trackY, trackWidth, trackHeight, thumbY, thumbHeight) = state.CalculateVerticalScrollbar(rect, flags);
-
+                var (trackX, trackY, trackWidth, trackHeight, thumbY, thumbHeight) = state.CalculateVerticalScrollbar(rect, flags, _scalingSettings);
 
                 // Draw vertical scrollbar track
-                canvas.RoundedRectFilled(trackX, trackY, trackWidth, trackHeight, 10, 10, 10, 10, Color.FromArgb(50, 0, 0, 0));
+                canvas.RoundedRectFilled(
+                    trackX, trackY,
+                    trackWidth, trackHeight,
+                    borderRadius, borderRadius, borderRadius, borderRadius,
+                    Color.FromArgb(50, 0, 0, 0));
 
                 // Draw vertical scrollbar thumb - highlight if hovered or dragging
                 Color thumbColor = state.IsVerticalScrollbarHovered || state.IsDraggingVertical
                     ? Color.FromArgb(220, 130, 130, 130)
                     : Color.FromArgb(180, 100, 100, 100);
 
-                canvas.RoundedRectFilled(trackX + ScrollState.ScrollbarPadding, thumbY + ScrollState.ScrollbarPadding, trackWidth - ScrollState.ScrollbarPadding * 2, thumbHeight - ScrollState.ScrollbarPadding * 2, 10, 10, 10, 10, thumbColor);
+                canvas.RoundedRectFilled(
+                    trackX + scrollbarPadding, thumbY + scrollbarPadding,
+                    trackWidth - scrollbarPadding * 2, thumbHeight - scrollbarPadding * 2,
+                    borderRadius, borderRadius, borderRadius, borderRadius,
+                    thumbColor);
             }
 
             if (hasHorizontal)
             {
-                var (trackX, trackY, trackWidth, trackHeight, thumbX, thumbWidth) = state.CalculateHorizontalScrollbar(rect, flags);
+                var (trackX, trackY, trackWidth, trackHeight, thumbX, thumbWidth) = state.CalculateHorizontalScrollbar(rect, flags, _scalingSettings);
 
                 // Draw horizontal scrollbar track
-                canvas.RoundedRectFilled(trackX, trackY, trackWidth, trackHeight, 10, 10, 10, 10, Color.FromArgb(50, 0, 0, 0));
+                canvas.RoundedRectFilled(
+                    trackX, trackY,
+                    trackWidth, trackHeight,
+                    borderRadius, borderRadius, borderRadius, borderRadius,
+                    Color.FromArgb(50, 0, 0, 0));
 
                 // Draw horizontal scrollbar thumb - highlight if hovered or dragging
                 Color thumbColor = state.IsHorizontalScrollbarHovered || state.IsDraggingHorizontal
                     ? Color.FromArgb(220, 130, 130, 130)
                     : Color.FromArgb(180, 100, 100, 100);
 
-                canvas.RoundedRectFilled(thumbX + ScrollState.ScrollbarPadding, trackY + ScrollState.ScrollbarPadding, thumbWidth - ScrollState.ScrollbarPadding * 2, trackHeight - ScrollState.ScrollbarPadding * 2, 10, 10, 10, 10, thumbColor);
+                canvas.RoundedRectFilled(
+                    thumbX + scrollbarPadding, trackY + scrollbarPadding,
+                    thumbWidth - scrollbarPadding * 2, trackHeight - scrollbarPadding * 2,
+                    borderRadius, borderRadius, borderRadius, borderRadius,
+                    thumbColor);
             }
         }
 
@@ -612,7 +646,7 @@ namespace Prowl.PaperUI
             CurrentParent.Data.ChildIndices.Add(handle.Index);
         }
 
-        public void AddActionElement(Action<Canvas, Rect> renderAction)
+        public void AddActionElement(Action<Canvas, Rect, ScalingSettings> renderAction)
         {
             var current = CurrentParent;
             AddActionElement(ref current, renderAction);
@@ -621,7 +655,10 @@ namespace Prowl.PaperUI
         /// <summary>
         /// Adds a custom render action to an element.
         /// </summary>
-        public void AddActionElement(ref ElementHandle handle, Action<Canvas, Rect> renderAction)
+        /// <remarks>
+        /// Canvas commands are not scaled automatically. Use the provided <see cref="ScalingSettings"/> to apply scaling manually.
+        /// </remarks>
+        public void AddActionElement(ref ElementHandle handle, Action<Canvas, Rect, ScalingSettings> renderAction)
         {
             ArgumentNullException.ThrowIfNull(handle);
             ArgumentNullException.ThrowIfNull(renderAction);
@@ -712,24 +749,29 @@ namespace Prowl.PaperUI
         #region Layout Helpers
 
         /// <summary>
-        /// Creates a stretch unit value with the specified factor.
-        /// </summary>
-        public UnitValue Stretch(double factor = 1f) => UnitValue.Stretch(factor);
-
-        /// <summary>
         /// Creates a pixel-based unit value.
         /// </summary>
-        public UnitValue Pixels(double value) => UnitValue.Pixels(value);
+        public AbsoluteUnit Pixels(double value) => UnitValue.Pixels(value);
+
+        /// <summary>
+        /// Creates a point-based unit value.
+        /// </summary>
+        public AbsoluteUnit Points(double value) => UnitValue.Points(value);
+
+        /// <summary>
+        /// Creates a stretch unit value with the specified factor.
+        /// </summary>
+        public RelativeUnit Stretch(double factor = 1f) => UnitValue.Stretch(factor);
 
         /// <summary>
         /// Creates a percentage-based unit value with optional pixel offset.
         /// </summary>
-        public UnitValue Percent(double value, double pixelOffset = 0f) => UnitValue.Percentage(value, pixelOffset);
+        public RelativeUnit Percent(double value, double pixelOffset = 0f) => UnitValue.Percentage(value, pixelOffset);
 
         /// <summary>
         /// Creates an auto-sized unit value.
         /// </summary>
-        public UnitValue Auto => UnitValue.Auto;
+        public RelativeUnit Auto => UnitValue.Auto;
 
         #endregion
     }

@@ -85,8 +85,8 @@ namespace Prowl.PaperUI
             _rootElementIndex = rootHandle.Index;
 
             ref var rootData = ref rootHandle.Data;
-            rootData._elementStyle.SetDirectValue(GuiProp.Width, UnitValue.Pixels(width));
-            rootData._elementStyle.SetDirectValue(GuiProp.Height, UnitValue.Pixels(height));
+            rootData._elementStyle.SetDirectValue(GuiProp.Width, (RelativeUnit)UnitValue.Pixels(width));
+            rootData._elementStyle.SetDirectValue(GuiProp.Height, (RelativeUnit)UnitValue.Pixels(height));
         }
 
         internal void ClearElements()
@@ -116,13 +116,13 @@ namespace Prowl.PaperUI
                     continue;
 
                 ref var element = ref _elements[i];
-                
+
                 // Validate parent-child relationships
                 if (element.ParentIndex != -1)
                 {
                     if (element.ParentIndex < 0 || element.ParentIndex >= _elementCount)
                         throw new InvalidOperationException($"Element {i} has invalid parent index {element.ParentIndex}");
-                    
+
                     ref var parent = ref _elements[element.ParentIndex];
                     if (!parent.ChildIndices.Contains(i))
                         throw new InvalidOperationException($"Element {i} claims parent {element.ParentIndex} but parent doesn't list it as child");
@@ -132,7 +132,7 @@ namespace Prowl.PaperUI
                 {
                     if (childIndex < 0 || childIndex >= _elementCount)
                         throw new InvalidOperationException($"Element {i} has invalid child index {childIndex}");
-                    
+
                     ref var child = ref _elements[childIndex];
                     if (child.ParentIndex != i)
                         throw new InvalidOperationException($"Element {i} claims child {childIndex} but child doesn't reference it as parent");

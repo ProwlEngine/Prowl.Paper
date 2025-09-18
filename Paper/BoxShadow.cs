@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using Prowl.PaperUI.LayoutEngine;
 
 namespace Prowl.PaperUI
 {
@@ -7,13 +8,13 @@ namespace Prowl.PaperUI
     /// </summary>
     public struct BoxShadow
     {
-        public double OffsetX;
-        public double OffsetY;
-        public double Blur;
-        public double Spread;
+        public AbsoluteUnit OffsetX;
+        public AbsoluteUnit OffsetY;
+        public AbsoluteUnit Blur;
+        public AbsoluteUnit Spread;
         public Color Color;
 
-        public BoxShadow(double offsetX, double offsetY, double blur, double spread, Color color)
+        public BoxShadow(AbsoluteUnit offsetX, AbsoluteUnit offsetY, AbsoluteUnit blur, AbsoluteUnit spread, Color color)
         {
             OffsetX = offsetX;
             OffsetY = offsetY;
@@ -43,10 +44,10 @@ namespace Prowl.PaperUI
             }
 
             return new BoxShadow(
-                start.OffsetX + (end.OffsetX - start.OffsetX) * t,
-                start.OffsetY + (end.OffsetY - start.OffsetY) * t,
-                start.Blur + (end.Blur - start.Blur) * t,
-                start.Spread + (end.Spread - start.Spread) * t,
+                AbsoluteUnit.Lerp(start.OffsetX, end.OffsetX, t),
+                AbsoluteUnit.Lerp(start.OffsetY, end.OffsetY, t),
+                AbsoluteUnit.Lerp(start.Blur, end.Blur, t),
+                AbsoluteUnit.Lerp(start.Spread, end.Spread, t),
                 LerpColor(start.Color, end.Color)
             );
         }

@@ -377,7 +377,7 @@ namespace Shared
                 .Rounded(20)
                 .BackgroundColor(Color.White)
                 //.PositionType(PositionType.SelfDirected)
-                .Top(PaperDemo.Gui.Pixels(3))
+                .Top(3)
                 .Transition(GuiProp.Left, 0.25, Easing.CubicInOut));
         }
 
@@ -392,10 +392,10 @@ namespace Shared
                 .Style("toggle")
                 .StyleIf(isOn, "toggle-on")
                 .StyleIf(!isOn, "toggle-off")).Enter())
-            { 
+            {
                 PaperDemo.Gui.Box($"ToggleDot{id}")
                     .Style("toggle-dot")
-                    .Left(PaperDemo.Gui.Pixels(isOn ? 32 : 4));
+                    .Left(isOn ? 32 : 4);
             }
             return builder;
         }
@@ -412,7 +412,7 @@ namespace Shared
             {
 
                 // Add a simple pie chart visualization
-                PaperDemo.Gui.AddActionElement((vg, rect) =>
+                PaperDemo.Gui.AddActionElement((vg, rect, scalingSettings) =>
                 {
                     double centerX = rect.x + rect.width / 2;
                     double centerY = rect.y + rect.height / 2;
@@ -461,7 +461,7 @@ namespace Shared
                         //vg.TextAlign(Align.Center | Align.Middle);
                         //vg.FontSize(16);
                         //vg.Text(labelX, labelY, label);
-                        vg.DrawText(label, labelX, labelY, Color.White, 18, Fonts.arial);
+                        vg.DrawText(label, labelX, labelY, Color.White, UnitValue.Points(18).ToPx(scalingSettings), Fonts.arial);
 
                         // Move to next slice
                         startAngle = endAngle;

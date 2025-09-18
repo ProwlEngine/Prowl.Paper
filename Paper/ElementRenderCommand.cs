@@ -1,4 +1,5 @@
-﻿using Prowl.Quill;
+﻿using Prowl.PaperUI.LayoutEngine;
+using Prowl.Quill;
 using Prowl.Vector;
 
 namespace Prowl.PaperUI
@@ -9,6 +10,6 @@ namespace Prowl.PaperUI
     internal class ElementRenderCommand
     {
         public LayoutEngine.ElementHandle Element { get; set; }
-        public Action<Canvas, Rect>? RenderAction { get; set; }
+        public Action<Canvas, Rect, ScalingSettings>? RenderAction { get; set; }
     }
 }
