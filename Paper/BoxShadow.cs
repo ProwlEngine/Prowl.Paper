@@ -1,5 +1,4 @@
 ﻿using System.Drawing;
-
 using Prowl.PaperUI.LayoutEngine;
 
 namespace Prowl.PaperUI
