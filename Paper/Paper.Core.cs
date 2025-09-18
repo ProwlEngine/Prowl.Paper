@@ -27,9 +27,9 @@ namespace Prowl.PaperUI
         private ICanvasRenderer _renderer;
         private double _width;
         private double _height;
+        private ScalingSettings _scalingSettings = new ScalingSettings();
         private Stopwatch _timer = new();
 
-        internal ScalingSettings _scalingSettings = new ScalingSettings();
 
         // Events
         public Action? OnEndOfFramePreLayout = null;
@@ -43,6 +43,7 @@ namespace Prowl.PaperUI
         public Rect ScreenRect => new Rect(0, 0, _width, _height);
         public ElementHandle RootElement => _rootElementHandle;
         public Canvas Canvas => _canvas;
+        public ScalingSettings ScalingSettings => _scalingSettings;
 
         /// <summary>
         /// Gets the current parent element in the element hierarchy.

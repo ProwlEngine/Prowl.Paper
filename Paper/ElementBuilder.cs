@@ -1081,8 +1081,8 @@ namespace Prowl.PaperUI
                 Vector2 mousePos = _paper.PointerPos;
 
                 // Check if pointer is over scrollbars
-                state.IsVerticalScrollbarHovered = state.IsPointOverVerticalScrollbar(mousePos, e.ElementRect, _handle.Data.ScrollFlags, _paper._scalingSettings);
-                state.IsHorizontalScrollbarHovered = state.IsPointOverHorizontalScrollbar(mousePos, e.ElementRect, _handle.Data.ScrollFlags, _paper._scalingSettings);
+                state.IsVerticalScrollbarHovered = state.IsPointOverVerticalScrollbar(mousePos, e.ElementRect, _handle.Data.ScrollFlags, _paper.ScalingSettings);
+                state.IsHorizontalScrollbarHovered = state.IsPointOverHorizontalScrollbar(mousePos, e.ElementRect, _handle.Data.ScrollFlags, _paper.ScalingSettings);
 
                 _paper.SetElementStorage(_handle, "ScrollState", state);
             });
@@ -1104,7 +1104,7 @@ namespace Prowl.PaperUI
                     return;
 
                 // Adjust scroll speed as needed
-                double scrollSpeed = UnitValue.Points(30).ToPx(_paper._scalingSettings);
+                double scrollSpeed = UnitValue.Points(30).ToPx(_paper.ScalingSettings);
 
                 if ((_handle.Data.ScrollFlags & Scroll.ScrollY) != 0)
                 {
@@ -1134,8 +1134,8 @@ namespace Prowl.PaperUI
                 Vector2 mousePos = _paper.PointerPos;
 
                 // Check if click is on a scrollbar
-                bool onVertical = state.IsPointOverVerticalScrollbar(mousePos, e.ElementRect, _handle.Data.ScrollFlags, _paper._scalingSettings);
-                bool onHorizontal = state.IsPointOverHorizontalScrollbar(mousePos, e.ElementRect, _handle.Data.ScrollFlags, _paper._scalingSettings);
+                bool onVertical = state.IsPointOverVerticalScrollbar(mousePos, e.ElementRect, _handle.Data.ScrollFlags, _paper.ScalingSettings);
+                bool onHorizontal = state.IsPointOverHorizontalScrollbar(mousePos, e.ElementRect, _handle.Data.ScrollFlags, _paper.ScalingSettings);
 
                 // Start dragging the appropriate scrollbar
                 if (onVertical)
@@ -1165,11 +1165,11 @@ namespace Prowl.PaperUI
                 // Handle scrollbar dragging
                 if (state.IsDraggingVertical)
                 {
-                    state.HandleVerticalScrollbarDrag(mousePos, e.ElementRect, _handle.Data.ScrollFlags, _paper._scalingSettings);
+                    state.HandleVerticalScrollbarDrag(mousePos, e.ElementRect, _handle.Data.ScrollFlags, _paper.ScalingSettings);
                 }
                 else if (state.IsDraggingHorizontal)
                 {
-                    state.HandleHorizontalScrollbarDrag(mousePos, e.ElementRect, _handle.Data.ScrollFlags, _paper._scalingSettings);
+                    state.HandleHorizontalScrollbarDrag(mousePos, e.ElementRect, _handle.Data.ScrollFlags, _paper.ScalingSettings);
                 }
 
                 _paper.SetElementStorage(_handle, "ScrollState", state);
@@ -1186,8 +1186,8 @@ namespace Prowl.PaperUI
 
                 // Update hover state on release
                 Vector2 mousePos = _paper.PointerPos;
-                state.IsVerticalScrollbarHovered = state.IsPointOverVerticalScrollbar(mousePos, e.ElementRect, _handle.Data.ScrollFlags, _paper._scalingSettings);
-                state.IsHorizontalScrollbarHovered = state.IsPointOverHorizontalScrollbar(mousePos, e.ElementRect, _handle.Data.ScrollFlags, _paper._scalingSettings);
+                state.IsVerticalScrollbarHovered = state.IsPointOverVerticalScrollbar(mousePos, e.ElementRect, _handle.Data.ScrollFlags, _paper.ScalingSettings);
+                state.IsHorizontalScrollbarHovered = state.IsPointOverHorizontalScrollbar(mousePos, e.ElementRect, _handle.Data.ScrollFlags, _paper.ScalingSettings);
 
                 _paper.SetElementStorage(_handle, "ScrollState", state);
             });
@@ -1349,8 +1349,8 @@ namespace Prowl.PaperUI
 
         private TextLayoutSettings CreateTextLayoutSettings(TextInputSettings inputSettings, bool isMultiLine, double maxWidth = float.MaxValue)
         {
-            var fontSize = ((AbsoluteUnit)_handle.Data._elementStyle.GetValue(GuiProp.FontSize)).ToPx(_paper._scalingSettings);
-            var letterSpacing = ((AbsoluteUnit)_handle.Data._elementStyle.GetValue(GuiProp.LetterSpacing)).ToPx(_paper._scalingSettings);
+            var fontSize = ((AbsoluteUnit)_handle.Data._elementStyle.GetValue(GuiProp.FontSize)).ToPx(_paper.ScalingSettings);
+            var letterSpacing = ((AbsoluteUnit)_handle.Data._elementStyle.GetValue(GuiProp.LetterSpacing)).ToPx(_paper.ScalingSettings);
 
             var settings = TextLayoutSettings.Default;
             settings.PixelSize = (float)fontSize;
@@ -1916,8 +1916,8 @@ namespace Prowl.PaperUI
                 if (currentState.SelectionStart < 0) return;
 
                 // Auto-scroll when dragging near edges
-                double edgeScrollSensitivity = UnitValue.Points(20).ToPx(_paper._scalingSettings);
-                double scrollSpeed = UnitValue.Points(2).ToPx(_paper._scalingSettings);
+                double edgeScrollSensitivity = UnitValue.Points(20).ToPx(_paper.ScalingSettings);
+                double scrollSpeed = UnitValue.Points(2).ToPx(_paper.ScalingSettings);
 
                 if (e.RelativePosition.x < edgeScrollSensitivity)
                     currentState.ScrollOffsetX = Math.Max(0, currentState.ScrollOffsetX - scrollSpeed);
@@ -1999,7 +1999,7 @@ namespace Prowl.PaperUI
                     canvas.SaveState();
                     canvas.TransformBy(Transform2D.CreateTranslation(-renderState.ScrollOffsetX, -renderState.ScrollOffsetY));
 
-                    var fontSize = ((AbsoluteUnit)elHandle.Data._elementStyle.GetValue(GuiProp.FontSize)).ToPx(_paper._scalingSettings);
+                    var fontSize = ((AbsoluteUnit)elHandle.Data._elementStyle.GetValue(GuiProp.FontSize)).ToPx(_paper.ScalingSettings);
 
                     // Draw text or placeholder
                     if (string.IsNullOrEmpty(renderState.Value))
@@ -2136,7 +2136,7 @@ namespace Prowl.PaperUI
                 double visibleWidth = _handle.Data.LayoutWidth;
                 double visibleHeight = _handle.Data.LayoutHeight;
 
-                double margin = UnitValue.Points(10).ToPx(_paper._scalingSettings);
+                double margin = UnitValue.Points(10).ToPx(_paper.ScalingSettings);
 
                 // Horizontal scrolling
                 if (cursorPos.X < state.ScrollOffsetX + margin)
@@ -2156,12 +2156,12 @@ namespace Prowl.PaperUI
             else
             {
                 // Single-line horizontal scrolling only
-                var fontSize = ((AbsoluteUnit)_handle.Data._elementStyle.GetValue(GuiProp.FontSize)).ToPx(_paper._scalingSettings);
-                var letterSpacing = ((AbsoluteUnit)_handle.Data._elementStyle.GetValue(GuiProp.LetterSpacing)).ToPx(_paper._scalingSettings);
+                var fontSize = ((AbsoluteUnit)_handle.Data._elementStyle.GetValue(GuiProp.FontSize)).ToPx(_paper.ScalingSettings);
+                var letterSpacing = ((AbsoluteUnit)_handle.Data._elementStyle.GetValue(GuiProp.LetterSpacing)).ToPx(_paper.ScalingSettings);
                 var cursorPos = GetCursorPositionFromIndex(state.Value, settings.Font, fontSize, letterSpacing, state.CursorPosition);
 
                 double visibleWidth = _handle.Data.LayoutWidth;
-                double margin = UnitValue.Points(20).ToPx(_paper._scalingSettings);
+                double margin = UnitValue.Points(20).ToPx(_paper.ScalingSettings);
 
                 if (cursorPos.x < state.ScrollOffsetX + margin)
                     state.ScrollOffsetX = Math.Max(0, cursorPos.x - margin);

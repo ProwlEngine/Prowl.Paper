@@ -1305,11 +1305,11 @@ namespace Prowl.PaperUI.LayoutEngine
             {
                 var settings = TextLayoutSettings.Default;
 
-                settings.WordSpacing = (float)((AbsoluteUnit)element._elementStyle.GetValue(GuiProp.WordSpacing)).ToPx(gui._scalingSettings);
-                settings.LetterSpacing = (float)((AbsoluteUnit)element._elementStyle.GetValue(GuiProp.LetterSpacing)).ToPx(gui._scalingSettings);
+                settings.WordSpacing = (float)((AbsoluteUnit)element._elementStyle.GetValue(GuiProp.WordSpacing)).ToPx(gui.ScalingSettings);
+                settings.LetterSpacing = (float)((AbsoluteUnit)element._elementStyle.GetValue(GuiProp.LetterSpacing)).ToPx(gui.ScalingSettings);
                 settings.LineHeight = Convert.ToSingle(element._elementStyle.GetValue(GuiProp.LineHeight));
                 settings.TabSize = (int)element._elementStyle.GetValue(GuiProp.TabSize);
-                settings.PixelSize = (float)((AbsoluteUnit)element._elementStyle.GetValue(GuiProp.FontSize)).ToPx(gui._scalingSettings);
+                settings.PixelSize = (float)((AbsoluteUnit)element._elementStyle.GetValue(GuiProp.FontSize)).ToPx(gui.ScalingSettings);
 
                 if(element.TextAlignment == TextAlignment.Left || element.TextAlignment == TextAlignment.MiddleLeft || element.TextAlignment == TextAlignment.BottomLeft)
                     settings.Alignment = Scribe.TextAlignment.Left;
