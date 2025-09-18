@@ -24,10 +24,9 @@ namespace Prowl.PaperUI
         public bool IsHorizontalScrollbarHovered;
 
         // Constants for scrollbar rendering
-        // These should be scaled by content scale before use
-        public static AbsoluteUnit ScrollbarSize = 12;
-        public static AbsoluteUnit ScrollbarMinSize = 20;
-        public static AbsoluteUnit ScrollbarPadding = 2;
+        public static readonly AbsoluteUnit ScrollbarSize = 12;
+        public static readonly AbsoluteUnit ScrollbarMinSize = 20;
+        public static readonly AbsoluteUnit ScrollbarPadding = 2;
 
         /// <summary>
         /// Gets the maximum scroll position.
