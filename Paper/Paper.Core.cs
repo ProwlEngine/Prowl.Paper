@@ -371,7 +371,7 @@ namespace Prowl.PaperUI
                     _elementStack.Push(handle);
                     try
                     {
-                        cmd.RenderAction?.Invoke(_canvas, rect);
+                        cmd.RenderAction?.Invoke(_canvas, rect, _scalingSettings);
                     }
                     finally
                     {
@@ -646,7 +646,7 @@ namespace Prowl.PaperUI
             CurrentParent.Data.ChildIndices.Add(handle.Index);
         }
 
-        public void AddActionElement(Action<Canvas, Rect> renderAction)
+        public void AddActionElement(Action<Canvas, Rect, ScalingSettings> renderAction)
         {
             var current = CurrentParent;
             AddActionElement(ref current, renderAction);
@@ -655,7 +655,7 @@ namespace Prowl.PaperUI
         /// <summary>
         /// Adds a custom render action to an element.
         /// </summary>
-        public void AddActionElement(ref ElementHandle handle, Action<Canvas, Rect> renderAction)
+        public void AddActionElement(ref ElementHandle handle, Action<Canvas, Rect, ScalingSettings> renderAction)
         {
             ArgumentNullException.ThrowIfNull(handle);
             ArgumentNullException.ThrowIfNull(renderAction);

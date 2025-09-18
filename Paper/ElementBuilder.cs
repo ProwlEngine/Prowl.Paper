@@ -1991,7 +1991,7 @@ namespace Prowl.PaperUI
             // Render cursor and selection
             OnPostLayout((ElementHandle elHandle, Rect rect) =>
             {
-                _paper.AddActionElement(ref elHandle, (canvas, r) =>
+                _paper.AddActionElement(ref elHandle, (canvas, r, scalingSettings) =>
                 {
                     var renderState = LoadTextInputState(value, isMultiLine);
                     var layoutSettings = CreateTextLayoutSettings(settings, isMultiLine, r.width);
@@ -1999,7 +1999,7 @@ namespace Prowl.PaperUI
                     canvas.SaveState();
                     canvas.TransformBy(Transform2D.CreateTranslation(-renderState.ScrollOffsetX, -renderState.ScrollOffsetY));
 
-                    var fontSize = ((AbsoluteUnit)elHandle.Data._elementStyle.GetValue(GuiProp.FontSize)).ToPx(_paper.ScalingSettings);
+                    var fontSize = ((AbsoluteUnit)elHandle.Data._elementStyle.GetValue(GuiProp.FontSize)).ToPx(scalingSettings);
 
                     // Draw text or placeholder
                     if (string.IsNullOrEmpty(renderState.Value))
