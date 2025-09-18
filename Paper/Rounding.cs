@@ -24,7 +24,7 @@ namespace Prowl.PaperUI
             BottomLeft = bottomLeft;
         }
 
-        public Vector4 ToPx(ScalingSettings scalingSettings)
+        public Vector4 ToPx(in ScalingSettings scalingSettings)
         {
             return new Vector4(
                 TopLeft.ToPx(scalingSettings), TopRight.ToPx(scalingSettings),

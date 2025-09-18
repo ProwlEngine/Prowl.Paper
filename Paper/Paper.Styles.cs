@@ -430,7 +430,7 @@ namespace Prowl.PaperUI
         /// <summary>
         /// Gets the complete transform for an element.
         /// </summary>
-        public Transform2D GetTransformForElement(Rect rect, ScalingSettings scalingSettings)
+        public Transform2D GetTransformForElement(Rect rect, in ScalingSettings scalingSettings)
         {
             TransformBuilder builder = new TransformBuilder();
 

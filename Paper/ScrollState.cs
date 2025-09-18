@@ -69,7 +69,7 @@ namespace Prowl.PaperUI
         /// <summary>
         /// Calculates the vertical scrollbar dimensions based on the element rect.
         /// </summary>
-        public (double x, double y, double width, double height, double thumbY, double thumbHeight) CalculateVerticalScrollbar(Rect rect, Scroll flags, ScalingSettings scalingSettings)
+        public (double x, double y, double width, double height, double thumbY, double thumbHeight) CalculateVerticalScrollbar(Rect rect, Scroll flags, in ScalingSettings scalingSettings)
         {
             bool hasHorizontal = NeedsHorizontalScroll(flags);
             double scrollbarSize = ScrollbarSize.ToPx(scalingSettings);
@@ -97,7 +97,7 @@ namespace Prowl.PaperUI
         /// <summary>
         /// Calculates the horizontal scrollbar dimensions based on the element rect.
         /// </summary>
-        public (double x, double y, double width, double height, double thumbX, double thumbWidth) CalculateHorizontalScrollbar(Rect rect, Scroll flags, ScalingSettings scalingSettings)
+        public (double x, double y, double width, double height, double thumbX, double thumbWidth) CalculateHorizontalScrollbar(Rect rect, Scroll flags, in ScalingSettings scalingSettings)
         {
             bool hasVertical = NeedsVerticalScroll(flags);
             double scrollbarSize = ScrollbarSize.ToPx(scalingSettings);
@@ -125,7 +125,7 @@ namespace Prowl.PaperUI
         /// <summary>
         /// Checks if a point is over the vertical scrollbar.
         /// </summary>
-        public bool IsPointOverVerticalScrollbar(Vector2 point, Rect rect, Scroll flags, ScalingSettings scalingSettings)
+        public bool IsPointOverVerticalScrollbar(Vector2 point, Rect rect, Scroll flags, in ScalingSettings scalingSettings)
         {
             if (!NeedsVerticalScroll(flags))
                 return false;
@@ -141,7 +141,7 @@ namespace Prowl.PaperUI
         /// <summary>
         /// Checks if a point is over the horizontal scrollbar.
         /// </summary>
-        public bool IsPointOverHorizontalScrollbar(Vector2 point, Rect rect, Scroll flags, ScalingSettings scalingSettings)
+        public bool IsPointOverHorizontalScrollbar(Vector2 point, Rect rect, Scroll flags, in ScalingSettings scalingSettings)
         {
             if (!NeedsHorizontalScroll(flags))
                 return false;
@@ -157,7 +157,7 @@ namespace Prowl.PaperUI
         /// <summary>
         /// Handles scrollbar dragging for vertical scrollbar.
         /// </summary>
-        public void HandleVerticalScrollbarDrag(Vector2 mousePos, Rect rect, Scroll flags, ScalingSettings scalingSettings)
+        public void HandleVerticalScrollbarDrag(Vector2 mousePos, Rect rect, Scroll flags, in ScalingSettings scalingSettings)
         {
             if (!IsDraggingVertical)
                 return;
@@ -182,7 +182,7 @@ namespace Prowl.PaperUI
         /// <summary>
         /// Handles scrollbar dragging for horizontal scrollbar.
         /// </summary>
-        public void HandleHorizontalScrollbarDrag(Vector2 mousePos, Rect rect, Scroll flags, ScalingSettings scalingSettings)
+        public void HandleHorizontalScrollbarDrag(Vector2 mousePos, Rect rect, Scroll flags, in ScalingSettings scalingSettings)
         {
             if (!IsDraggingHorizontal)
                 return;
