@@ -85,7 +85,7 @@ For a complete guide, tutorials, and API reference, please visit the **[Official
     - Fluent API
     - Flexible Layout System
         - Rows, Columns & Custom Positioning
-        - Pixel, Points, Percentage, Stretch or Auto for Positioning and Sizing
+        - Pixels, Points, Percentage, Stretch or Auto for Positioning and Sizing
         - Content Scaling
     - A Powerful Built-in Animation System
         - Many built-in Easing functions
