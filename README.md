@@ -105,7 +105,7 @@ For a complete guide, tutorials, and API reference, please visit the **[Official
         - MoveTo, LineTo, CurveTo, Fill, Stroke, etc
         - Box Shadows
         - Linear, Radial and Box Gradients
-        - Draw custom shapes at any time any where
+        - Draw custom shapes at any time anywhere
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
