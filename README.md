@@ -85,7 +85,8 @@ For a complete guide, tutorials, and API reference, please visit the **[Official
     - Fluent API
     - Flexible Layout System
         - Rows, Columns & Custom Positioning
-        - Pixel, Percentage, Stretch or Auto for Positioning and Sizing
+        - Pixel, Points, Percentage, Stretch or Auto for Positioning and Sizing
+        - Content Scaling
     - A Powerful Built-in Animation System
         - Many built-in Easing functions
         - Easily provide your own Easing functions
@@ -137,7 +138,7 @@ void RenderUI()
 {
     // Begin the UI frame
     Paper.BeginFrame(deltaTime);
-    
+
     // Define your UI
     using (Paper.Column("MainContainer")
         .BackgroundColor(240, 240, 240)
@@ -149,7 +150,7 @@ void RenderUI()
             .BackgroundColor(50, 120, 200)
             .Text(Text.Center("My Application", myFont, Color.White))
             .Enter()) { }
-            
+
         // Content area
         using (Paper.Row("Content").Enter())
         {
@@ -157,12 +158,12 @@ void RenderUI()
             Paper.Box("Sidebar")
                 .Width(200)
                 .BackgroundColor(220, 220, 220);
-                
+
             // Main content
             Paper.Box("MainContent");
         }
     }
-    
+
     // End the UI frame
     Paper.EndFrame();
 }
@@ -264,7 +265,7 @@ Paper.Box("InteractiveElement")
     .OnScroll((delta, rect) => Scroll(delta))
 ```
 ## Input Handling
-To integrate Paper's input system with your project, you need to forward input events from your project to PaperUI. 
+To integrate Paper's input system with your project, you need to forward input events from your project to PaperUI.
 Here's a simplified example using Raylib:
 
 ```cs
@@ -273,19 +274,19 @@ void UpdatePaperUIInput()
 {
     // Update mouse position
     Paper.SetPointerPosition(mousePos);
-    
+
     // Forward mouse button events
     if (IsMouseButtonPressed(MouseButton.Left))
         Paper.SetPointerState(PaperMouseBtn.Left, mousePos, true);
     if (IsMouseButtonReleased(MouseButton.Left))
         Paper.SetPointerState(PaperMouseBtn.Left, mousePos, false);
     // Repeat for Right & Middle
-        
+
     // Forward mouse wheel events
     float wheelDelta = GetMouseWheelMove();
     if (wheelDelta != 0)
         Paper.SetPointerWheel(wheelDelta);
-        
+
     // Forward text input
     int key = GetCharPressed();
     while (key > 0)
@@ -293,7 +294,7 @@ void UpdatePaperUIInput()
         Paper.AddInputCharacter(((char)key).ToString());
         key = GetCharPressed();
     }
-    
+
     // Forward key states
     // keyMappings being an array storing the mapping from a PaperKey enum to your Projects Key Enum
     foreach (var keyMapping in keyMappings)
