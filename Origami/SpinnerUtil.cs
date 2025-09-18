@@ -1,5 +1,6 @@
 using System.Drawing;
 
+using Prowl.PaperUI.LayoutEngine;
 using Prowl.Quill;
 using Prowl.Vector;
 
@@ -30,15 +31,15 @@ public static class SpinnerUtil
     /// </summary>
     public struct SpinnerConfig
     {
-        /// <summary>Size of the spinner in pixels.</summary>
-        public double Size { get; set; }
-        
+        /// <summary>Size of the spinner.</summary>
+        public AbsoluteUnit Size { get; set; }
+
         /// <summary>Color of the spinner.</summary>
         public Color Color { get; set; }
-        
+
         /// <summary>Width of the spinner stroke.</summary>
-        public double StrokeWidth { get; set; }
-        
+        public AbsoluteUnit StrokeWidth { get; set; }
+
         /// <summary>Animation speed multiplier (1.0 = normal speed).</summary>
         public double Speed { get; set; }
 
@@ -77,20 +78,20 @@ public static class SpinnerUtil
     /// <param name="paper">Paper UI instance</param>
     /// <param name="config">Spinner configuration</param>
     /// <returns>Action that can be used with AddActionElement</returns>
-    public static Action<Canvas, Rect> CreateSpinner(Paper paper, SpinnerConfig config)
+    public static Action<Canvas, Rect, ScalingSettings> CreateSpinner(Paper paper, SpinnerConfig config)
     {
-        return (canvas, rect) => {
+        return (canvas, rect, scalingSettings) => {
             var centerX = rect.x + rect.width / 2;
             var centerY = rect.y + rect.height / 2;
-            var radius = config.Size / 2;
-            
+            var radius = config.Size.ToPx(scalingSettings) / 2;
+
             // Calculate rotation based on time
             var time = paper.Time;
             var rotation = (time * config.Speed * 2) % (Math.PI * 2); // Full rotation every second at speed 1.0
             var rotDegrees = MathD.ToDeg(rotation);
 
             canvas.SaveState();
-            
+
             // Move to center and rotate
             canvas.TransformBy(Transform2D.CreateTranslation(centerX, centerY));
             canvas.TransformBy(Transform2D.CreateRotate(rotDegrees));
@@ -99,7 +100,7 @@ public static class SpinnerUtil
             canvas.BeginPath();
             canvas.Arc(0, 0, radius, 0, Math.PI * 1.5); // 3/4 circle
             canvas.SetStrokeColor(config.Color);
-            canvas.SetStrokeWidth(config.StrokeWidth);
+            canvas.SetStrokeWidth(config.StrokeWidth.ToPx(scalingSettings));
             canvas.Stroke();
 
             canvas.RestoreState();
@@ -113,7 +114,7 @@ public static class SpinnerUtil
     /// <param name="theme">Origami theme for color consistency</param>
     /// <param name="size">Size variant</param>
     /// <returns>Action that can be used with AddActionElement</returns>
-    public static Action<Canvas, Rect> CreateThemedSpinner(Paper paper, OrigamiTheme theme, OrigamiSize size = OrigamiSize.Medium)
+    public static Action<Canvas, Rect, ScalingSettings> CreateThemedSpinner(Paper paper, OrigamiTheme theme, OrigamiSize size = OrigamiSize.Medium)
     {
         var config = size switch
         {
@@ -135,7 +136,7 @@ public static class SpinnerUtil
     /// <param name="color">Color for the spinner</param>
     /// <param name="size">Size variant</param>
     /// <returns>Action that can be used with AddActionElement</returns>
-    public static Action<Canvas, Rect> CreateColoredSpinner(Paper paper, Color color, OrigamiSize size = OrigamiSize.Medium)
+    public static Action<Canvas, Rect, ScalingSettings> CreateColoredSpinner(Paper paper, Color color, OrigamiSize size = OrigamiSize.Medium)
     {
         var config = size switch
         {
@@ -154,16 +155,16 @@ public static class SpinnerUtil
     /// <param name="paper">Paper UI instance</param>
     /// <param name="config">Spinner configuration</param>
     /// <returns>Action that can be used with AddActionElement</returns>
-    public static Action<Canvas, Rect> CreateDotsSpinner(Paper paper, SpinnerConfig config)
+    public static Action<Canvas, Rect, ScalingSettings> CreateDotsSpinner(Paper paper, SpinnerConfig config)
     {
-        return (canvas, rect) => {
+        return (canvas, rect, scalingSettings) => {
             var centerX = rect.x + rect.width / 2;
             var centerY = rect.y + rect.height / 2;
             var time = paper.Time * config.Speed;
-            
+
             // Three dots with staggered animation
-            var dotSize = config.Size / 6;
-            var spacing = config.Size / 3;
+            var dotSize = config.Size.ToPx(scalingSettings) / 6;
+            var spacing = config.Size.ToPx(scalingSettings) / 3;
 
             canvas.SaveState();
 
@@ -171,12 +172,12 @@ public static class SpinnerUtil
             {
                 var x = centerX + (i - 1) * spacing;
                 var y = centerY;
-                
+
                 // Animate opacity based on time and dot index
                 var animationOffset = i * 0.3; // Stagger the animation
                 var opacity = (Math.Sin(time * 3 + animationOffset) + 1) / 2; // 0 to 1
                 opacity = Math.Max(0.3, opacity); // Minimum visibility
-                
+
                 var dotColor = Color.FromArgb((int)(255 * opacity), config.Color);
 
                 canvas.BeginPath();
@@ -195,23 +196,23 @@ public static class SpinnerUtil
     /// <param name="paper">Paper UI instance</param>
     /// <param name="config">Spinner configuration</param>
     /// <returns>Action that can be used with AddActionElement</returns>
-    public static Action<Canvas, Rect> CreatePulseSpinner(Paper paper, SpinnerConfig config)
+    public static Action<Canvas, Rect, ScalingSettings> CreatePulseSpinner(Paper paper, SpinnerConfig config)
     {
-        return (canvas, rect) => {
+        return (canvas, rect, scalingSettings) => {
             var centerX = rect.x + rect.width / 2;
             var centerY = rect.y + rect.height / 2;
             var time = paper.Time * config.Speed;
-            
+
             // Pulsing radius
-            var baseRadius = config.Size / 3;
+            var baseRadius = config.Size.ToPx(scalingSettings) / 3;
             var pulseRadius = baseRadius + (Math.Sin(time * 4) + 1) / 2 * baseRadius * 0.5;
-            
+
             // Pulsing opacity
             var opacity = (Math.Sin(time * 4) + 1) / 2 * 0.7 + 0.3; // 0.3 to 1.0
             var pulseColor = Color.FromArgb((int)(255 * opacity), config.Color);
 
             canvas.SaveState();
-            
+
             canvas.BeginPath();
             canvas.Circle(centerX, centerY, pulseRadius);
             canvas.SetFillColor(pulseColor);
