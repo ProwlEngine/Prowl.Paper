@@ -17,7 +17,9 @@ namespace Prowl.PaperUI.LayoutEngine
         /// </summary>
         public double ContentScale = 1;
 
-        public ScalingSettings(double contentScale = 1)
+        public ScalingSettings() { }
+
+        public ScalingSettings(double contentScale)
         {
             ContentScale = contentScale;
         }
