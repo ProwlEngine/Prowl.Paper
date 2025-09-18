@@ -1081,8 +1081,8 @@ namespace Prowl.PaperUI
                 Vector2 mousePos = _paper.PointerPos;
 
                 // Check if pointer is over scrollbars
-                state.IsVerticalScrollbarHovered = state.IsPointOverVerticalScrollbar(mousePos, e.ElementRect, _handle.Data.ScrollFlags);
-                state.IsHorizontalScrollbarHovered = state.IsPointOverHorizontalScrollbar(mousePos, e.ElementRect, _handle.Data.ScrollFlags);
+                state.IsVerticalScrollbarHovered = state.IsPointOverVerticalScrollbar(mousePos, e.ElementRect, _handle.Data.ScrollFlags, _paper._scalingSettings);
+                state.IsHorizontalScrollbarHovered = state.IsPointOverHorizontalScrollbar(mousePos, e.ElementRect, _handle.Data.ScrollFlags, _paper._scalingSettings);
 
                 _paper.SetElementStorage(_handle, "ScrollState", state);
             });
@@ -1131,8 +1131,8 @@ namespace Prowl.PaperUI
                 Vector2 mousePos = _paper.PointerPos;
 
                 // Check if click is on a scrollbar
-                bool onVertical = state.IsPointOverVerticalScrollbar(mousePos, e.ElementRect, _handle.Data.ScrollFlags);
-                bool onHorizontal = state.IsPointOverHorizontalScrollbar(mousePos, e.ElementRect, _handle.Data.ScrollFlags);
+                bool onVertical = state.IsPointOverVerticalScrollbar(mousePos, e.ElementRect, _handle.Data.ScrollFlags, _paper._scalingSettings);
+                bool onHorizontal = state.IsPointOverHorizontalScrollbar(mousePos, e.ElementRect, _handle.Data.ScrollFlags, _paper._scalingSettings);
 
                 // Start dragging the appropriate scrollbar
                 if (onVertical)
@@ -1162,11 +1162,11 @@ namespace Prowl.PaperUI
                 // Handle scrollbar dragging
                 if (state.IsDraggingVertical)
                 {
-                    state.HandleVerticalScrollbarDrag(mousePos, e.ElementRect, _handle.Data.ScrollFlags);
+                    state.HandleVerticalScrollbarDrag(mousePos, e.ElementRect, _handle.Data.ScrollFlags, _paper._scalingSettings);
                 }
                 else if (state.IsDraggingHorizontal)
                 {
-                    state.HandleHorizontalScrollbarDrag(mousePos, e.ElementRect, _handle.Data.ScrollFlags);
+                    state.HandleHorizontalScrollbarDrag(mousePos, e.ElementRect, _handle.Data.ScrollFlags, _paper._scalingSettings);
                 }
 
                 _paper.SetElementStorage(_handle, "ScrollState", state);
@@ -1183,8 +1183,8 @@ namespace Prowl.PaperUI
 
                 // Update hover state on release
                 Vector2 mousePos = _paper.PointerPos;
-                state.IsVerticalScrollbarHovered = state.IsPointOverVerticalScrollbar(mousePos, e.ElementRect, _handle.Data.ScrollFlags);
-                state.IsHorizontalScrollbarHovered = state.IsPointOverHorizontalScrollbar(mousePos, e.ElementRect, _handle.Data.ScrollFlags);
+                state.IsVerticalScrollbarHovered = state.IsPointOverVerticalScrollbar(mousePos, e.ElementRect, _handle.Data.ScrollFlags, _paper._scalingSettings);
+                state.IsHorizontalScrollbarHovered = state.IsPointOverHorizontalScrollbar(mousePos, e.ElementRect, _handle.Data.ScrollFlags, _paper._scalingSettings);
 
                 _paper.SetElementStorage(_handle, "ScrollState", state);
             });

@@ -508,35 +508,53 @@ namespace Prowl.PaperUI
             bool hasHorizontal = state.ContentSize.x > state.ViewportSize.x && (flags & Scroll.ScrollX) != 0;
             bool hasVertical = state.ContentSize.y > state.ViewportSize.y && (flags & Scroll.ScrollY) != 0;
 
+            double borderRadius = UnitValue.Points(10).ToPx(_scalingSettings);
+            double scrollbarPadding = ScrollState.ScrollbarPadding.ToPx(_scalingSettings);
+
             if (hasVertical)
             {
-                var (trackX, trackY, trackWidth, trackHeight, thumbY, thumbHeight) = state.CalculateVerticalScrollbar(rect, flags);
-
+                var (trackX, trackY, trackWidth, trackHeight, thumbY, thumbHeight) = state.CalculateVerticalScrollbar(rect, flags, _scalingSettings);
 
                 // Draw vertical scrollbar track
-                canvas.RoundedRectFilled(trackX, trackY, trackWidth, trackHeight, 10, 10, 10, 10, Color.FromArgb(50, 0, 0, 0));
+                canvas.RoundedRectFilled(
+                    trackX, trackY,
+                    trackWidth, trackHeight,
+                    borderRadius, borderRadius, borderRadius, borderRadius,
+                    Color.FromArgb(50, 0, 0, 0));
 
                 // Draw vertical scrollbar thumb - highlight if hovered or dragging
                 Color thumbColor = state.IsVerticalScrollbarHovered || state.IsDraggingVertical
                     ? Color.FromArgb(220, 130, 130, 130)
                     : Color.FromArgb(180, 100, 100, 100);
 
-                canvas.RoundedRectFilled(trackX + ScrollState.ScrollbarPadding, thumbY + ScrollState.ScrollbarPadding, trackWidth - ScrollState.ScrollbarPadding * 2, thumbHeight - ScrollState.ScrollbarPadding * 2, 10, 10, 10, 10, thumbColor);
+                canvas.RoundedRectFilled(
+                    trackX + scrollbarPadding, thumbY + scrollbarPadding,
+                    trackWidth - scrollbarPadding * 2, thumbHeight - scrollbarPadding * 2,
+                    borderRadius, borderRadius, borderRadius, borderRadius,
+                    thumbColor);
             }
 
             if (hasHorizontal)
             {
-                var (trackX, trackY, trackWidth, trackHeight, thumbX, thumbWidth) = state.CalculateHorizontalScrollbar(rect, flags);
+                var (trackX, trackY, trackWidth, trackHeight, thumbX, thumbWidth) = state.CalculateHorizontalScrollbar(rect, flags, _scalingSettings);
 
                 // Draw horizontal scrollbar track
-                canvas.RoundedRectFilled(trackX, trackY, trackWidth, trackHeight, 10, 10, 10, 10, Color.FromArgb(50, 0, 0, 0));
+                canvas.RoundedRectFilled(
+                    trackX, trackY,
+                    trackWidth, trackHeight,
+                    borderRadius, borderRadius, borderRadius, borderRadius,
+                    Color.FromArgb(50, 0, 0, 0));
 
                 // Draw horizontal scrollbar thumb - highlight if hovered or dragging
                 Color thumbColor = state.IsHorizontalScrollbarHovered || state.IsDraggingHorizontal
                     ? Color.FromArgb(220, 130, 130, 130)
                     : Color.FromArgb(180, 100, 100, 100);
 
-                canvas.RoundedRectFilled(thumbX + ScrollState.ScrollbarPadding, trackY + ScrollState.ScrollbarPadding, thumbWidth - ScrollState.ScrollbarPadding * 2, trackHeight - ScrollState.ScrollbarPadding * 2, 10, 10, 10, 10, thumbColor);
+                canvas.RoundedRectFilled(
+                    thumbX + scrollbarPadding, trackY + scrollbarPadding,
+                    thumbWidth - scrollbarPadding * 2, trackHeight - scrollbarPadding * 2,
+                    borderRadius, borderRadius, borderRadius, borderRadius,
+                    thumbColor);
             }
         }
 
