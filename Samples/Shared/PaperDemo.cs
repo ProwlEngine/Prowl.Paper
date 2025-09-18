@@ -1,6 +1,7 @@
 ﻿using System.Drawing;
 
 using Prowl.PaperUI;
+using Prowl.PaperUI.LayoutEngine;
 using Prowl.PaperUI.Themes.Origami;
 using Prowl.Vector;
 
@@ -426,8 +427,8 @@ namespace Shared
                             .Enter())
                         {
                             // Draw a simple chart with animated data
-                            Gui.AddActionElement((vg, rect) => {
-
+                            Gui.AddActionElement((vg, rect, scalingSettings) =>
+                            {
                                 // Draw grid lines
                                 for (int i = 0; i <= 5; i++)
                                 {
@@ -436,7 +437,7 @@ namespace Shared
                                     vg.MoveTo(rect.x, y);
                                     vg.LineTo(rect.x + rect.width, y);
                                     vg.SetStrokeColor(Themes.lightTextColor);
-                                    vg.SetStrokeWidth(1);
+                                    vg.SetStrokeWidth(UnitValue.Points(1).ToPx(scalingSettings));
                                     vg.Stroke();
                                 }
 
@@ -499,7 +500,7 @@ namespace Shared
                                 }
 
                                 vg.SetStrokeColor(Themes.primaryColor);
-                                vg.SetStrokeWidth(3);
+                                vg.SetStrokeWidth(UnitValue.Points(3).ToPx(scalingSettings));
                                 vg.Stroke();
 
                                 // Draw points
@@ -513,12 +514,12 @@ namespace Shared
                                     double y = rect.y + rect.height - (animatedValue * rect.height);
 
                                     vg.BeginPath();
-                                    vg.Circle(x, y, 6);
+                                    vg.Circle(x, y, UnitValue.Points(6).ToPx(scalingSettings));
                                     vg.SetFillColor(Color.White);
                                     vg.Fill();
 
                                     vg.BeginPath();
-                                    vg.Circle(x, y, 4);
+                                    vg.Circle(x, y, UnitValue.Points(4).ToPx(scalingSettings));
                                     vg.SetFillColor(Themes.primaryColor);
                                     vg.Fill();
                                 }
@@ -898,7 +899,7 @@ namespace Shared
                             .Enter())
                         {
                             // Render contribution graph
-                            Gui.AddActionElement((vg, rect) => {
+                            Gui.AddActionElement((vg, rect, scalingSettings) => {
                                 int days = 7;
                                 int weeks = 4;
                                 double cellWidth = rect.width / days;
@@ -918,9 +919,11 @@ namespace Shared
                                         double value = Math.Sin(week * 0.4f + day * 0.7f + time) * 0.5f + 0.5f;
                                         value = Math.Pow(value, 1.5f);
 
+                                        double borderRadius = UnitValue.Points(3).ToPx(scalingSettings);
+
                                         // Draw cell
                                         vg.BeginPath();
-                                        vg.RoundedRect(x, y, cellSize, cellSize, 3, 3, 3, 3);
+                                        vg.RoundedRect(x, y, cellSize, cellSize, borderRadius, borderRadius, borderRadius, borderRadius);
 
                                         // Apply color based on intensity
                                         int alpha = (int)(40 + value * 215);
