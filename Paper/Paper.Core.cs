@@ -556,12 +556,11 @@ namespace Prowl.PaperUI
             else
                 storageHash = (ulong)HashCode.Combine(CurrentParent.Data.ID, stringID, intID);
 
-            if (_createdElements.Contains(storageHash))
+            if (!_createdElements.Add(storageHash))
                 throw new Exception("Element already exists with this ID: " + stringID + ":" + intID + " = " + storageHash + " Parent: " + CurrentParent.Data.ID + "\nPlease use a different ID.");
 
             var handle = CreateElement(storageHash);
             var builder = new ElementBuilder(this, handle);
-            _createdElements.Add(storageHash);
 
             AddChild(ref handle);
 
