@@ -1,9 +1,4 @@
-using System.ComponentModel;
-using System.Data.Common;
-
 using Prowl.PaperUI;
-using Prowl.PaperUI.LayoutEngine;
-using Prowl.PaperUI.Themes.Origami;
 
 namespace Shared
 {
@@ -29,7 +24,7 @@ namespace Shared
         }
 
         public static string selectedItemId = "";
-
+        public static string selectedTabId = "";
 
         public static Paper Gui;
         static double value = 0;
@@ -68,7 +63,7 @@ namespace Shared
                     }
                 }
             }
-        }; 
+        };
 
         public static void Initialize(Paper paper)
         {
@@ -126,9 +121,47 @@ namespace Shared
                             }
                         }
 
-                        using (Gui.Column("Center Panel").BackgroundColor(Themes.base300).Rounded(5).Enter())
+                        using (Gui.Column("Center Panel").Enter())
                         {
+                            using (WindowContainer("Game and Scene Window").Enter())
+                            {
+                                var tabs = new Tab[]
+                                {
+                                    new Tab { id = "game", title = "Viewport", width = 83, active = true },
+                                };
 
+                                using (TabsContainer("Body", tabs).Enter())
+                                {
+                                    using (Gui.Row("Tools").RowBetween(5).Margin(4).Top(5).Height(20).Enter())
+                                    {
+                                        Gui.Box("Tool 1")
+                                            .Text(Icons.ArrowsTurnToDots, Fonts.arial).FontSize(12)
+                                            .Width(20).Rounded(5).Alignment(TextAlignment.MiddleCenter)
+                                            .Hovered.BackgroundColor(Themes.base250).End();
+                                        Gui.Box("Tool 2")
+                                            .Text(Icons.ArrowsDownToLine, Fonts.arial).FontSize(12)
+                                            .Width(20).Rounded(5).Alignment(TextAlignment.MiddleCenter)
+                                            .Hovered.BackgroundColor(Themes.base250).End();
+                                        Gui.Box("Tool 3")
+                                            .Text(Icons.Anchor, Fonts.arial).FontSize(12)
+                                            .Width(20).Rounded(5).Alignment(TextAlignment.MiddleCenter)
+                                            .Hovered.BackgroundColor(Themes.base250).End();
+                                        Gui.Box("Tool 4")
+                                            .Text(Icons.AngleUp, Fonts.arial).FontSize(12)
+                                            .Width(20).Rounded(5).Alignment(TextAlignment.MiddleCenter)
+                                            .Hovered.BackgroundColor(Themes.base250).End();
+
+                                        Gui.Box("Spacer");
+
+                                        Gui.Box("Tool 4")
+                                        .Text(Icons.ArrowsLeftRight, Fonts.arial).FontSize(12)
+                                        .Width(20).Rounded(5).Alignment(TextAlignment.MiddleCenter)
+                                        .Hovered.BackgroundColor(Themes.base250).End();
+                                    }
+
+                                    Gui.Box("Game View").Margin(2).Rounded(5).BackgroundColor(System.Drawing.Color.Black);
+                                }
+                            }
                         }
 
                         using (Gui.Column("Right Panel").Width(250).Enter())
@@ -226,15 +259,16 @@ namespace Shared
 
         private static ElementBuilder TabsContainer(string id, Tab[] tabs)
         {
-            using (Gui.Row("Tabs").Height(28).Left(5).Enter())
+            using (Gui.Row("Tabs" + id).Height(28).Enter())
             {
                 foreach (var tab in tabs)
                 {
-                    if (tab.active)
+                    if (tab.id == selectedTabId)
                     {
-                        using (Gui.Box("Active Tab").Width(tab.width).Height(28).Enter())
-                        {
-                            Gui.Box("Highlight").RoundedTop(2).BackgroundColor(Themes.primary).Height(3);
+                        using (Gui.Box("Active Tab" + tab.id).Width(tab.width).Height(28).Left(5).Enter())
+                        {   
+                            Gui.Box("Highlight").Layer(Layer.Overlay).PositionType(PositionType.SelfDirected).RoundedTop(3).BackgroundColor(Themes.primary).Height(3);
+
                             Gui.Box("tab 1")
                                 .BackgroundColor(Themes.base200)
                                 .Text(tab.title, Fonts.arial)
@@ -244,17 +278,22 @@ namespace Shared
                     }
                     else
                     {
-                        Gui.Box("tab 2")
+                        Gui.Box("Inactive Tab" + tab.id)
                             .RoundedTop(3)
+                            .Left(5)
                             .Width(tab.width).Height(28)
                             .BackgroundColor(Themes.base100)
                             .Text(tab.title, Fonts.arial)
                             .TextColor(Themes.baseContent)
+                            .Alignment(TextAlignment.MiddleCenter)
                             .Hovered
                                 .BackgroundColor(Themes.base300)
                             .End()
-                            .Alignment(TextAlignment.MiddleCenter)
-                            .Left(5);
+                            .OnClick((_) =>
+                            {
+                                Console.WriteLine("clicked tab " + tab.id);
+                                selectedTabId = tab.id;
+                            });
                     }
                 }
 
@@ -327,7 +366,7 @@ namespace Shared
                     .Alignment(TextAlignment.MiddleCenter)
                     .Left(5);
 
-                Gui.Box("tab 3")
+                Gui.Box("tab 4")
                     .Width(65).Height(28)
                     .BackgroundColor(Themes.base100)
                     .Text("Debug", Fonts.arial)
@@ -341,14 +380,14 @@ namespace Shared
 
                 Gui.Box("Spacer");
 
-                Gui.Box("tab 3")
+                Gui.Box("Play / Pause")
                    .Width(64).Height(28)
-                   .BackgroundColor(Themes.base300)
+                   .BackgroundColor(Themes.base200)
                    .Text(Icons.Play + "    " + Icons.Pause, Fonts.arial)
                    .TextColor(Themes.baseContent)
                    .Rounded(5)
                    .Hovered
-                       .BackgroundColor(Themes.base200)
+                       .BackgroundColor(Themes.base250)
                    .End()
                    .Alignment(TextAlignment.MiddleCenter)
                    .Left(500);
