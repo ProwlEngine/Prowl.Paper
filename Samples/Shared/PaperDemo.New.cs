@@ -102,6 +102,23 @@ namespace Shared
             }
         }
 
+        public struct Item
+        {
+            public string id;
+            public string title;
+            public int depth;
+            public Item[] children;
+            public bool expanded;
+            public bool selected;
+            public Action<Item> onClick; // Open inspector etc
+        }
+
+        // TODO recursive hierarchy
+        private static void HierarchyItem(Item item)
+        {
+
+        } 
+
         private static ElementBuilder WindowContainer(string id)
         {
             return Gui.Box(id)
