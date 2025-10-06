@@ -82,23 +82,11 @@ namespace Shared
                         {
                             using (WindowContainer("Scene Tree Window").Enter())
                             {
-                                // var tabs = new Tab[]
-                                // {
-                                //     new Tab { id = "hierarchy", title = "Hierarchy", width = 83 },
-                                //     new Tab { id = "assets", title = "Assets", width = 65 },
-                                // };
-
                                 tabsManager.DrawGroup(["hierarchy", "assets"]);
                             }
 
                             using (WindowContainer("Files Window Container").Enter())
                             {
-                                // var tabs = new Tab[]
-                                // {
-                                //     new Tab { id = "files", title = "Files", width = 52 },
-                                //     new Tab { id = "settings", title = "Settings", width = 70 },
-                                // };
-
                                 tabsManager.DrawGroup(["files", "settings"]);
                             }
                         }
