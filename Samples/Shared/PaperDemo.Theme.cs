@@ -70,6 +70,7 @@ namespace Shared
         public static Color base200;
         public static Color base250;
         public static Color base300;
+        public static Color base400;
         public static Color baseContent;
         public static Color primary;
         public static Color primaryContent;
@@ -79,10 +80,11 @@ namespace Shared
         public static void Initialize()
         {
             //Dark
-            base100 = Color.FromArgb(255, 23, 23, 23);
-            base200 = Color.FromArgb(255, 42, 42, 42);
-            base250 = Color.FromArgb(255, 52, 52, 52);
-            base300 = Color.FromArgb(255, 64, 64, 64);
+            base100 = Color.FromArgb(255, 31, 31, 36);
+            base200 = Color.FromArgb(255, 42, 42, 46);
+            base250 = Color.FromArgb(255, 54, 55, 59);
+            base300 = Color.FromArgb(255, 64, 64, 68);
+            base400 = Color.FromArgb(255, 70, 71, 76);
             baseContent = Color.FromArgb(255, 230, 230, 230);
             primary = Color.FromArgb(255, 69, 135, 235);
             primaryContent = Color.FromArgb(255, 226, 232, 240);
