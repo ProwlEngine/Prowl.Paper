@@ -4,14 +4,6 @@ namespace Shared
 {
     public static partial class PaperDemo
     {
-        public struct Tab
-        {
-            public string id;
-            public string title;
-            public double width;
-            public bool active;
-        }
-
         public class Item
         {
             public string id;
@@ -24,7 +16,8 @@ namespace Shared
         }
 
         public static string selectedItemId = "";
-        public static string selectedTabId = "";
+
+        public static TabsManager tabsManager;
 
         public static Paper Gui;
         static double value = 0;
@@ -70,6 +63,9 @@ namespace Shared
             Gui = paper;
             Fonts.Initialize(Gui);
             Themes.Initialize();
+
+            // create the tabs
+            tabsManager = new TabsManager(paper);
         }
 
         public static void RenderUI()
@@ -86,38 +82,24 @@ namespace Shared
                         {
                             using (WindowContainer("Scene Tree Window").Enter())
                             {
-                                var tabs = new Tab[]
-                                {
-                                    new Tab { id = "hierarchy", title = "Hierarchy", width = 83, active = true },
-                                    new Tab { id = "assets", title = "Assets", width = 65, active = false },
-                                };
+                                // var tabs = new Tab[]
+                                // {
+                                //     new Tab { id = "hierarchy", title = "Hierarchy", width = 83 },
+                                //     new Tab { id = "assets", title = "Assets", width = 65 },
+                                // };
 
-                                using (TabsContainer("Body", tabs).Enter())
-                                {
-                                    using (Gui.Box("Search Box").Height(28).Margin(5).Top(8).Bottom(8).Rounded(5).BackgroundColor(Themes.base300).Enter())
-                                    {
-                                        Gui.Box("Search").Text("Filter...", Fonts.arial)
-                                            .TextColor(Themes.baseContent)
-                                            .Left(8)
-                                            .Alignment(TextAlignment.MiddleLeft);
-                                    }
-
-                                    HierarchyItem(rootItem);
-                                }
+                                tabsManager.DrawGroup(["hierarchy", "assets"]);
                             }
 
                             using (WindowContainer("Files Window Container").Enter())
                             {
-                                var tabs = new Tab[]
-                                {
-                                    new Tab { id = "files", title = "Files", width = 52, active = true },
-                                    new Tab { id = "assets", title = "Settings", width = 70, active = false },
-                                };
+                                // var tabs = new Tab[]
+                                // {
+                                //     new Tab { id = "files", title = "Files", width = 52 },
+                                //     new Tab { id = "settings", title = "Settings", width = 70 },
+                                // };
 
-                                using (TabsContainer("Body", tabs).BorderTop(8).Enter())
-                                {
-                                    HierarchyItem(rootItem);
-                                }
+                                tabsManager.DrawGroup(["files", "settings"]);
                             }
                         }
 
@@ -125,66 +107,15 @@ namespace Shared
                         {
                             using (WindowContainer("Game and Scene Window").Enter())
                             {
-                                var tabs = new Tab[]
-                                {
-                                    new Tab { id = "game", title = "Viewport", width = 83, active = true },
-                                };
-
-                                using (TabsContainer("Body", tabs).Enter())
-                                {
-                                    using (Gui.Row("Tools").RowBetween(5).Margin(4).Top(5).Height(20).Enter())
-                                    {
-                                        Gui.Box("Tool 1")
-                                            .Text(Icons.ArrowsTurnToDots, Fonts.arial).FontSize(12)
-                                            .Width(20).Rounded(5).Alignment(TextAlignment.MiddleCenter)
-                                            .Hovered.BackgroundColor(Themes.base250).End();
-                                        Gui.Box("Tool 2")
-                                            .Text(Icons.ArrowsDownToLine, Fonts.arial).FontSize(12)
-                                            .Width(20).Rounded(5).Alignment(TextAlignment.MiddleCenter)
-                                            .Hovered.BackgroundColor(Themes.base250).End();
-                                        Gui.Box("Tool 3")
-                                            .Text(Icons.Anchor, Fonts.arial).FontSize(12)
-                                            .Width(20).Rounded(5).Alignment(TextAlignment.MiddleCenter)
-                                            .Hovered.BackgroundColor(Themes.base250).End();
-                                        Gui.Box("Tool 4")
-                                            .Text(Icons.AngleUp, Fonts.arial).FontSize(12)
-                                            .Width(20).Rounded(5).Alignment(TextAlignment.MiddleCenter)
-                                            .Hovered.BackgroundColor(Themes.base250).End();
-
-                                        Gui.Box("Spacer");
-
-                                        Gui.Box("Tool 4")
-                                        .Text(Icons.ArrowsLeftRight, Fonts.arial).FontSize(12)
-                                        .Width(20).Rounded(5).Alignment(TextAlignment.MiddleCenter)
-                                        .Hovered.BackgroundColor(Themes.base250).End();
-                                    }
-
-                                    Gui.Box("Game View").Margin(2).Rounded(5).BackgroundColor(System.Drawing.Color.Black);
-                                }
+                                tabsManager.DrawGroup(["game"]);
                             }
                         }
 
                         using (Gui.Column("Right Panel").Width(250).Enter())
                         {
-                            using (WindowContainer("Scene Tree Window").Enter())
+                            using (WindowContainer("Inspector Window").Enter())
                             {
-                                var tabs = new Tab[]
-                                {
-                                    new Tab { id = "inspector", title = "Inspector", width = 83, active = true },
-                                };
-
-                                using (TabsContainer("Body", tabs).Enter())
-                                {
-                                    using (Gui.Box("Search Box").Height(28).Margin(5).Top(8).Bottom(8).Rounded(5).BackgroundColor(Themes.base300).Enter())
-                                    {
-                                        Gui.Box("Search").Text("Filter...", Fonts.arial)
-                                            .TextColor(Themes.baseContent)
-                                            .Left(8)
-                                            .Alignment(TextAlignment.MiddleLeft);
-                                    }
-
-                                    HierarchyItem(rootItem);
-                                }
+                                tabsManager.DrawGroup(["inspector"]);
                             }
                         }
                     }
@@ -192,7 +123,7 @@ namespace Shared
             }
         }
 
-        private static void HierarchyItem(Item item)
+        public static void HierarchyItem(Item item)
         {
             var isSelected = selectedItemId == item.id;
 
@@ -255,76 +186,6 @@ namespace Shared
                 .Rounded(5)
                 .BorderColor(Themes.base200)
                 .BorderWidth(1);
-        }
-
-        private static ElementBuilder TabsContainer(string id, Tab[] tabs)
-        {
-            using (Gui.Row("Tabs" + id).Height(28).Enter())
-            {
-                foreach (var tab in tabs)
-                {
-                    if (tab.id == selectedTabId)
-                    {
-                        using (Gui.Box("Active Tab" + tab.id).Width(tab.width).Height(28).Left(5).Enter())
-                        {   
-                            Gui.Box("Highlight").Layer(Layer.Overlay).PositionType(PositionType.SelfDirected).RoundedTop(3).BackgroundColor(Themes.primary).Height(3);
-
-                            Gui.Box("tab 1")
-                                .BackgroundColor(Themes.base200)
-                                .Text(tab.title, Fonts.arial)
-                                .TextColor(Themes.baseContent)
-                                .Alignment(TextAlignment.MiddleCenter);
-                        }
-                    }
-                    else
-                    {
-                        Gui.Box("Inactive Tab" + tab.id)
-                            .RoundedTop(3)
-                            .Left(5)
-                            .Width(tab.width).Height(28)
-                            .BackgroundColor(Themes.base100)
-                            .Text(tab.title, Fonts.arial)
-                            .TextColor(Themes.baseContent)
-                            .Alignment(TextAlignment.MiddleCenter)
-                            .Hovered
-                                .BackgroundColor(Themes.base300)
-                            .End()
-                            .OnClick((_) =>
-                            {
-                                Console.WriteLine("clicked tab " + tab.id);
-                                selectedTabId = tab.id;
-                            });
-                    }
-                }
-
-                Gui.Box("Plus Tab")
-                    .Width(20).Height(20)
-                    .BackgroundColor(Themes.base100)
-                    .Text("+", Fonts.arial)
-                    .TextColor(Themes.baseContent)
-                    .Alignment(TextAlignment.MiddleCenter)
-                    .Rounded(5)
-                    .Margin(4)
-                    .Hovered
-                        .BackgroundColor(Themes.base300)
-                    .End();
-
-                Gui.Box("Spacer"); // automatically grows
-
-                Gui.Box("Options")
-                    .Width(20).Height(20)
-                    .BackgroundColor(Themes.base100)
-                    .FontSize(12)
-                    .Text(Icons.Grip, Fonts.arial).TextColor(Themes.baseContent)
-                    .Alignment(TextAlignment.MiddleCenter)
-                    .Rounded(5)
-                    .Margin(4)
-                    .Hovered
-                        .BackgroundColor(Themes.base300)
-                    .End();
-            }
-
-            return Gui.Column("Body").BackgroundColor(Themes.base200);
         }
 
         private static void TitleBarUI()
