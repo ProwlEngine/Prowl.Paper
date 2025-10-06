@@ -17,8 +17,58 @@ namespace Shared
             public bool active;
         }
 
+        public class Item
+        {
+            public string id;
+            public string title;
+            public int depth;
+            public Item[] children;
+            public bool expanded;
+            public bool selected;
+            public Action<Item> onClick; // Open inspector etc
+        }
+
+        public static string selectedItemId = "";
+
+
         public static Paper Gui;
         static double value = 0;
+
+        public static Item rootItem = new Item
+        {
+            id = "1",
+            title = "Main Entity",
+            depth = 0,
+            expanded = true,
+            selected = false,
+            onClick = (item) => Console.WriteLine($"Clicked {item.title}"),
+            children = new[] {
+                new Item {
+                    id = "1.1",
+                    title = "Child A",
+                    depth = 1,
+                    expanded = true,
+                    selected = true,
+                    onClick = (item) => Console.WriteLine($"Clicked {item.title}")
+                },
+                new Item {
+                    id = "1.2",
+                    title = "Child B",
+                    depth = 1,
+                    expanded = false,
+                    selected = false,
+                    onClick = (item) => Console.WriteLine($"Clicked {item.title}"),
+                    children = new[] {
+                        new Item {
+                            id = "1.2.1",
+                            title = "Subchild 1",
+                            depth = 2,
+                            onClick = (item) => Console.WriteLine($"Clicked {item.title}")
+                        }
+                    }
+                }
+            }
+        }; 
 
         public static void Initialize(Paper paper)
         {
@@ -33,9 +83,9 @@ namespace Shared
             {
                 TitleBarUI();
 
-                using (Gui.Row("3 Columns Editor Layout").Enter())
+                using (Gui.Row("3 Columns Editor Layout").Bottom(6).Left(6).Right(6).RowBetween(6).Enter())
                 {
-                    using (Gui.Column("Left Panel").Width(250).Enter())
+                    using (Gui.Column("Left Panel").ColBetween(8).Width(250).Enter())
                     {
                         using (WindowContainer("Scene Tree Window").Enter())
                         {
@@ -55,21 +105,11 @@ namespace Shared
                                         .Alignment(TextAlignment.MiddleLeft);
                                 }
 
-                                Gui.Box("Weeee1")
-                                    .Text(" Entity 1", Fonts.arial).TextColor(Themes.baseContent).Alignment(TextAlignment.MiddleLeft)
-                                    .Height(28).Left(5).Right(5).Bottom(5)
-                                    .Rounded(5).BackgroundColor(Themes.base200)
-                                    .Hovered
-                                        .BackgroundColor(Themes.base300)
-                                    .End();
-                                Gui.Box("Weeee2").Text("    Child Entity A", Fonts.ariali).TextColor(Themes.baseContent).Height(28).Margin(5);
-                                Gui.Box("Weeee3").Text("    Child Entity B", Fonts.ariali).TextColor(Themes.baseContent).Height(28).Margin(5);
-                                Gui.Box("Weeee4").Text(" Entity 2", Fonts.arial).TextColor(Themes.baseContent).Height(28).Margin(5);
-                                Gui.Box("Weeee5").Text(" Entity 3", Fonts.arial).TextColor(Themes.baseContent).Height(28).Margin(5);
+                                HierarchyItem(rootItem);
                             }
                         }
 
-                        using (WindowContainer("Scene Tree Window COntainer").Enter())
+                        using (WindowContainer("Files Window Container").Enter())
                         {
                             var tabs = new Tab[]
                             {
@@ -77,53 +117,105 @@ namespace Shared
                                 new Tab { id = "assets", title = "Settings", width = 80, active = false },
                             };
 
-                            using (TabsContainer("Body", tabs).Enter())
+                            using (TabsContainer("Body", tabs).BorderTop(8).Enter())
                             {
-                                Gui.Box("Weeee").Text("Scene", Fonts.arialb).TextColor(Themes.primary).Height(28).Margin(5);
-                                Gui.Box("Weeee1").Text("- Entity 1", Fonts.arial).TextColor(Themes.baseContent).Height(28).Margin(5);
-                                Gui.Box("Weeee2").Text("  - Child Entity A", Fonts.ariali).TextColor(Themes.baseContent).Height(28).Margin(5);
-                                Gui.Box("Weeee3").Text("  - Child Entity B", Fonts.ariali).TextColor(Themes.baseContent).Height(28).Margin(5);
-                                Gui.Box("Weeee4").Text("- Entity 2", Fonts.arial).TextColor(Themes.baseContent).Height(28).Margin(5);
-                                Gui.Box("Weeee5").Text("- Entity 3", Fonts.arial).TextColor(Themes.baseContent).Height(28).Margin(5);
+                                HierarchyItem(rootItem);
                             }
                         }
                     }
 
-                    using (Gui.Column("Center Panel").BackgroundColor(Themes.base300).Left(2.5).Bottom(5).Right(2.5).Rounded(5).Enter())
+                    using (Gui.Column("Center Panel").BackgroundColor(Themes.base300).Rounded(5).Enter())
                     {
-                        Button.Secondary("Primary Button").OnClick((_) => Console.WriteLine("Primary Button Clicked")).Margin(5);
+                        
                     }
 
                     using (Gui.Column("Right Panel").Width(250).Enter())
                     {
-                        Button.Secondary("Primary Button").OnClick((_) => Console.WriteLine("Primary Button Clicked")).Margin(5);
+                        using (WindowContainer("Scene Tree Window").Enter())
+                        {
+                            var tabs = new Tab[]
+                            {
+                                new Tab { id = "inspector", title = "Inspector", width = 83, active = true },
+                            };
+
+                            using (TabsContainer("Body", tabs).Enter())
+                            {
+                                using (Gui.Box("Search Box").Height(28).Margin(5).Top(8).Bottom(8).Rounded(5).BackgroundColor(Themes.base300).Enter())
+                                {
+                                    Gui.Box("Search").Text("Filter...", Fonts.arial)
+                                        .TextColor(Themes.baseContent)
+                                        .Left(8)
+                                        .Alignment(TextAlignment.MiddleLeft);
+                                }
+
+                                HierarchyItem(rootItem);
+                            }
+                        }
                     }
                 }
             }
         }
 
-        public struct Item
-        {
-            public string id;
-            public string title;
-            public int depth;
-            public Item[] children;
-            public bool expanded;
-            public bool selected;
-            public Action<Item> onClick; // Open inspector etc
-        }
-
-        // TODO recursive hierarchy
         private static void HierarchyItem(Item item)
         {
+            var isSelected = selectedItemId == item.id;
 
-        } 
+            // ensure proper padding with parent
+            using (Gui.Row(item.id).Height(28).Margin(5).Top(0).Bottom(0).Rounded(5)
+                .BackgroundColor(isSelected ? Themes.base250 : Themes.base200)
+                .Hovered
+                    .BackgroundColor(Themes.base250)
+                .End()
+                .OnClick((_) =>
+                {
+                    selectedItemId = item.id;
+                    item.onClick?.Invoke(item);
+                })
+                .Enter())
+            {
+                if (item.children != null && item.children.Length > 0)
+                {
+                    Gui.Box("toggle" + item.id).Text(item.expanded ? Icons.ChevronDown : Icons.ChevronRight, Fonts.arial)
+                        .Width(28)
+                        .Alignment(TextAlignment.MiddleCenter)
+                        .FontSize(8)
+                        .OnClick((_) => item.expanded = !item.expanded);
+                }
+                else
+                {
+                    Gui.Box("icon" + item.id).Text(Icons.Cube, Fonts.arial)
+                        .Width(28)
+                        .Alignment(TextAlignment.MiddleCenter)
+                        .FontSize(10)
+                        .OnClick((_) => item.expanded = !item.expanded);
+                }
+
+                Gui.Box("box" + item.id).Text(item.title, Fonts.arial)
+                    .TextColor(Themes.baseContent)
+                    .Alignment(TextAlignment.MiddleLeft);
+
+                if (isSelected)
+                {
+                    Gui.Box("indicator").Height(28).Width(3).Rounded(2).BackgroundColor(Themes.primary);
+                }
+            }
+
+            if (item.expanded && item.children != null)
+            {
+                using (Gui.Box("Children of" + item.id).Left(10).Enter())
+                {
+                    foreach (var child in item.children)
+                    {
+                        HierarchyItem(child);
+                    }
+                }
+            }
+        }
 
         private static ElementBuilder WindowContainer(string id)
         {
             return Gui.Box(id)
                 .BackgroundColor(Themes.base100)
-                .Left(6).Bottom(6).Right(3.5)
                 .Rounded(5)
                 .BorderColor(Themes.base200)
                 .BorderWidth(1);
@@ -131,7 +223,7 @@ namespace Shared
 
         private static ElementBuilder TabsContainer(string id, Tab[] tabs)
         {
-            using (Gui.Row("Tabs").Height(28).Left(5).Right(5).Enter())
+            using (Gui.Row("Tabs").Height(28).Left(5).Enter())
             {
                 foreach (var tab in tabs)
                 {
@@ -164,11 +256,27 @@ namespace Shared
                 }
 
                 Gui.Box("Plus Tab")
-                    .Width(28).Height(28)
+                    .Width(24).Height(24)
                     .BackgroundColor(Themes.base100)
                     .Text("+", Fonts.arial)
                     .TextColor(Themes.baseContent)
                     .Alignment(TextAlignment.MiddleCenter)
+                    .Rounded(5)
+                    .Margin(2)
+                    .Hovered
+                        .BackgroundColor(Themes.base300)
+                    .End();
+
+                Gui.Box("Spacer"); // automatically grows
+
+                Gui.Box("Plus Tab")
+                    .Width(24).Height(24)
+                    .BackgroundColor(Themes.base100)
+                    .Text(Icons.Grip, Fonts.arial)
+                    .TextColor(Themes.baseContent)
+                    .Alignment(TextAlignment.MiddleCenter)
+                    .Rounded(5)
+                    .Margin(2)
                     .Hovered
                         .BackgroundColor(Themes.base300)
                     .End();
@@ -186,8 +294,11 @@ namespace Shared
                     .BackgroundColor(Themes.base100)
                     .Text(Icons.Hammer + "  Bevy", Fonts.arial)
                     .TextColor(Themes.baseContent)
-                    .Alignment(TextAlignment.MiddleCenter)
-                    .Left(5);
+                    .Hovered
+                        .BackgroundColor(Themes.base300)
+                    .End()
+                    .Rounded(5)
+                    .Alignment(TextAlignment.MiddleCenter);
 
                 Gui.Box("tab 2")
                     .Width(45).Height(28)
@@ -225,9 +336,10 @@ namespace Shared
                     .Alignment(TextAlignment.MiddleCenter)
                     .Left(5);
 
+                Gui.Box("Spacer");
+
                 Gui.Box("tab 3")
                    .Width(64).Height(28)
-                   .PositionType(PositionType.SelfDirected)
                    .BackgroundColor(Themes.base300)
                    .Text(Icons.Play + "    " + Icons.Pause, Fonts.arial)
                    .TextColor(Themes.baseContent)
