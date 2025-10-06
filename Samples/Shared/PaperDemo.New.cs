@@ -79,76 +79,79 @@ namespace Shared
 
         public static void RenderUI()
         {
-            using (Gui.Column("EditorContainer").BackgroundColor(Themes.base100).Enter())
+            using (Gui.Box("App").BackgroundColor(Themes.base100).Enter())
             {
-                TitleBarUI();
-
-                using (Gui.Row("3 Columns Editor Layout").Bottom(6).Left(6).Right(6).RowBetween(6).Enter())
+                using (Gui.Column("EditorContainer").Margin(8).Enter())
                 {
-                    using (Gui.Column("Left Panel").ColBetween(8).Width(250).Enter())
+                    TitleBarUI();
+
+                    using (Gui.Row("3 Columns Editor Layout").RowBetween(6).Enter())
                     {
-                        using (WindowContainer("Scene Tree Window").Enter())
+                        using (Gui.Column("Left Panel").ColBetween(8).Width(250).Enter())
                         {
-                            var tabs = new Tab[]
+                            using (WindowContainer("Scene Tree Window").Enter())
                             {
-                                new Tab { id = "hierarchy", title = "Hierarchy", width = 83, active = true },
-                                new Tab { id = "assets", title = "Assets", width = 65, active = false },
-                            };
-
-                            using (TabsContainer("Body", tabs).Enter())
-                            {
-                                using (Gui.Box("Search Box").Height(28).Margin(5).Top(8).Bottom(8).Rounded(5).BackgroundColor(Themes.base300).Enter())
+                                var tabs = new Tab[]
                                 {
-                                    Gui.Box("Search").Text("Filter...", Fonts.arial)
-                                        .TextColor(Themes.baseContent)
-                                        .Left(8)
-                                        .Alignment(TextAlignment.MiddleLeft);
-                                }
+                                    new Tab { id = "hierarchy", title = "Hierarchy", width = 83, active = true },
+                                    new Tab { id = "assets", title = "Assets", width = 65, active = false },
+                                };
 
-                                HierarchyItem(rootItem);
+                                using (TabsContainer("Body", tabs).Enter())
+                                {
+                                    using (Gui.Box("Search Box").Height(28).Margin(5).Top(8).Bottom(8).Rounded(5).BackgroundColor(Themes.base300).Enter())
+                                    {
+                                        Gui.Box("Search").Text("Filter...", Fonts.arial)
+                                            .TextColor(Themes.baseContent)
+                                            .Left(8)
+                                            .Alignment(TextAlignment.MiddleLeft);
+                                    }
+
+                                    HierarchyItem(rootItem);
+                                }
+                            }
+
+                            using (WindowContainer("Files Window Container").Enter())
+                            {
+                                var tabs = new Tab[]
+                                {
+                                    new Tab { id = "files", title = "Files", width = 52, active = true },
+                                    new Tab { id = "assets", title = "Settings", width = 70, active = false },
+                                };
+
+                                using (TabsContainer("Body", tabs).BorderTop(8).Enter())
+                                {
+                                    HierarchyItem(rootItem);
+                                }
                             }
                         }
 
-                        using (WindowContainer("Files Window Container").Enter())
+                        using (Gui.Column("Center Panel").BackgroundColor(Themes.base300).Rounded(5).Enter())
                         {
-                            var tabs = new Tab[]
-                            {
-                                new Tab { id = "files", title = "Files", width = 65, active = true },
-                                new Tab { id = "assets", title = "Settings", width = 80, active = false },
-                            };
 
-                            using (TabsContainer("Body", tabs).BorderTop(8).Enter())
-                            {
-                                HierarchyItem(rootItem);
-                            }
                         }
-                    }
 
-                    using (Gui.Column("Center Panel").BackgroundColor(Themes.base300).Rounded(5).Enter())
-                    {
-                        
-                    }
-
-                    using (Gui.Column("Right Panel").Width(250).Enter())
-                    {
-                        using (WindowContainer("Scene Tree Window").Enter())
+                        using (Gui.Column("Right Panel").Width(250).Enter())
                         {
-                            var tabs = new Tab[]
+                            using (WindowContainer("Scene Tree Window").Enter())
                             {
-                                new Tab { id = "inspector", title = "Inspector", width = 83, active = true },
-                            };
-
-                            using (TabsContainer("Body", tabs).Enter())
-                            {
-                                using (Gui.Box("Search Box").Height(28).Margin(5).Top(8).Bottom(8).Rounded(5).BackgroundColor(Themes.base300).Enter())
+                                var tabs = new Tab[]
                                 {
-                                    Gui.Box("Search").Text("Filter...", Fonts.arial)
-                                        .TextColor(Themes.baseContent)
-                                        .Left(8)
-                                        .Alignment(TextAlignment.MiddleLeft);
-                                }
+                                    new Tab { id = "inspector", title = "Inspector", width = 83, active = true },
+                                };
 
-                                HierarchyItem(rootItem);
+                                using (TabsContainer("Body", tabs).Enter())
+                                {
+                                    using (Gui.Box("Search Box").Height(28).Margin(5).Top(8).Bottom(8).Rounded(5).BackgroundColor(Themes.base300).Enter())
+                                    {
+                                        Gui.Box("Search").Text("Filter...", Fonts.arial)
+                                            .TextColor(Themes.baseContent)
+                                            .Left(8)
+                                            .Alignment(TextAlignment.MiddleLeft);
+                                    }
+
+                                    HierarchyItem(rootItem);
+                                }
                             }
                         }
                     }
@@ -196,7 +199,7 @@ namespace Shared
 
                 if (isSelected)
                 {
-                    Gui.Box("indicator").Height(28).Width(3).Rounded(2).BackgroundColor(Themes.primary);
+                    Gui.Box("indicator").Height(28).Width(3).Rounded(1).BackgroundColor(Themes.primary);
                 }
             }
 
@@ -256,27 +259,27 @@ namespace Shared
                 }
 
                 Gui.Box("Plus Tab")
-                    .Width(24).Height(24)
+                    .Width(20).Height(20)
                     .BackgroundColor(Themes.base100)
                     .Text("+", Fonts.arial)
                     .TextColor(Themes.baseContent)
                     .Alignment(TextAlignment.MiddleCenter)
                     .Rounded(5)
-                    .Margin(2)
+                    .Margin(4)
                     .Hovered
                         .BackgroundColor(Themes.base300)
                     .End();
 
                 Gui.Box("Spacer"); // automatically grows
 
-                Gui.Box("Plus Tab")
-                    .Width(24).Height(24)
+                Gui.Box("Options")
+                    .Width(20).Height(20)
                     .BackgroundColor(Themes.base100)
-                    .Text(Icons.Grip, Fonts.arial)
-                    .TextColor(Themes.baseContent)
+                    .FontSize(12)
+                    .Text(Icons.Grip, Fonts.arial).TextColor(Themes.baseContent)
                     .Alignment(TextAlignment.MiddleCenter)
                     .Rounded(5)
-                    .Margin(2)
+                    .Margin(4)
                     .Hovered
                         .BackgroundColor(Themes.base300)
                     .End();
@@ -287,7 +290,7 @@ namespace Shared
 
         private static void TitleBarUI()
         {
-            using (Gui.Row("Header").Height(28).Margin(5).Enter())
+            using (Gui.Row("Header").Height(28).Bottom(8).Enter())
             {
                 Gui.Box("tab 1")
                     .Width(80).Height(28)
