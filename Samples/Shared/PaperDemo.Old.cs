@@ -8,7 +8,7 @@ using Prowl.Vector;
 
 namespace Shared
 {
-    public static partial class PaperDemo
+    public static partial class PaperDemoOld
     {
         // Track state for interactive elements
         static double sliderValue = 0.5f;
