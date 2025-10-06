@@ -19,15 +19,10 @@ namespace Shared
         
         public virtual void Body()
         {
-            using (Gui.Box("Search Box").Height(28).Margin(5).Top(8).Bottom(8).Rounded(5).BackgroundColor(Themes.base300).Enter())
-            {
-                Gui.Box("Search").Text("Filter...", Fonts.arial)
-                    .TextColor(Themes.baseContent)
-                    .Left(8)
-                    .Alignment(TextAlignment.MiddleLeft);
-            }
-
-            PaperDemo.HierarchyItem(PaperDemo.rootItem);
+            Gui.Box("Tab Title").Text("[" + this.title + " Tab]", Fonts.arial)
+                .TextColor(Themes.baseContent)
+                .Left(8)
+                .Alignment(TextAlignment.MiddleCenter);
         }
     }
 
@@ -43,80 +38,12 @@ namespace Shared
         {
             this.Gui = gui;
 
-            AddTab("hierarchy", new HierarchyTab(gui));
             AddTab("assets", new AssetsTab(gui));
             AddTab("files", new FilesTab(gui));
+            AddTab("game", new GameTab(gui));
+            AddTab("hierarchy", new HierarchyTab(gui));
             AddTab("inspector", new InspectorTab(gui));
-
-            /*
-            AddTab("settings", new Tab
-            {
-                id = "settings",
-                title = "Settings",
-                width = 70,
-                Body = () =>
-                {
-                    Gui.Box("Settings").Margin(5).Text("Settings bla bla", Fonts.arial);
-                    PaperDemo.HierarchyItem(PaperDemo.rootItem);
-                }
-            });
-
-            AddTab("inspector", new Tab
-            {
-                id = "inspector",
-                title = "Inspector",
-                width = 70,
-                Body = () =>
-                {
-                    using (Gui.Box("Search Box").Height(28).Margin(5).Top(8).Bottom(8).Rounded(5).BackgroundColor(Themes.base300).Enter())
-                    {
-                        Gui.Box("Search").Text("Inspector...", Fonts.arial)
-                            .TextColor(Themes.baseContent)
-                            .Left(8)
-                            .Alignment(TextAlignment.MiddleLeft);
-                    }
-
-                    PaperDemo.HierarchyItem(PaperDemo.rootItem);
-                }
-            });
-            AddTab("game", new Tab
-            {
-                id = "game",
-                title = "Viewport",
-                width = 83,
-                Body = () =>
-                {
-                    using (Gui.Row("Tools").RowBetween(5).Margin(4).Top(5).Height(20).Enter())
-                    {
-                        Gui.Box("Tool 1")
-                            .Text(Icons.ArrowsTurnToDots, Fonts.arial).FontSize(12)
-                            .Width(20).Rounded(5).Alignment(TextAlignment.MiddleCenter)
-                            .Hovered.BackgroundColor(Themes.base250).End();
-                        Gui.Box("Tool 2")
-                            .Text(Icons.ArrowsDownToLine, Fonts.arial).FontSize(12)
-                            .Width(20).Rounded(5).Alignment(TextAlignment.MiddleCenter)
-                            .Hovered.BackgroundColor(Themes.base250).End();
-                        Gui.Box("Tool 3")
-                            .Text(Icons.Anchor, Fonts.arial).FontSize(12)
-                            .Width(20).Rounded(5).Alignment(TextAlignment.MiddleCenter)
-                            .Hovered.BackgroundColor(Themes.base250).End();
-                        Gui.Box("Tool 4")
-                            .Text(Icons.AngleUp, Fonts.arial).FontSize(12)
-                            .Width(20).Rounded(5).Alignment(TextAlignment.MiddleCenter)
-                            .Hovered.BackgroundColor(Themes.base250).End();
-
-                        Gui.Box("Spacer");
-
-                        Gui.Box("Tool 4")
-                        .Text(Icons.ArrowsLeftRight, Fonts.arial).FontSize(12)
-                        .Width(20).Rounded(5).Alignment(TextAlignment.MiddleCenter)
-                        .Hovered.BackgroundColor(Themes.base250).End();
-                    }
-
-                    Gui.Box("Game View").Margin(2).Rounded(5).BackgroundColor(System.Drawing.Color.Black);
-                }
-            });
-            */
+            AddTab("settings", new SettingsTab(gui));
         }
 
         public void AddTab(string id, Tab tab)
