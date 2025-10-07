@@ -21,66 +21,38 @@ namespace Shared.Tabs
                     .Alignment(TextAlignment.MiddleLeft);
             }
 
-            using (Gui.Column("Assets view").Margin(5).SetScroll(Scroll.ScrollY).Enter())
+            using (Gui.Column("Assets view").Margin(5).ColBetween(8).SetScroll(Scroll.ScrollY).Enter())
             {
-                using (Gui.Row("Folders and assets").RowBetween(8).Enter())
+                for (int i = 0; i < 64; i++)
                 {
-                    Gui.Box("Folder")
-                        .FontSize(32)
-                        .Text(Icons.Folder, Fonts.arial);
+                    using (Gui.Row("Folders and assets", i).Height(100).RowBetween(8).Margin(5).Enter())
+                    {
+                        Gui.Box("Folder")
+                            .Width(52)
+                            .Height(100)
+                            .FontSize(32)
+                            .Text(Icons.Folder, Fonts.arial);
 
-                    Gui.Box("Folder")
-                        .FontSize(32)
-                        .Text(Icons.Folder, Fonts.arial);
+                        Gui.Box("Folder")
+                            .Width(52)
+                            .Height(100)
+                            .FontSize(32)
+                            .Text(Icons.Folder, Fonts.arial);
 
-                    Gui.Box("Folder")
-                        .FontSize(32)
-                        .Text(Icons.Folder, Fonts.arial);
+                        Gui.Box("Folder")
+                            .Width(52)
+                            .Height(100)
+                            .FontSize(32)
+                            .Text(Icons.Folder, Fonts.arial);
 
-                    Gui.Box("Folder")
-                        .FontSize(32)
-                        .Text(Icons.Folder, Fonts.arial);
-                }
-                using (Gui.Row("Folders and assets").RowBetween(8).Enter())
-                {
-                    Gui.Box("Folder")
-                        .FontSize(32)
-                        .Text(Icons.Folder, Fonts.arial);
-
-                    Gui.Box("Folder")
-                        .FontSize(32)
-                        .Text(Icons.Folder, Fonts.arial);
-
-                    Gui.Box("Folder")
-                        .FontSize(32)
-                        .Text(Icons.Folder, Fonts.arial);
-
-                    Gui.Box("Folder")
-                        .FontSize(32)
-                        .Text(Icons.Folder, Fonts.arial);
-                }
-
-                using (Gui.Row("Folders and assets").RowBetween(8).Enter())
-                {
-                    Gui.Box("Folder")
-                        .FontSize(32)
-                        .Text(Icons.Folder, Fonts.arial);
-
-                    Gui.Box("Folder")
-                        .FontSize(32)
-                        .Text(Icons.Folder, Fonts.arial);
-
-                    Gui.Box("Folder")
-                        .FontSize(32)
-                        .Text(Icons.Folder, Fonts.arial);
-
-                    Gui.Box("Folder")
-                        .FontSize(32)
-                        .Text(Icons.Folder, Fonts.arial);
+                        Gui.Box("Folder")
+                            .Width(52)
+                            .Height(100)
+                            .FontSize(32)
+                            .Text(Icons.Folder, Fonts.arial);
+                    }
                 }
             }
         }
-
-
     }
 }
