@@ -8,7 +8,7 @@ using Prowl.Vector;
 
 namespace Shared
 {
-    public static partial class PaperDemo
+    public static partial class PaperDemoOld
     {
         // Track state for interactive elements
         static double sliderValue = 0.5f;
@@ -44,7 +44,7 @@ namespace Shared
 
             // Main container with light gray background
             using (Gui.Column("MainContainer")
-                .BackgroundColor(Themes.backgroundColor)
+                .BackgroundColor(Themes.base100)
                 //.Style(BoxStyle.Solid(backgroundColor))
                 .Enter())
             {
@@ -158,12 +158,12 @@ namespace Shared
                     Gui.Box("LogoInner")
                         .Size(50)
                         .Margin(10)
-                        .Text(Icons.Newspaper, Fonts.arial).FontSize(32).TextColor(Themes.lightTextColor).Alignment(TextAlignment.MiddleCenter);
+                        .Text(Icons.Newspaper, Fonts.arial).FontSize(32).TextColor(Themes.baseContent).Alignment(TextAlignment.MiddleCenter);
 
                     Gui.Box("LogoText")
                         .PositionType(PositionType.SelfDirected)
                         .Left(50 + 15)
-                        .Text("PaperUI Demo", Fonts.arial).FontSize(40).TextColor(Themes.textColor).Alignment(TextAlignment.MiddleLeft);
+                        .Text("PaperUI Demo", Fonts.arial).FontSize(40).TextColor(Themes.primaryContent).Alignment(TextAlignment.MiddleLeft);
                 }
 
                 // Spacer
@@ -174,17 +174,17 @@ namespace Shared
                     .Margin(0, 15, 15, 0);
 
                 // Theme Switch - using icon-button style
-                Button.IconPrimary("LightIcon", Icons.Lightbulb)
+                Button.Secondary("LightIcon", Icons.Lightbulb)
                     .Margin(0, 10, 15, 0)
-                    .OnClick((rect) => Themes.ToggleTheme());
+                    .OnClick((rect) => {/*Themes.ToggleTheme() */});
 
                 // Notification icon
-                Button.IconSecondary("NotificationIcon", Icons.CircleExclamation)
+                Button.Secondary("NotificationIcon", Icons.CircleExclamation)
                     .Margin(0, 10, 15, 0)
                     .OnClick((rect) => Console.WriteLine("Notifications clicked"));
 
                 // User Profile
-                Button.IconPrimary("UserProfile", "M")
+                Button.Secondary("UserProfile", "M")
                     .Margin(0, 15, 15, 0)
                     .OnClick((rect) => Console.WriteLine("Profile clicked"));
             }
@@ -200,7 +200,7 @@ namespace Shared
                 // Menu header
                 Gui.Box("MenuHeader")
                     .Height(60)
-                    .Text("Menu", Fonts.arial).FontSize(26).TextColor(Themes.textColor).Alignment(TextAlignment.MiddleCenter);
+                    .Text("Menu", Fonts.arial).FontSize(26).TextColor(Themes.primaryContent).Alignment(TextAlignment.MiddleCenter);
 
                 string[] menuIcons = { Icons.House, Icons.ChartBar, Icons.User, Icons.Gear, Icons.WindowMaximize };
                 string[] menuItems = { "Dashboard", "Analytics", "Users", "Settings" };//, "Windows" };
@@ -220,13 +220,13 @@ namespace Shared
                         Gui.Box("MenuItemIcon", i)
                             .Width(55)
                             .Height(50)
-                            .Text(menuIcons[i], Fonts.arial).TextColor(Themes.textColor).Alignment(TextAlignment.MiddleCenter).FontSize(19);
+                            .Text(menuIcons[i], Fonts.arial).TextColor(Themes.primaryContent).Alignment(TextAlignment.MiddleCenter).FontSize(19);
 
                         Gui.Box("MenuItem", i)
                             .Width(100)
                             .PositionType(PositionType.SelfDirected)
                             .Left(50 + 15)
-                            .Text(menuItems[i], Fonts.arial).TextColor(Themes.textColor).Alignment(TextAlignment.MiddleCenter).FontSize(19);
+                            .Text(menuItems[i], Fonts.arial).TextColor(Themes.primaryContent).Alignment(TextAlignment.MiddleCenter).FontSize(19);
                     }
                 }
 
@@ -238,7 +238,7 @@ namespace Shared
                     .Margin(15)
                     .Height(Gui.Auto)
                     .Rounded(8)
-                    .BackgroundColor(Themes.primaryColor)
+                    .BackgroundColor(Themes.primary)
                     .AspectRatio(0.5f)
                     .Enter())
                 {
@@ -254,7 +254,7 @@ namespace Shared
                             .Style("button")
                             .Height(30)
                             .BackgroundColor(Color.White)
-                            .Text("Upgrade", Fonts.arial).TextColor(Themes.primaryColor).Alignment(TextAlignment.MiddleCenter).FontSize(19)
+                            .Text("Upgrade", Fonts.arial).TextColor(Themes.primary).Alignment(TextAlignment.MiddleCenter).FontSize(19)
                             .OnClick((rect) => Console.WriteLine("Upgrade clicked"));
                     }
                 }
@@ -294,7 +294,7 @@ namespace Shared
                 {
                     int index = i;
                     bool isSelected = i == selectedTabIndex;
-                    Color tabColor = isSelected ? Themes.primaryColor : Themes.lightTextColor;
+                    Color tabColor = isSelected ? Themes.primary : Themes.baseContent;
                     double tabWidth = 1.0f / tabNames.Length;
 
                     using (Gui.Box("Tab", i)
@@ -309,7 +309,7 @@ namespace Shared
                         {
                             Gui.Box("TabIndicator", i)
                                 .Height(4)
-                                .BackgroundColor(Themes.primaryColor)
+                                .BackgroundColor(Themes.primary)
                                 .Rounded(2);
                         }
                     }
@@ -356,10 +356,10 @@ namespace Shared
                         {
                             Gui.Box("StatLabel", i)
                                 .Height(Gui.Pixels(25))
-                                .Text(statNames[i], Fonts.arial).TextColor(Themes.lightTextColor).Alignment(TextAlignment.MiddleLeft).FontSize(19);
+                                .Text(statNames[i], Fonts.arial).TextColor(Themes.baseContent).Alignment(TextAlignment.MiddleLeft).FontSize(19);
 
                             Gui.Box("StatValue", i)
-                                .Text(statValues[i], Fonts.arial).TextColor(Themes.textColor).Alignment(TextAlignment.MiddleLeft).FontSize(32);
+                                .Text(statValues[i], Fonts.arial).TextColor(Themes.primaryContent).Alignment(TextAlignment.MiddleLeft).FontSize(32);
                         }
                     }
                 }
@@ -374,7 +374,7 @@ namespace Shared
                 using (Gui.Box("ChartArea")
                     .Width(Gui.Stretch(0.7f))
                     .Rounded(8)
-                    .BackgroundColor(Themes.cardBackground)
+                    .BackgroundColor(Themes.base200)
                     //.Style(BoxStyle.SolidRounded(cardBackground, 8f))
                     .Enter())
                 {
@@ -385,7 +385,7 @@ namespace Shared
                         .Enter())
                     {
                         using (Gui.Box("ChartTitle")
-                            .Text("Performance Overview", Fonts.arial).TextColor(Themes.textColor).Alignment(TextAlignment.MiddleLeft).FontSize(26)
+                            .Text("Performance Overview", Fonts.arial).TextColor(Themes.primaryContent).Alignment(TextAlignment.MiddleLeft).FontSize(26)
                             .Enter()) { }
 
                         using (Gui.Row("ChartControls")
@@ -400,12 +400,12 @@ namespace Shared
                                     .Height(30)
                                     .Rounded(8)
                                     .Margin(5, 5, 0, 0)
-                                    .BackgroundColor(period == "Week" ? Themes.primaryColor : Color.FromArgb(50, 0, 0, 0))
+                                    .BackgroundColor(period == "Week" ? Themes.primary : Color.FromArgb(50, 0, 0, 0))
                                     .Hovered
-                                        .BackgroundColor(Color.FromArgb(50, Themes.primaryColor))
+                                        .BackgroundColor(Color.FromArgb(50, Themes.primary))
                                         .End()
                                     .Transition(GuiProp.BackgroundColor, 0.2f)
-                                    .Text(period, Fonts.arial).TextColor(period == "Week" ? Color.White : Themes.lightTextColor).Alignment(TextAlignment.MiddleCenter).FontSize(19)
+                                    .Text(period, Fonts.arial).TextColor(period == "Week" ? Color.White : Themes.baseContent).Alignment(TextAlignment.MiddleCenter).FontSize(19)
                                     .OnClick((rect) => Console.WriteLine($"Period {period} clicked"))
                                     .Enter()) { }
                             }
@@ -435,7 +435,7 @@ namespace Shared
                                     vg.BeginPath();
                                     vg.MoveTo(rect.x, y);
                                     vg.LineTo(rect.x + rect.width, y);
-                                    vg.SetStrokeColor(Themes.lightTextColor);
+                                    vg.SetStrokeColor(Themes.baseContent);
                                     vg.SetStrokeWidth(1);
                                     vg.Stroke();
                                 }
@@ -475,7 +475,7 @@ namespace Shared
                                 //    Color.FromArgb(10, primaryColor));
                                 //vg.SetFillPaint(paint);
                                 vg.SaveState();
-                                vg.SetLinearBrush(rect.x, rect.y, rect.x, rect.y + rect.height, Color.FromArgb(100, Themes.primaryColor), Color.FromArgb(10, Themes.primaryColor));
+                                vg.SetLinearBrush(rect.x, rect.y, rect.x, rect.y + rect.height, Color.FromArgb(100, Themes.primary), Color.FromArgb(10, Themes.primary));
                                 vg.FillComplex();
                                 vg.RestoreState();
 
@@ -498,7 +498,7 @@ namespace Shared
                                         vg.LineTo(x, y);
                                 }
 
-                                vg.SetStrokeColor(Themes.primaryColor);
+                                vg.SetStrokeColor(Themes.primary);
                                 vg.SetStrokeWidth(3);
                                 vg.Stroke();
 
@@ -519,7 +519,7 @@ namespace Shared
 
                                     vg.BeginPath();
                                     vg.Circle(x, y, 4);
-                                    vg.SetFillColor(Themes.primaryColor);
+                                    vg.SetFillColor(Themes.primary);
                                     vg.Fill();
                                 }
 
@@ -537,7 +537,7 @@ namespace Shared
                 {
                     // Activity panel
                     using (Gui.Box("ActivityPanel")
-                        .BackgroundColor(Themes.cardBackground)
+                        .BackgroundColor(Themes.base200)
                         //.Style(BoxStyle.SolidRounded(cardBackground, 8f))
                         .Rounded(8)
                         .Enter())
@@ -546,7 +546,7 @@ namespace Shared
                         using (Gui.Box("PanelHeader")
                             .Height(60)
                             .Margin(20, 20, 20, 0)
-                            .Text("Recent Activity", Fonts.arial).TextColor(Themes.textColor).Alignment(TextAlignment.MiddleLeft).FontSize(26)
+                            .Text("Recent Activity", Fonts.arial).TextColor(Themes.primaryContent).Alignment(TextAlignment.MiddleLeft).FontSize(26)
                             .Enter()) { }
 
                         // Activity items
@@ -587,12 +587,12 @@ namespace Shared
                                     using (Gui.Box("ActivityText", i)
                                         .Height(Gui.Pixels(20))
                                         .Margin(0, 0, 15, 0)
-                                        .Text(activities[i], Fonts.arial).TextColor(Themes.textColor).Alignment(TextAlignment.MiddleLeft).FontSize(19)
+                                        .Text(activities[i], Fonts.arial).TextColor(Themes.primaryContent).Alignment(TextAlignment.MiddleLeft).FontSize(19)
                                         .Enter()) { }
 
                                     using (Gui.Box("ActivityTime", i)
                                         .Height(Gui.Pixels(20))
-                                        .Text(timestamps[i], Fonts.arial).TextColor(Themes.lightTextColor).Alignment(TextAlignment.MiddleLeft).FontSize(19)
+                                        .Text(timestamps[i], Fonts.arial).TextColor(Themes.baseContent).Alignment(TextAlignment.MiddleLeft).FontSize(19)
                                         .Enter()) { }
                                 }
                             }
@@ -614,7 +614,7 @@ namespace Shared
                 .Enter())
             {
                 using (Gui.Box("AnalyticsContent")
-                    .BackgroundColor(Themes.cardBackground)
+                    .BackgroundColor(Themes.base200)
                     //.Style(BoxStyle.SolidRounded(cardBackground, 8f))
                     .Margin(0, 15 / 2, 15, 0)
                     .Enter())
@@ -623,7 +623,7 @@ namespace Shared
                     using (Gui.Box("AnalyticsHeader")
                         .Height(80)
                         .Margin(20)
-                        .Text("Analytics Dashboard", Fonts.arial).TextColor(Themes.textColor).Alignment(TextAlignment.MiddleLeft).FontSize(32)
+                        .Text("Analytics Dashboard", Fonts.arial).TextColor(Themes.primaryContent).Alignment(TextAlignment.MiddleLeft).FontSize(32)
                         .Enter()) { }
 
                     // Interactive slider as a demo control
@@ -634,7 +634,7 @@ namespace Shared
                     {
                         using (Gui.Box("SliderLabel")
                             .Height(30)
-                            .Text($"Green Amount: {sliderValue:F2}", Fonts.arial).TextColor(Themes.textColor).Alignment(TextAlignment.MiddleLeft).FontSize(26)
+                            .Text($"Green Amount: {sliderValue:F2}", Fonts.arial).TextColor(Themes.primaryContent).Alignment(TextAlignment.MiddleLeft).FontSize(26)
                             .Enter()) { }
 
                         // Slider control
@@ -646,7 +646,7 @@ namespace Shared
                 }
 
                 using (Gui.Box("ScrollTest")
-                    .BackgroundColor(Themes.cardBackground)
+                    .BackgroundColor(Themes.base200)
                     //.Style(BoxStyle.SolidRounded(cardBackground, 8f))
                     .Margin(15 / 2, 0, 15, 0)
                     .Enter())
@@ -706,7 +706,7 @@ namespace Shared
                                     .Height(70)
                                     .Margin(10, 10, 5, 5)
                                     .BackgroundColor(Color.FromArgb(230, itemColor))
-                                    .BorderColor(Themes.isDark ? Color.FromArgb(50, 255, 255, 255) : Color.FromArgb(50, 0, 0, 0))
+                                    .BorderColor(Color.FromArgb(50, 255, 255, 255))
                                     .BorderWidth(1)
                                     .Rounded(12)
                                     .Enter())
@@ -721,7 +721,7 @@ namespace Shared
                                             .Height(50)
                                             .Rounded(25)
                                             .BackgroundColor(Color.FromArgb(60, 255, 255, 255))
-                                            .Text(icon, Fonts.arial).TextColor(Themes.textColor).Alignment(TextAlignment.MiddleCenter).FontSize(26)
+                                            .Text(icon, Fonts.arial).TextColor(Themes.primaryContent).Alignment(TextAlignment.MiddleCenter).FontSize(26)
                                             .Enter()) { }
 
                                         // Content
@@ -731,11 +731,11 @@ namespace Shared
                                         {
                                             using (Gui.Box("CardTitle", i)
                                                 .Height(25)
-                                                .Text($"Item {i}", Fonts.arial).TextColor(Themes.textColor).Alignment(TextAlignment.MiddleLeft).FontSize(26)
+                                                .Text($"Item {i}", Fonts.arial).TextColor(Themes.primaryContent).Alignment(TextAlignment.MiddleLeft).FontSize(26)
                                                 .Enter()) { }
 
                                             using (Gui.Box("CardDescription", i)
-                                                .Text("Interactive card with animations", Fonts.arial).TextColor(Color.FromArgb(200, Themes.textColor)).Alignment(TextAlignment.MiddleLeft).FontSize(19)
+                                                .Text("Interactive card with animations", Fonts.arial).TextColor(Color.FromArgb(200, Themes.primaryContent)).Alignment(TextAlignment.MiddleLeft).FontSize(19)
                                                 .Enter()) { }
                                         }
                                     }
@@ -757,7 +757,7 @@ namespace Shared
                 // Left panel - profile info
                 using (Gui.Column("ProfileDetails")
                     .Width(Gui.Stretch(0.4f))
-                    .BackgroundColor(Themes.cardBackground)
+                    .BackgroundColor(Themes.base200)
                     //.Style(BoxStyle.SolidRounded(cardBackground, 8f))
                     .Enter())
                 {
@@ -779,7 +779,7 @@ namespace Shared
                             using (Gui.Box("Avatar")
                                 .Width(120)
                                 .Height(120)
-                                .BackgroundColor(Themes.secondaryColor)
+                                .BackgroundColor(Themes.base300)
                                 //.Style(BoxStyle.SolidRounded(secondaryColor, 60f))
                                 .Text("J", Fonts.arial).TextColor(Color.White).Alignment(TextAlignment.MiddleCenter).FontSize(48)
                                 .Enter()) { }
@@ -792,13 +792,13 @@ namespace Shared
                         // User name
                         using (Gui.Box("UserName")
                             .Height(40)
-                            .Text("John Doe", Fonts.arial).TextColor(Themes.textColor).Alignment(TextAlignment.MiddleCenter).FontSize(32)
+                            .Text("John Doe", Fonts.arial).TextColor(Themes.primaryContent).Alignment(TextAlignment.MiddleCenter).FontSize(32)
                             .Enter()) { }
 
                         // User title
                         using (Gui.Box("UserTitle")
                             .Height(30)
-                            .Text("Senior Developer", Fonts.arial).TextColor(Themes.lightTextColor).Alignment(TextAlignment.MiddleCenter).FontSize(26)
+                            .Text("Senior Developer", Fonts.arial).TextColor(Themes.baseContent).Alignment(TextAlignment.MiddleCenter).FontSize(26)
                             .Enter()) { }
                     }
 
@@ -819,12 +819,12 @@ namespace Shared
                             {
                                 using (Gui.Box("StatValue", i)
                                     .Height(40)
-                                    .Text(statValues[i], Fonts.arial).TextColor(Themes.primaryColor).Alignment(TextAlignment.MiddleCenter).FontSize(32)
+                                    .Text(statValues[i], Fonts.arial).TextColor(Themes.primary).Alignment(TextAlignment.MiddleCenter).FontSize(32)
                                     .Enter()) { }
 
                                 using (Gui.Box("StatLabel", i)
                                     .Height(30)
-                                    .Text(statLabels[i], Fonts.arial).TextColor(Themes.lightTextColor).Alignment(TextAlignment.MiddleCenter).FontSize(19)
+                                    .Text(statLabels[i], Fonts.arial).TextColor(Themes.baseContent).Alignment(TextAlignment.MiddleCenter).FontSize(19)
                                     .Enter()) { }
                             }
                         }
@@ -846,11 +846,11 @@ namespace Shared
                             {
                                 using (Gui.Box("ContactLabel", i)
                                     .Width(100)
-                                    .Text(contactLabels[i] + ":", Fonts.arial).TextColor(Themes.lightTextColor).Alignment(TextAlignment.MiddleLeft).FontSize(19)
+                                    .Text(contactLabels[i] + ":", Fonts.arial).TextColor(Themes.baseContent).Alignment(TextAlignment.MiddleLeft).FontSize(19)
                                     .Enter()) { }
 
                                 using (Gui.Box("ContactValue", i)
-                                    .Text(contactValues[i], Fonts.arial).TextColor(Themes.textColor).Alignment(TextAlignment.MiddleLeft).FontSize(19)
+                                    .Text(contactValues[i], Fonts.arial).TextColor(Themes.primaryContent).Alignment(TextAlignment.MiddleLeft).FontSize(19)
                                     .Enter()) { }
                             }
                         }
@@ -866,7 +866,7 @@ namespace Shared
                     // Activity tracker
                     using (Gui.Box("ActivityTracker")
                         .Height(Gui.Stretch(0.6f))
-                        .BackgroundColor(Themes.cardBackground)
+                        .BackgroundColor(Themes.base200)
                         //.Style(BoxStyle.SolidRounded(cardBackground, 8f))
                         .Enter())
                     {
@@ -874,7 +874,7 @@ namespace Shared
                         using (Gui.Box("ActivityHeader")
                             .Height(60)
                             .Margin(20, 20, 0, 0)
-                            .Text("Activity Tracker", Fonts.arial).TextColor(Themes.textColor).Alignment(TextAlignment.MiddleLeft).FontSize(26)
+                            .Text("Activity Tracker", Fonts.arial).TextColor(Themes.primaryContent).Alignment(TextAlignment.MiddleLeft).FontSize(26)
                             .Enter()) { }
 
                         // Week days
@@ -887,7 +887,7 @@ namespace Shared
                             foreach (var day in days)
                             {
                                 using (Gui.Box("Day", day.GetHashCode())
-                                    .Text(day, Fonts.arial).TextColor(Themes.lightTextColor).Alignment(TextAlignment.MiddleCenter).FontSize(19)
+                                    .Text(day, Fonts.arial).TextColor(Themes.baseContent).Alignment(TextAlignment.MiddleCenter).FontSize(19)
                                     .Enter()) { }
                             }
                         }
@@ -924,7 +924,7 @@ namespace Shared
 
                                         // Apply color based on intensity
                                         int alpha = (int)(40 + value * 215);
-                                        vg.SetFillColor(Color.FromArgb(alpha, Themes.primaryColor));
+                                        vg.SetFillColor(Color.FromArgb(alpha, Themes.primary));
                                         vg.Fill();
                                     }
                                 }
@@ -935,7 +935,7 @@ namespace Shared
                     // Skills section
                     using (Gui.Box("SkillsSection")
                         .Height(Gui.Stretch(0.4f))
-                        .BackgroundColor(Themes.cardBackground)
+                        .BackgroundColor(Themes.base200)
                         //.Style(BoxStyle.SolidRounded(cardBackground, 8f))
                         .Margin(0, 0, 15, 0)
                         .Enter())
@@ -944,7 +944,7 @@ namespace Shared
                         using (Gui.Box("SkillsHeader")
                             .Height(20)
                             .Margin(20, 20, 20, 0)
-                            .Text("Skills", Fonts.arial).TextColor(Themes.textColor).Alignment(TextAlignment.MiddleLeft).FontSize(26)
+                            .Text("Skills", Fonts.arial).TextColor(Themes.primaryContent).Alignment(TextAlignment.MiddleLeft).FontSize(26)
                             .Enter()) { }
 
                         // Skill bars
@@ -965,7 +965,7 @@ namespace Shared
                                     // Skill label
                                     using (Gui.Box("SkillLabel", i)
                                         .Height(25)
-                                        .Text(skills[i], Fonts.arial).TextColor(Themes.textColor).Alignment(TextAlignment.MiddleLeft).FontSize(19)
+                                        .Text(skills[i], Fonts.arial).TextColor(Themes.primaryContent).Alignment(TextAlignment.MiddleLeft).FontSize(19)
                                         .Enter()) { }
 
                                     // Skill bar
@@ -987,7 +987,7 @@ namespace Shared
                                         // Percentage label
                                         using (Gui.Box("SkillPercent", i)
                                             .Width(40)
-                                            .Text($"{animatedLevel * 100:F0}%", Fonts.arial).TextColor(Themes.lightTextColor).Alignment(TextAlignment.Right).FontSize(19)
+                                            .Text($"{animatedLevel * 100:F0}%", Fonts.arial).TextColor(Themes.baseContent).Alignment(TextAlignment.Right).FontSize(19)
                                             .Enter()) { }
                                     }
                                 }
@@ -1029,10 +1029,10 @@ namespace Shared
                     for (int i = 0; i < categories.Length; i++)
                     {
                         bool isSelected = i == 0;
-                        Color itemTextColor = isSelected ? Themes.primaryColor : Themes.textColor;
+                        Color itemTextColor = isSelected ? Themes.primary : Themes.primaryContent;
                         var index = i;
 
-                        Button.Outline("SettingsCat", $"  {categories[i]}", i)
+                        Button.Secondary("SettingsCat", $"  {categories[i]}", i)
                             .Margin(10, 10, 5, 5)
                             // .StyleIf(isSelected, "period-button-selected")
                             .OnClick((rect) => { Console.WriteLine($"Category {categories[index]} clicked"); });
@@ -1049,7 +1049,7 @@ namespace Shared
                     Gui.Box("SettingsHeader")
                         .Height(80)
                         .Margin(20)
-                        .Text("General Settings", Fonts.arial).TextColor(Themes.textColor).Alignment(TextAlignment.MiddleLeft).FontSize(32);
+                        .Text("General Settings", Fonts.arial).TextColor(Themes.primaryContent).Alignment(TextAlignment.MiddleLeft).FontSize(32);
 
                     // Toggle options - much cleaner now!
                     string[] options = {
@@ -1066,7 +1066,7 @@ namespace Shared
                         {
                             // Option label
                             Gui.Box("SettingLabel", i)
-                                .Text(options[i], Fonts.arial).TextColor(Themes.textColor).Alignment(TextAlignment.MiddleLeft).FontSize(26);
+                                .Text(options[i], Fonts.arial).TextColor(Themes.primaryContent).Alignment(TextAlignment.MiddleLeft).FontSize(26);
 
                             bool isOn = toggleState[i];
                             int index = i;
@@ -1127,20 +1127,20 @@ namespace Shared
             using (Gui.Row("Footer")
                 .Height(50)
                 .Rounded(8)
-                .BackgroundColor(Themes.cardBackground)
+                .BackgroundColor(Themes.base200)
                 .Margin(15, 15, 0, 15)
                 .Enter())
             {
                 // Copyright
                 using (Gui.Box("Copyright")
                     .Margin(15, 0, 0, 0)
-                    .Text("© 2025 PaperUI Demo.", Fonts.arial).TextColor(Themes.lightTextColor).Alignment(TextAlignment.MiddleLeft).FontSize(19)
+                    .Text("© 2025 PaperUI Demo.", Fonts.arial).TextColor(Themes.baseContent).Alignment(TextAlignment.MiddleLeft).FontSize(19)
                     .Enter()) { }
 
                 // FPS Counter
-                Gui.Box("FPS").Text($"FPS: {1f / Gui.DeltaTime:F1}", Fonts.arial).TextColor(Themes.lightTextColor).Alignment(TextAlignment.MiddleLeft).FontSize(19);
-                Gui.Box("NodeCounter").Text($"Nodes: {Gui.CountOfAllElements}", Fonts.arial).TextColor(Themes.lightTextColor).Alignment(TextAlignment.MiddleLeft).FontSize(19);
-                Gui.Box("MS").Text($"Frame ms: {Gui.MillisecondsSpent}", Fonts.arial).TextColor(Themes.lightTextColor).Alignment(TextAlignment.MiddleLeft).FontSize(19);
+                Gui.Box("FPS").Text($"FPS: {1f / Gui.DeltaTime:F1}", Fonts.arial).TextColor(Themes.baseContent).Alignment(TextAlignment.MiddleLeft).FontSize(19);
+                Gui.Box("NodeCounter").Text($"Nodes: {Gui.CountOfAllElements}", Fonts.arial).TextColor(Themes.baseContent).Alignment(TextAlignment.MiddleLeft).FontSize(19);
+                Gui.Box("MS").Text($"Frame ms: {Gui.MillisecondsSpent}", Fonts.arial).TextColor(Themes.baseContent).Alignment(TextAlignment.MiddleLeft).FontSize(19);
 
                 // Footer links
                 string[] links = { "Terms", "Privacy", "Contact", "Help" };
@@ -1151,7 +1151,7 @@ namespace Shared
                     {
                         using (Gui.Box("Link", link.GetHashCode())
                             .Width(Gui.Stretch(1f / links.Length))
-                            .Text(link, Fonts.arial).TextColor(Themes.primaryColor).Alignment(TextAlignment.MiddleCenter).FontSize(19)
+                            .Text(link, Fonts.arial).TextColor(Themes.primary).Alignment(TextAlignment.MiddleCenter).FontSize(19)
                             .OnClick((rect) => Console.WriteLine($"Link {link} clicked"))
                             .Enter()) { }
                     }
