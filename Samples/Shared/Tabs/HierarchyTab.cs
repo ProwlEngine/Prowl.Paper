@@ -42,14 +42,17 @@ namespace Shared.Tabs
                     .Alignment(TextAlignment.MiddleLeft);
             }
 
-            HierarchyItem(rootItem);
+            using (Gui.Box("Hierarchy container").SetScroll(Scroll.ScrollY).Enter())
+            {
+                HierarchyItem(rootItem, 0);
+                Gui.Box("Spacer"); // take up any additional
+            }
         }
 
         public class Item
         {
             public string id;
             public string title;
-            public int depth;
             public Item[] children;
             public bool expanded;
             public bool selected;
@@ -58,62 +61,66 @@ namespace Shared.Tabs
 
         public static string selectedItemId = "";
 
-        private void HierarchyItem(Item item)
+        private void HierarchyItem(Item item, int depth)
         {
             var isSelected = selectedItemId == item.id;
 
-            // ensure proper padding with parent
-            using (Gui.Row(item.id).Height(28).Margin(5).Top(0).Bottom(0).Rounded(5)
-                .BackgroundColor(isSelected ? Themes.base250 : Themes.base200)
-                .Hovered
-                    .BackgroundColor(Themes.base250)
-                .End()
-                .OnClick((_) =>
-                {
-                    selectedItemId = item.id;
-                    item.onClick?.Invoke(item);
-                })
-                .OnDragging((e) =>
-                {
-                    var source = e.Source;
-                    Console.WriteLine("dragged over", item.title);
-                })
-                .Enter())
+            using (Gui.Column("Hierarchy item " + item.id, depth).MinHeight(item.expanded ? UnitValue.Auto : 28).Left(depth * 8).Enter())
             {
-                if (item.children != null && item.children.Length > 0)
+                // ensure proper padding with parent
+                using (Gui.Row(item.id).Height(28).Margin(5).Top(0).Bottom(0).Rounded(5)
+                    .BackgroundColor(isSelected ? Themes.base250 : Themes.base200)
+                    .Hovered
+                        .BackgroundColor(Themes.base250)
+                    .End()
+                    .OnClick((_) =>
+                    {
+                        selectedItemId = item.id;
+                        item.onClick?.Invoke(item);
+                    })
+                    .OnDragging((e) =>
+                    {
+                        var source = e.Source;
+                        Console.WriteLine("dragged over", item.title);
+                    })
+                    .Enter())
                 {
-                    Gui.Box("toggle" + item.id).Text(item.expanded ? Icons.ChevronDown : Icons.ChevronRight, Fonts.arial)
-                        .Width(28)
-                        .Alignment(TextAlignment.MiddleCenter)
-                        .FontSize(8)
-                        .OnClick((_) => item.expanded = !item.expanded);
-                }
-                else
-                {
-                    Gui.Box("icon" + item.id).Text(Icons.Cube, Fonts.arial)
-                        .Width(28)
-                        .Alignment(TextAlignment.MiddleCenter)
-                        .FontSize(10)
-                        .OnClick((_) => item.expanded = !item.expanded);
+                    if (isSelected)
+                    {
+                        Gui.Box("indicator")
+                            .PositionType(PositionType.SelfDirected)
+                            .Height(28).Width(3).Rounded(1)
+                            .BackgroundColor(Themes.primary);
+                    }
+
+                    if (item.children != null && item.children.Length > 0)
+                    {
+                        Gui.Box("toggle" + item.id).Text(item.expanded ? Icons.ChevronDown : Icons.ChevronRight, Fonts.arial)
+                            .Width(28)
+                            .Alignment(TextAlignment.MiddleCenter)
+                            .FontSize(8)
+                            .OnClick((_) => item.expanded = !item.expanded);
+                    }
+                    else
+                    {
+                        Gui.Box("icon" + item.id).Text(Icons.Cube, Fonts.arial)
+                            .Width(28)
+                            .Alignment(TextAlignment.MiddleCenter)
+                            .FontSize(10)
+                            .OnClick((_) => item.expanded = !item.expanded);
+                    }
+
+                    Gui.Box("box" + item.id).Text(item.title, Fonts.arial)
+                        .TextColor(Themes.baseContent)
+                        .Alignment(TextAlignment.MiddleLeft);
+
                 }
 
-                Gui.Box("box" + item.id).Text(item.title, Fonts.arial)
-                    .TextColor(Themes.baseContent)
-                    .Alignment(TextAlignment.MiddleLeft);
-
-                if (isSelected)
-                {
-                    Gui.Box("indicator").Height(28).Width(3).Rounded(1).BackgroundColor(Themes.primary);
-                }
-            }
-
-            if (item.expanded && item.children != null)
-            {
-                using (Gui.Box("Children of" + item.id).Left(10).Enter())
+                if (item.expanded && item.children != null)
                 {
                     foreach (var child in item.children)
                     {
-                        HierarchyItem(child);
+                        HierarchyItem(child, depth + 1);
                     }
                 }
             }
@@ -121,35 +128,91 @@ namespace Shared.Tabs
 
         public static Item rootItem = new Item
         {
-            id = "1",
-            title = "Main Entity",
-            depth = 0,
+            id = "root object",
+            title = "Game World",
             expanded = true,
             selected = false,
             onClick = (item) => Console.WriteLine($"Clicked {item.title}"),
             children = new[] {
                 new Item {
-                    id = "1.1",
-                    title = "Child A",
-                    depth = 1,
+                    id = "2",
+                    title = "Player",
                     expanded = true,
-                    selected = true,
-                    onClick = (item) => Console.WriteLine($"Clicked {item.title}")
+                    children = new[] {
+                        new Item { id = "2.1", title = "Inventory"},
+                        new Item { id = "2.2", title = "Equipment"},
+                        new Item { id = "2.3", title = "Stats" },
+                        new Item { id = "2.4", title = "Skills" }
+                    }
                 },
                 new Item {
-                    id = "1.2",
-                    title = "Child B",
-                    depth = 1,
+                    id = "3",
+                    title = "Environment",
                     expanded = false,
-                    selected = false,
-                    onClick = (item) => Console.WriteLine($"Clicked {item.title}"),
                     children = new[] {
                         new Item {
-                            id = "1.2.1",
-                            title = "Subchild 1",
-                            depth = 2,
-                            onClick = (item) => Console.WriteLine($"Clicked {item.title}")
+                            id = "3.1",
+                            title = "Terrain",
+                            children = new[] {
+                                new Item { id = "3.1.1", title = "Mountains" },
+                                new Item { id = "3.1.2", title = "Forest" },
+                                new Item { id = "3.1.3", title = "Desert" }
+                            }
+                        },
+                        new Item {
+                            id = "3.2",
+                            title = "Weather",
+                            children = new[] {
+                                new Item { id = "3.2.1", title = "Rain System" },
+                                new Item { id = "3.2.2", title = "Wind System" }
+                            }
                         }
+                    }
+                },
+                new Item {
+                    id = "4",
+                    title = "NPCs",
+                    expanded = false,
+                    children = new[] {
+                        new Item {
+                            id = "4.1",
+                            title = "Friendly",
+                            children = new[] {
+                                new Item { id = "4.1.1", title = "Merchants" },
+                                new Item { id = "4.1.2", title = "Quest Givers" },
+                                new Item { id = "4.1.3", title = "Villagers" }
+                            }
+                        },
+                        new Item {
+                            id = "4.2",
+                            title = "Hostile",
+                            children = new[] {
+                                new Item { id = "4.2.1", title = "Goblins" },
+                                new Item { id = "4.2.2", title = "Dragons" },
+                                new Item { id = "4.2.3", title = "Bandits" }
+                            }
+                        }
+                    }
+                },
+                new Item {
+                    id = "5",
+                    title = "UI Elements",
+                    expanded = false,
+                    children = new[] {
+                        new Item { id = "5.1", title = "Main Menu" },
+                        new Item { id = "5.2", title = "HUD" },
+                        new Item { id = "5.3", title = "Inventory UI" },
+                        new Item { id = "5.4", title = "Quest Log" }
+                    }
+                },
+                new Item {
+                    id = "6",
+                    title = "Audio",
+                    expanded = false,
+                    children = new[] {
+                        new Item { id = "6.1", title = "Music" },
+                        new Item { id = "6.2", title = "Sound Effects" },
+                        new Item { id = "6.3", title = "Ambient" }
                     }
                 }
             }
