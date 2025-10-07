@@ -1,4 +1,5 @@
 using Prowl.PaperUI;
+using Prowl.PaperUI.LayoutEngine;
 
 namespace Shared.Tabs
 {
@@ -13,7 +14,27 @@ namespace Shared.Tabs
 
         public override void Body()
         {
-            using (Gui.Box("Search Box").Height(28).Margin(5).Top(8).Bottom(8).Rounded(5).BackgroundColor(Themes.base300).Enter())
+            using (Gui.Box("Search Box")
+                .OnDragEnd((e) =>
+                {
+                    Console.WriteLine("drag end", e);
+                })
+                .OnDragStart((e) =>
+                {
+                    // e.DataTransfer.setData("tabId", id);
+                    // e.DataTransfer.setImage(imageOfThingBeingDragged); // shows an image that moves with your cursor as long as you are dragging
+                    Console.WriteLine("drag start", e);
+                })
+                .OnDragging((e) =>
+                {
+                    Console.WriteLine("dragging", e);
+                })
+                // .OnDrop((e) =>
+                // {
+                //     var data = e.DataTransfer.getData("tabId");
+                // })
+                .Height(28).Margin(5).Top(8).Bottom(8).Rounded(5)
+                .BackgroundColor(Themes.base300).Enter())
             {
                 Gui.Box("Search").Text("Filter...", Fonts.arial)
                     .TextColor(Themes.baseContent)
@@ -51,6 +72,11 @@ namespace Shared.Tabs
                 {
                     selectedItemId = item.id;
                     item.onClick?.Invoke(item);
+                })
+                .OnDragging((e) =>
+                {
+                    var source = e.Source;
+                    Console.WriteLine("dragged over", item.title);
                 })
                 .Enter())
             {
