@@ -13,7 +13,6 @@ namespace Shared.Tabs
         const double PLAYERS_MAX_VELOCITY = 400.0;
         const double PLAYER_START_VELOCITY = 150.0; // Base velocity for paddle movement
 
-        TextLayoutSettings _textLayoutSettings = TextLayoutSettings.Default;
         TextLayoutSettings _scoreLayoutSettings = TextLayoutSettings.Default;
 
         int player1Score = 0;
@@ -28,11 +27,12 @@ namespace Shared.Tabs
         bool player2DownPressed = false;
         double player2Velocity = 0.0;
 
-        // Add ball properties
+        bool ballPositionCentered = false;
+        bool gameStarted = false;
         double ballX = 0;
         double ballY = 0;
-        double ballVelocityX = 150;
-        double ballVelocityY = 150;
+        double ballVelocityX = 0;
+        double ballVelocityY = 0;
 
         Prowl.Vector.Rect _rect;
 
@@ -41,7 +41,6 @@ namespace Shared.Tabs
             title = "Pong";
             id = "pong";
             width = 64;
-            _textLayoutSettings.Font = Fonts.arial;
             
             // Larger font for score
             _scoreLayoutSettings.Font = Fonts.arial;
@@ -52,8 +51,6 @@ namespace Shared.Tabs
         public override void Focus()
         {
             Console.WriteLine("Pong is focused");
-            // Reset ball to center when focused
-            ResetBall();
         }
 
         private void ResetBall()
@@ -69,6 +66,9 @@ namespace Shared.Tabs
             Console.WriteLine("Pong is blurred");
         }
 
+        double ogBallVelX = 0;
+        double ogBallVelY = 0;
+        
         public override void Draw()
         {
             using (Gui.Box("Container")
@@ -77,6 +77,22 @@ namespace Shared.Tabs
                     .BorderWidth(2)
                     .BorderColor(Themes.primary)
                 .End()
+                .OnFocusChange((e) =>
+                {
+                     if (e.IsFocused)
+                    {
+                        gameStarted = true;
+                        ballVelocityX = ogBallVelX; // Random direction
+                        ballVelocityY = ogBallVelY;
+                    }
+                    else
+                    {
+                        ogBallVelX = ballVelocityX;
+                        ogBallVelY = ballVelocityY;
+                        ballVelocityX = 0;
+                        ballVelocityY = 0;
+                    }
+                })
                 .OnKeyPressed((e) =>
                 {
                     if (e.Key == PaperKey.W) player1UpPressed = true;
@@ -89,10 +105,23 @@ namespace Shared.Tabs
                     if (e.Key == PaperKey.Down) player2DownPressed = true;
                     else player2DownPressed = false;
                 })
-                .Enter()) {
+                .Enter())
+            {
                 Gui.AddActionElement((canvas, rect) =>
                 {
                     _rect = rect;
+
+                    if (!ballPositionCentered && !gameStarted)
+                    {
+                        ballX = _rect.width / 2;
+                        ballY = _rect.height / 2;
+                    }
+
+                    if (gameStarted && !ballPositionCentered)
+                    {
+                        ResetBall();
+                        ballPositionCentered = true;
+                    }
 
                     // Initialize players in the middle if they haven't been positioned yet
                     if (player1Y < -1) player1Y = (rect.height - PADDLE_HEIGHT) / 2;
