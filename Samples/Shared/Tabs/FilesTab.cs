@@ -13,7 +13,7 @@ namespace Shared.Tabs
 
         private string selectedFolderId;
 
-        public override void Body()
+        public override void Draw()
         {
             using (Gui.Box("Search Box").Height(28).Margin(5).Rounded(5).BackgroundColor(Themes.base300).Enter())
             {

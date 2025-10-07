@@ -11,7 +11,7 @@ namespace Shared.Tabs
             width = 65;
         }
 
-        public override void Body()
+        public override void Draw()
         {
             using (Gui.Box("Search Box").Margin(5).Height(28).Bottom(8).Rounded(5).BackgroundColor(Themes.base300).Enter())
             {

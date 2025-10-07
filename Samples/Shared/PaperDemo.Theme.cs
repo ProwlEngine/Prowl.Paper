@@ -10,9 +10,9 @@ namespace Shared
         public static Color base250;
         public static Color base300;
         public static Color base400;
-        public static Color baseContent;
+        public static Color baseContent; // text
         public static Color primary;
-        public static Color primaryContent;
+        public static Color primaryContent; // text
         public static Color[] colorPalette;
 
         public static void Initialize()

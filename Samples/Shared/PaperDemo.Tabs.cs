@@ -1,3 +1,5 @@
+using System.Formats.Asn1;
+
 using Prowl.PaperUI;
 using Prowl.PaperUI.LayoutEngine;
 
@@ -16,13 +18,29 @@ namespace Shared
         {
             this.Gui = gui;
         }
-        
-        public virtual void Body()
+
+        public virtual void Draw()
         {
             Gui.Box("Tab Title").Text("[" + this.title + " Tab]", Fonts.arial)
                 .TextColor(Themes.baseContent)
                 .Left(8)
                 .Alignment(TextAlignment.MiddleCenter);
+        }
+
+        /// <summary>
+        /// When the tab becomes focused
+        /// </summary>
+        public virtual void Focus()
+        {
+            Console.WriteLine("FOCUS " + GetType().ToString());
+        }
+
+        /// <summary>
+        /// When the tab loses focus
+        /// </summary>
+        public virtual void Blur()
+        {
+            Console.WriteLine("BLUR " + GetType().ToString());
         }
     }
 
@@ -30,9 +48,9 @@ namespace Shared
     {
         public string ActiveTabId = "";
         public Dictionary<string, Tab> Entries = new Dictionary<string, Tab>();
-        internal Action<string, Tab> _onSelected;
 
         private Paper Gui;
+        private Tab FocusedTab;
 
         public TabsManager(Paper gui)
         {
@@ -40,21 +58,18 @@ namespace Shared
 
             AddTab("assets", new AssetsTab(gui));
             AddTab("files", new FilesTab(gui));
-            AddTab("game", new GameTab(gui));
+            AddTab("chart", new ChartTab(gui));
             AddTab("hierarchy", new HierarchyTab(gui));
             AddTab("inspector", new InspectorTab(gui));
             AddTab("settings", new SettingsTab(gui));
+            AddTab("example", new ExampleTab(gui));
+            AddTab("pong", new PongTab(gui));
         }
 
         public void AddTab(string id, Tab tab)
         {
             Entries.Add(id, tab);
             ActiveTabId = id;
-        }
-
-        public void OnSelected(Action<string, Tab> callback)
-        {
-            _onSelected = callback;
         }
 
         public void DrawGroup(string[] tabs)
@@ -69,24 +84,31 @@ namespace Shared
 
             TabsDisplay("Tabs Container", group, storageKey, currentElement, localGroupTabId);
 
-            // If active tab exists in current group, draw its body
-            if (Entries.TryGetValue(localGroupTabId, out Tab activeTab))
-            {
-                using (Gui.Column("Body").BackgroundColor(Themes.base200).Enter())
-                {
-                    activeTab.Body();
-                }
-            }
-            // Otherwise fallback to first tab
-            else if (group.Length > 0)
-            {
-                using (Gui.Column("Body").BackgroundColor(Themes.base200).Enter())
-                {
-                    group[0].Body();
-                }
-                Gui.SetElementStorage(storageKey, group[0].id);
-            }
+            if (tabs.Length == 0 || group.Length == 0) return;
 
+            // If active tab exists in current group, draw its body
+            if (Entries.TryGetValue(localGroupTabId, out Tab tab))
+            {
+                using (Gui.Column("Body")
+                    .OnPress((_) =>
+                    {
+                        ActiveTabId = tab.id;
+                        Console.WriteLine("Pressed " + tab.GetType().ToString());
+                    })
+                    .OnEnter((_) =>
+                    {
+                        // blur old focused tab
+                        // then call focus on the new focused tab
+                        FocusedTab?.Blur();
+                        FocusedTab = tab;
+                        FocusedTab.Focus();
+                    })
+                    .BackgroundColor(Themes.base200)
+                    .Enter())
+                {
+                    tab.Draw();
+                }
+            }
         }
 
         private void TabsDisplay(string id, Tab[] tabs, string tabIdStorageKey, ElementHandle elementWithTabIdStorage, string localGroupId)

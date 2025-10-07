@@ -12,7 +12,7 @@ namespace Shared.Tabs
             width = 83;
         }
 
-        public override void Body()
+        public override void Draw()
         {
             using (Gui.Box("Search Box")
                 .OnDragEnd((e) =>
@@ -45,7 +45,7 @@ namespace Shared.Tabs
             using (Gui.Box("Hierarchy container").SetScroll(Scroll.ScrollY).Enter())
             {
                 HierarchyItem(rootItem, 0);
-                Gui.Box("Spacer"); // take up any additional
+                Gui.Box("Spacer"); // this will take up any remaining space (do not remove)
             }
         }
 
