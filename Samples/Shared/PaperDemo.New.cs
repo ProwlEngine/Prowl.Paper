@@ -47,7 +47,7 @@ namespace Shared
                         {
                             using (WindowContainer("Game and Scene Window").Enter())
                             {
-                                tabsManager.DrawGroup(["chart", "pong"]);
+                                tabsManager.DrawGroup(["chart", "pong", "platformer", "slimefriends"]);
                             }
                         }
 
@@ -55,7 +55,7 @@ namespace Shared
                         {
                             using (WindowContainer("Inspector Window").Enter())
                             {
-                                tabsManager.DrawGroup(["eee"]);
+                                tabsManager.DrawGroup(["inspector", "example"]);
                             }
                         }
                     }
