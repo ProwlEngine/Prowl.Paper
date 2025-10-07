@@ -4,21 +4,21 @@ using Prowl.Vector;
 
 namespace Shared.Tabs
 {
-    public class GameTab : Tab
+    public class ChartTab : Tab
     {
         double time = 0;
         static double[] dataPoints = { 0.2f, 0.5f, 0.3f, 0.8f, 0.4f, 0.7f, 0.6f };
         static Vector2 chartPosition = new Vector2(0, 0);
         static double zoomLevel = 1.0f;
 
-        public GameTab(Paper gui) : base(gui)
+        public ChartTab(Paper gui) : base(gui)
         {
-            title = "Game";
-            id = "game";
-            width = 55;
+            title = "Chart";
+            id = "chart";
+            width = 64;
         }
 
-        public override void Body()
+        public override void Draw()
         {
             // Update time for animations
             // time += 0.016f; // Assuming ~60fps
