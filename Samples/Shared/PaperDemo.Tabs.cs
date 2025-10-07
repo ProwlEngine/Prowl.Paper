@@ -66,6 +66,7 @@ namespace Shared
             AddTab("pong", new PongTab(gui));
             AddTab("platformer", new PlatformerTab(gui));
             AddTab("slimefriends", new SlimeFriendsTab(gui));
+            AddTab("asteroids", new AsteroidsTab(gui));
         }
 
         public void AddTab(string id, Tab tab)
