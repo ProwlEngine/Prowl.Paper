@@ -6,7 +6,7 @@ namespace Shared.Tabs
     {
         public ExampleTab(Paper gui) : base(gui)
         {
-            title = "Example ( minimal example of a tab )";
+            title = "Example";
             id = "example";
             width = 70;
         }
