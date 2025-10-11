@@ -21,118 +21,29 @@ namespace Shared
     {
         public static void DefineStyles()
         {
-            // Primary button variant
-            PaperDemo.Gui.CreateStyleFamily("shadcs-button-primary")
-                .Base(new StyleTemplate()
-                    .Height(40)
-                    .Rounded(8)
-                    .BackgroundColor(Themes.primaryColor)
-                    .Transition(GuiProp.BackgroundColor, 0.2)
-                    .Transition(GuiProp.ScaleX, 0.1)
-                    .Transition(GuiProp.ScaleY, 0.1))
-                .Hovered(new StyleTemplate()
-                    .BackgroundColor(Color.FromArgb(150, Themes.primaryColor)))
-                .Active(new StyleTemplate()
-                    .Scale(0.95)
-                    .BackgroundColor(Color.FromArgb(200, Themes.primaryColor)))
-                .Register();
-
             // Secondary button variant
             PaperDemo.Gui.CreateStyleFamily("shadcs-button-secondary")
                 .Base(new StyleTemplate()
                     .Height(40)
                     .Rounded(8)
-                    .BackgroundColor(Themes.secondaryColor)
+                    .BackgroundColor(Themes.base300)
                     .Transition(GuiProp.BackgroundColor, 0.2)
                     .Transition(GuiProp.ScaleX, 0.1)
                     .Transition(GuiProp.ScaleY, 0.1))
                 .Hovered(new StyleTemplate()
-                    .BackgroundColor(Color.FromArgb(150, Themes.secondaryColor)))
+                    .BackgroundColor(Color.FromArgb(150, Themes.base300)))
                 .Active(new StyleTemplate()
                     .Scale(0.95)
-                    .BackgroundColor(Color.FromArgb(200, Themes.primaryColor)))
-                .Register();
-
-            // Outline button variant
-            PaperDemo.Gui.CreateStyleFamily("shadcs-button-outline")
-                .Base(new StyleTemplate()
-                    .Height(40)
-                    .Rounded(8)
-                    .BackgroundColor(Themes.backgroundColor)
-                    .BorderColor(Themes.secondaryColor)
-                    .BorderWidth(1)
-                    .Transition(GuiProp.BackgroundColor, 0.2)
-                    .Transition(GuiProp.ScaleX, 0.1)
-                    .Transition(GuiProp.ScaleY, 0.1))
-                .Hovered(new StyleTemplate()
-                    .BackgroundColor(Color.FromArgb(150, Themes.backgroundColor)))
-                .Active(new StyleTemplate()
-                    .Scale(0.95)
-                    .BackgroundColor(Color.FromArgb(200, Themes.primaryColor)))
-                .Register();
-
-            // Icon button styles
-            PaperDemo.Gui.CreateStyleFamily("shadcs-icon-button-primary")
-                .Base(new StyleTemplate()
-                    .Width(40)
-                    .Height(40)
-                    .Rounded(8)
-                    .BackgroundColor(Themes.primaryColor)
-                    // .Transition(GuiProp.BackgroundColor, 0.2)
-                    .Transition(GuiProp.Rounded, 0.2))
-                .Hovered(new StyleTemplate()
-                    .BackgroundColor(Color.FromArgb(100, Themes.primaryColor))
-                    .Rounded(20))
-                .Register();
-
-            // Icon button styles secondary
-            PaperDemo.Gui.CreateStyleFamily("shadcs-icon-button-secondary")
-                .Base(new StyleTemplate()
-                    .Width(40)
-                    .Height(40)
-                    .Rounded(8)
-                    .BackgroundColor(Themes.secondaryColor)
-                    // .Transition(GuiProp.BackgroundColor, 0.2)
-                    .Transition(GuiProp.Rounded, 0.2))
-                .Hovered(new StyleTemplate()
-                    .BackgroundColor(Color.FromArgb(100, Themes.secondaryColor))
-                    .Rounded(20))
+                    .BackgroundColor(Color.FromArgb(200, Themes.primary)))
                 .Register();
         }
 
-        public static ElementBuilder Primary(string stringID, string text = "", int intID = 0, [CallerLineNumber] int lineID = 0)
-        {
-            return PaperDemo.Gui.Box(stringID, intID, lineID)
-                .Text(text, Fonts.arial).TextColor(Themes.textColor).Alignment(TextAlignment.MiddleCenter)
-                .Style("shadcs-button-primary");
-        }
 
         public static ElementBuilder Secondary(string stringID, string text = "", int intID = 0, [CallerLineNumber] int lineID = 0)
         {
             return PaperDemo.Gui.Box(stringID, intID, lineID)
-                .Text(text, Fonts.arial).TextColor(Themes.lightTextColor).Alignment(TextAlignment.MiddleCenter)
+                .Text(text, Fonts.arial).TextColor(Themes.baseContent).Alignment(TextAlignment.MiddleCenter)
                 .Style("shadcs-button-secondary");
-        }
-
-        public static ElementBuilder Outline(string stringID, string text = "", int intID = 0, [CallerLineNumber] int lineID = 0)
-        {
-            return PaperDemo.Gui.Box(stringID, intID, lineID)
-                .Text(text, Fonts.arial).TextColor(Themes.lightTextColor).Alignment(TextAlignment.MiddleCenter)
-                .Style("shadcs-button-outline");
-        }
-
-        public static ElementBuilder IconPrimary(string stringID, string text = "", int intID = 0, [CallerLineNumber] int lineID = 0)
-        {
-            return PaperDemo.Gui.Box(stringID, intID, lineID)
-                .Text(text, Fonts.arial).TextColor(Themes.textColor).Alignment(TextAlignment.MiddleCenter)
-                .Style("shadcs-icon-button-primary");
-        }
-
-        public static ElementBuilder IconSecondary(string stringID, string text = "", int intID = 0, [CallerLineNumber] int lineID = 0)
-        {
-            return PaperDemo.Gui.Box(stringID, intID, lineID)
-                .Text(text, Fonts.arial).TextColor(Themes.lightTextColor).Alignment(TextAlignment.MiddleCenter)
-                .Style("shadcs-icon-button-secondary");
         }
     }
 
@@ -146,15 +57,15 @@ namespace Shared
                     .Width(300)
                     .Height(40)
                     .Rounded(8)
-                    .BackgroundColor(Themes.secondaryColor)
+                    .BackgroundColor(Themes.base300)
                     .BorderColor(Color.Transparent)
                     .BorderWidth(0)
                     .Transition(GuiProp.BorderColor, 0.2)
                     .Transition(GuiProp.BorderWidth, 0.2))
                 .Focused(new StyleTemplate()
-                    .BorderColor(Themes.primaryColor)
+                    .BorderColor(Themes.primary)
                     .BorderWidth(1)
-                    .BackgroundColor(Themes.secondaryColor))
+                    .BackgroundColor(Themes.base300))
                 .Register();
         }
 
@@ -170,14 +81,9 @@ namespace Shared
                     .Width(UnitValue.StretchOne)
                     .Height(19)
                     .FontSize(19)
-                    .TextField(value, Fonts.arial, onChange, Themes.textColor, placeholder, Color.FromArgb(100, Themes.textColor));
+                    .TextField(value, Fonts.arial, onChange, Themes.primaryContent, placeholder, Color.FromArgb(100, Themes.primaryContent));
             }
             return parent;
-
-            //return PaperDemo.Gui.Box("shadcs-input-" + id)
-            //    .TextField(value, Fonts.arial, onChange, Themes.textColor, placeholder, Color.FromArgb(100, Themes.textColor))
-            //    .Style("shadcs-text-field-secondary");
-            //    //.SetScroll(Scroll.ScrollX);
         }
     }
 
@@ -189,18 +95,18 @@ namespace Shared
             PaperDemo.Gui.CreateStyleFamily("shadcs-text-area-secondary")
                 .Base(new StyleTemplate()
                     .Width(300)
-                    .Height(Prowl.PaperUI.LayoutEngine.UnitValue.Auto)
+                    .Height(UnitValue.Auto)
                     //.MaxHeight(100)
                     .Rounded(8)
-                    .BackgroundColor(Themes.secondaryColor)
+                    .BackgroundColor(Themes.base300)
                     .BorderColor(Color.Transparent)
                     .BorderWidth(0)
                     .Transition(GuiProp.BorderColor, 0.2)
                     .Transition(GuiProp.BorderWidth, 0.2))
                 .Focused(new StyleTemplate()
-                    .BorderColor(Themes.primaryColor)
+                    .BorderColor(Themes.primary)
                     .BorderWidth(1)
-                    .BackgroundColor(Themes.secondaryColor))
+                    .BackgroundColor(Themes.base300))
                 .Register();
         }
 
@@ -216,7 +122,7 @@ namespace Shared
                     .Width(UnitValue.StretchOne)
                     .Height(UnitValue.Auto)
                     .FontSize(19)
-                    .TextArea(value, Fonts.arial, onChange, placeholder, Themes.textColor, Color.FromArgb(100, Themes.textColor));
+                    .TextArea(value, Fonts.arial, onChange, placeholder, Themes.primaryContent, Color.FromArgb(100, Themes.primaryContent));
             }
             return parent;
         }
@@ -229,7 +135,7 @@ namespace Shared
             var parent = PaperDemo.Gui.Box(stringID, intID, lineID)
                 .Height(20)
                 .Rounded(10)
-                .BackgroundColor(Themes.backgroundColor)
+                .BackgroundColor(Themes.base100)
                 //.Style(BoxStyle.SolidRounded(Color.FromArgb(30, 0, 0, 0), 10f))
                 .Margin(0, 0, 20, 0)
                 .OnHeld((e) =>
@@ -249,7 +155,7 @@ namespace Shared
                 .Width(PaperDemo.Gui.Percent(sliderValue * 100))
                 .MinWidth(10)
                 .RoundedLeft(10)
-                .BackgroundColor(Themes.primaryColor)
+                .BackgroundColor(Themes.primary)
                 //.Style(BoxStyle.SolidRounded(primaryColor, 10f))
                 .Enter())
             {
@@ -259,7 +165,7 @@ namespace Shared
                     .Width(20)
                     .Height(20)
                     .Rounded(10)
-                    .BackgroundColor(Themes.textColor)
+                    .BackgroundColor(Themes.primaryContent)
                     //.Style(BoxStyle.SolidRounded(textColor, 10f))
                     .PositionType(PositionType.SelfDirected)
                     .Enter()) { }
@@ -268,40 +174,6 @@ namespace Shared
             cleanup.Dispose();
 
             return parent;
-            // // OLD
-            // using (PaperDemo.Gui.Box("SliderTrack")
-            //                 .Height(20)
-            //                 .BackgroundColor(Color.FromArgb(30, 0, 0, 0))
-            //                 //.Style(BoxStyle.SolidRounded(Color.FromArgb(30, 0, 0, 0), 10f))
-            //                 .Margin(0, 0, 20, 0)
-            //                 .OnHeld((e) =>
-            //                 {
-            //                     double parentWidth = e.ElementRect.width;
-            //                     double pointerX = e.PointerPosition.x - e.ElementRect.x;
-
-            //                     // Calculate new slider value based on pointer position
-            //                     sliderValue = Math.Clamp(pointerX / parentWidth, 0f, 1f);
-            //                 })
-            //                 .Enter())
-            // {
-            //     // Filled part of slider
-            //     using (Gui.Box("SliderFill")
-            //         .Width(Gui.Percent(sliderValue * 100))
-            //         .BackgroundColor(Themes.primaryColor)
-            //         //.Style(BoxStyle.SolidRounded(primaryColor, 10f))
-            //         .Enter())
-            //     {
-            //         // Slider handle
-            //         using (Gui.Box("SliderHandle")
-            //             .Left(Gui.Percent(100, -10))
-            //             .Width(20)
-            //             .Height(20)
-            //             .BackgroundColor(Themes.textColor)
-            //             //.Style(BoxStyle.SolidRounded(textColor, 10f))
-            //             .PositionType(PositionType.SelfDirected)
-            //             .Enter()) { }
-            //     }
-            // }
         }
 
         public static ElementBuilder Secondary(string stringID, double sliderValue, Action<double> onChange, int intID = 0, [CallerLineNumber] int lineID = 0)
@@ -309,7 +181,7 @@ namespace Shared
             var parent = PaperDemo.Gui.Box(stringID, intID, lineID)
                 .Height(20)
                 .Rounded(10)
-                .BackgroundColor(Themes.backgroundColor)
+                .BackgroundColor(Themes.base100)
                 //.Style(BoxStyle.SolidRounded(Color.FromArgb(30, 0, 0, 0), 10f))
                 .Margin(0, 0, 20, 0)
                 .OnHeld((e) =>
@@ -329,7 +201,7 @@ namespace Shared
                 .Width(PaperDemo.Gui.Percent(sliderValue * 100))
                 .MinWidth(10)
                 .RoundedLeft(10)
-                .BackgroundColor(Themes.secondaryColor)
+                .BackgroundColor(Themes.base300)
                 //.Style(BoxStyle.SolidRounded(primaryColor, 10f))
                 .Enter())
             {
@@ -339,7 +211,7 @@ namespace Shared
                     .Width(20)
                     .Height(20)
                     .Rounded(10)
-                    .BackgroundColor(Themes.textColor)
+                    .BackgroundColor(Themes.primaryContent)
                     //.Style(BoxStyle.SolidRounded(textColor, 10f))
                     .PositionType(PositionType.SelfDirected)
                     .Enter()) { }
@@ -366,10 +238,10 @@ namespace Shared
                 .Register();
 
             PaperDemo.Gui.RegisterStyle("toggle-on", new StyleTemplate()
-                .BackgroundColor(Themes.primaryColor));
+                .BackgroundColor(Themes.primary));
 
             PaperDemo.Gui.RegisterStyle("toggle-off", new StyleTemplate()
-                .BackgroundColor(Color.FromArgb(100, Themes.secondaryColor)));
+                .BackgroundColor(Color.FromArgb(100, Themes.base300)));
 
             PaperDemo.Gui.RegisterStyle("toggle-dot", new StyleTemplate()
                 .Width(24)
@@ -472,94 +344,9 @@ namespace Shared
                     vg.Circle(centerX, centerY, radius * 0.4f);
                     vg.SetFillColor(Color.White);
                     vg.Fill();
-
-                    // Draw center text
-                    // Draw center text
-                    //vg.FillColor(textColor);
-                    //vg.TextAlign(NvgSharp.Align.Center | NvgSharp.Align.Middle);
-                    //vg.FontSize(20);
-                    //vg.Text(centerX, centerY, $"Analytics\n{(sliderValue * 100):F0}%");
-                    //vg.Text(fontSmall, $"Analytics\n{(sliderValue * 100):F0}%", centerX, centerY);
                 });
             }
             return builder;
         }
-
-        // // OLD
-        // // "Analysis" mock content
-        // using (Gui.Box("AnalyticsVisual")
-        //     .Margin(20)
-        //     .Enter())
-        // {
-        //     // Add a simple pie chart visualization
-        //     Gui.AddActionElement((vg, rect) => {
-        //         double centerX = rect.x + rect.width / 2;
-        //         double centerY = rect.y + rect.height / 2;
-        //         double radius = Math.Min(rect.width, rect.height) * 0.4f;
-
-        //         double startAngle = 0;
-        //         double[] values = { sliderValue, 0.2f, 0.15f, 0.25f, 0.1f };
-
-        //         // Normalize Values
-        //         double total = values.Sum();
-        //         for (int i = 0; i < values.Length; i++)
-        //             values[i] /= total;
-
-
-        //         for (int i = 0; i < values.Length; i++)
-        //         {
-        //             // Calculate angles
-        //             double angle = values[i] * Math.PI * 2;
-        //             double endAngle = startAngle + angle;
-
-        //             // Draw pie slice
-        //             vg.BeginPath();
-        //             vg.MoveTo(centerX, centerY);
-        //             vg.Arc(centerX, centerY, radius, startAngle, endAngle);
-        //             vg.LineTo(centerX, centerY);
-        //             vg.SetFillColor(Themes.colorPalette[i % Themes.colorPalette.Length]);
-        //             vg.Fill();
-
-        //             // Draw outline
-        //             vg.BeginPath();
-        //             vg.MoveTo(centerX, centerY);
-        //             vg.Arc(centerX, centerY, radius, startAngle, endAngle);
-        //             vg.LineTo(centerX, centerY);
-        //             vg.SetStrokeColor(Color.White);
-        //             vg.SetStrokeWidth(2);
-        //             vg.Stroke();
-
-        //             // Draw percentage labels
-        //             double labelAngle = startAngle + angle / 2;
-        //             double labelRadius = radius * 0.7f;
-        //             double labelX = centerX + Math.Cos(labelAngle) * labelRadius;
-        //             double labelY = centerY + Math.Sin(labelAngle) * labelRadius;
-
-        //             string label = $"{values[i] * 100:F0}%";
-        //             vg.SetFillColor(Color.White);
-        //             //vg.TextAlign(Align.Center | Align.Middle);
-        //             //vg.FontSize(16);
-        //             //vg.Text(labelX, labelY, label);
-        //             vg.DrawText(Fonts.fontSmall, label, labelX, labelY, Color.White);
-
-        //             // Move to next slice
-        //             startAngle = endAngle;
-        //         }
-
-        //         // Draw center circle
-        //         vg.BeginPath();
-        //         vg.Circle(centerX, centerY, radius * 0.4f);
-        //         vg.SetFillColor(Color.White);
-        //         vg.Fill();
-
-        //         // Draw center text
-        //         // Draw center text
-        //         //vg.FillColor(textColor);
-        //         //vg.TextAlign(NvgSharp.Align.Center | NvgSharp.Align.Middle);
-        //         //vg.FontSize(20);
-        //         //vg.Text(centerX, centerY, $"Analytics\n{(sliderValue * 100):F0}%");
-        //         //vg.Text(fontSmall, $"Analytics\n{(sliderValue * 100):F0}%", centerX, centerY);
-        //     });
-        // }
     }
 }
