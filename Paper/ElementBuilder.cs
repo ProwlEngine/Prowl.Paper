@@ -1322,8 +1322,8 @@ namespace Prowl.PaperUI
         {
             var defaultState = new TextInputState
             {
-                Value = initialValue ?? "",
-                CursorPosition = (initialValue ?? "").Length,
+                Value = initialValue,
+                CursorPosition = initialValue.Length,
                 SelectionStart = -1,
                 SelectionEnd = -1,
                 ScrollOffsetX = 0.0,
@@ -1333,6 +1333,7 @@ namespace Prowl.PaperUI
             };
             
             var state = _paper.GetElementStorage(_handle, "TextInputState", defaultState);
+            state.Value = initialValue;
             state.IsFocused = _paper.IsElementFocused(_handle.Data.ID);
             state.IsMultiLine = isMultiLine; // Ensure consistency
             state.ClampValues();
