@@ -158,7 +158,7 @@ namespace Shared
                 .Register();
         }
 
-        public static ElementBuilder Secondary(string stringID, string value, Action<string> onChange = null, string placeholder = "", int intID = 0, [CallerLineNumber] int lineID = 0)
+        public static ElementBuilder Secondary(string stringID, string value, Action<string> onChange, string placeholder = "", int intID = 0, [CallerLineNumber] int lineID = 0)
         {
             ElementBuilder parent = PaperDemo.Gui.Box(stringID, intID, lineID).Style("shadcs-text-field-secondary").TabIndex(0);
             using (parent.Enter())
