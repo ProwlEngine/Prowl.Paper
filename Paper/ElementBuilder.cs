@@ -1412,8 +1412,8 @@ namespace Prowl.PaperUI
         {
             var defaultState = new TextInputState
             {
-                Value = initialValue ?? "",
-                CursorPosition = (initialValue ?? "").Length,
+                Value = initialValue,
+                CursorPosition = initialValue.Length,
                 SelectionStart = -1,
                 SelectionEnd = -1,
                 ScrollOffsetX = 0.0f,
@@ -1423,6 +1423,7 @@ namespace Prowl.PaperUI
             };
 
             var state = _paper.GetElementStorage(_handle, "TextInputState", defaultState);
+            state.Value = initialValue;
             state.IsFocused = _paper.IsElementFocused(_handle.Data.ID);
             state.IsMultiLine = isMultiLine; // Ensure consistency
             state.ClampValues();
@@ -1871,7 +1872,7 @@ namespace Prowl.PaperUI
         public ElementBuilder TextField(
             string value,
             TextInputSettings settings,
-            Action<string> onChange = null,
+            Action<string> onChange,
             [System.Runtime.CompilerServices.CallerLineNumber] int intID = 0)
         {
             return CreateTextInput(value, settings, onChange, false, intID);
@@ -1892,7 +1893,7 @@ namespace Prowl.PaperUI
         public ElementBuilder TextField(
             string value,
             FontFile font,
-            Action<string> onChange = null,
+            Action<string> onChange,
             Color? textColor = null,
             string placeholder = "",
             Color? placeholderColor = null,
@@ -1918,7 +1919,7 @@ namespace Prowl.PaperUI
         public ElementBuilder TextArea(
             string value,
             TextInputSettings settings,
-            Action<string> onChange = null,
+            Action<string> onChange,
             [System.Runtime.CompilerServices.CallerLineNumber] int intID = 0)
         {
             return CreateTextInput(value, settings, onChange, true, intID);
@@ -1939,7 +1940,7 @@ namespace Prowl.PaperUI
         public ElementBuilder TextArea(
             string value,
             FontFile font,
-            Action<string> onChange = null,
+            Action<string> onChange,
             string placeholder = "",
             Color? textColor = null,
             Color? placeholderColor = null,
@@ -2139,7 +2140,7 @@ namespace Prowl.PaperUI
                 SaveTextInputState(currentState);
 
                 if (valueChanged)
-                    onChange?.Invoke(currentState.Value);
+                    onChange.Invoke(currentState.Value);
             });
 
             // Handle character input
@@ -2167,7 +2168,7 @@ namespace Prowl.PaperUI
 
                 EnsureCursorVisible(ref currentState, settings, isMultiLine);
                 SaveTextInputState(currentState);
-                onChange?.Invoke(currentState.Value);
+                onChange.Invoke(currentState.Value);
             });
 
             // Render cursor and selection
